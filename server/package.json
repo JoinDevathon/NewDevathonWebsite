@@ -13,8 +13,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/body-parser": "0.0.33",
+    "@types/debug": "0.0.29",
     "@types/express": "^4.0.34",
     "@types/source-map-support": "^0.2.28",
+    "body-parser": "^1.15.2",
+    "debug": "^2.3.3",
     "express": "^4.14.0",
     "serve-static": "^1.11.1",
     "source-map-support": "^0.4.6",

@@ -1,0 +1,76 @@
+<div class="contest" style="background-color: {{color}}; box-shadow: 6px 6px {{background}}">
+    <div class="content">
+        <h3 class="title">{{title}}</h3>
+        <span class="description">{{description}}</span>
+    </div>
+    <div class="status">
+        <BoxInformation>Status: {{status}}</BoxInformation>
+    </div>
+    <div class="button-container">
+        <Button class="button" href="{{href}}">More Info</Button>
+    </div>
+</div>
+
+<style>
+    .contest {
+        margin: 10px 20px;
+
+        color: #fff;
+
+        display: inline-block;
+        max-width: 300px;
+    }
+
+    .content {
+        padding: 20px 10px;
+    }
+
+    .title {
+        font-size: 26px;
+        margin-bottom: 10px;
+    }
+
+    .description, .status {
+        color: #eee;
+        font-size: 18px;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .button-container {
+        padding: 10px;
+    }
+
+    .button {
+        font-size: 20px;
+        width: 100%;
+    }
+</style>
+
+<script>
+    const {
+            Button,
+            BoxInformation
+    } = _devathon;
+
+    import {shade, colors} from '../helpers/colors';
+
+    export default {
+        data() {
+            return {
+                index: 0,
+                title: 'Default Title and Year',
+                description: 'Default description of this Devathon contest, things that happened maybe the winner?',
+                status: 'Planned',
+                href: null
+            };
+        },
+        computed: {
+            color: index => colors[index % colors.length],
+            background: color => shade(color, -30)
+        },
+        components: {
+            Button,
+            BoxInformation
+        }
+    }
+</script>

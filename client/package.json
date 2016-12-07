@@ -16,7 +16,8 @@
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-replace": "^1.1.1",
     "rollup-plugin-svelte": "^1.0.0",
-    "rollup-pluginutils": "^1.5.2"
+    "rollup-pluginutils": "^1.5.2",
+    "whatwg-fetch": "^2.0.1"
   },
   "devDependencies": {
     "rollup-watch": "^2.5.0"

@@ -1,0 +1,36 @@
+{{#if href}}
+    <a href="{{href}}" class="button">{{yield}}</a>
+{{else}}
+    <button class="button">{{yield}}</button>
+{{/if}}
+
+<style>
+    .button {
+        display: inline-block;
+        box-sizing: border-box;
+        width: auto;
+        padding: 8px 16px;
+        margin: 15px 0;
+
+        cursor: pointer;
+
+        text-align: center;
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        background-color: rgba(255, 255, 255, 0.3);
+
+        border: 3px solid rgba(255, 255, 255, 0.2);
+        border-radius: 32px;
+
+        transition: color 0.2s ease-out, border-color 0.2s ease-out, background-color 0.2s ease-out;
+    }
+
+    .button:hover {
+        color: rgba(255, 255, 255, 0.8);
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+</style>
+
+<script>
+</script>

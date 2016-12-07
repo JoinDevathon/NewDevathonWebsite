@@ -6,14 +6,16 @@ import 'svelte-ssr/register';
 const router: Router = Router();
 
 const routes: {[key: string]: string[]} = {
-    'home': ['/', '/home']
+    'home': ['/', '/home'],
+    'error': []
 };
+const components: {[key: string]: string[]} = {};
 
 const compiled: {[key: string]: any} = {};
 
 for (let property in routes) {
     if (routes.hasOwnProperty(property)) {
-        compiled[property] = require(join(process.cwd(), '../', 'client', 'routes', property, `${property}.html`));
+        components[property] = require(join(process.cwd(), '..', 'client', 'src', 'routes', property, `components.json`));
         registerRoute(property, routes[property]);
     }
 }
@@ -28,15 +30,25 @@ function getTemplate(): string {
     return template;
 }
 
+export function renderRoute(name: string, state: any = {}, res: Response) {
+    let template: string = getTemplate();
+    template = template.replace('CSSSTUFF', `
+`);
+    template = template.replace('JSSTUFF', `
+<script>
+window._devathon = {
+    state: ${JSON.stringify(state)}
+};
+</script>
+${components[name].map(component => `<script src="/public/js/component/${component}.js"></script>`).join('\n')}
+<script src="/public/js/route/${name}.js"></script>
+`);
+    res.end(template);
+}
+
 function registerRoute(name: string, routes: string[]) {
     const handler = (req: Request, res: Response) => {
-        let template: string = getTemplate();
-        template = template.replace('CSSSTUFF', `
-`);
-        template = template.replace('JSSTUFF', `
-<script src="/public/js/${name}.js"></script>
-`);
-        res.end(template);
+        renderRoute(name, {}, res);
     };
     routes.forEach(route => router.get(route, handler));
 }

@@ -4,18 +4,38 @@ const replace = require('rollup-plugin-replace');
 const resolve = require('rollup-plugin-node-resolve');
 const common = require('rollup-plugin-commonjs');
 
+const {join, basename} = require('path');
+
 const routes = [
-    'home'
+    'home',
+    'error'
 ];
 
-function getOptions(route) {
+const components = require('./src/components/index.json');
+
+function getComponentOptions(component) {
+    return {
+        entry: join('src', 'components', `${component}.html`),
+        dest: join('build', 'component', `${basename(component)}.js`),
+        format: 'iife',
+        moduleName: '_devathon.' + basename(component),
+        sourceMap: !process.env.PRODUCTION,
+        plugins: [
+            svelte()
+        ],
+    };
+}
+
+function getRouteOptions(route) {
     const plugins = [
         svelte()
     ];
-    if (!process.env.PRODUCTION) {
-        // plugins.push(replace({
-        // }));
-    }
+        plugins.push(replace({
+            values: {
+                self: 'window'
+            },
+            include: 'node_modules/whatwg-fetch/fetch.js'
+        }));
     plugins.push(resolve({
         include: ['node_modules/**'],
         jsnext: true,
@@ -26,25 +46,32 @@ function getOptions(route) {
         include: ['node_modules/**']
     }));
     return {
-        entry: `routes/${route}/index.js`,
-        dest: `build/${route}.js`,
+        entry: `src/routes/${route}/index.js`,
+        dest: `build/route/${route}.js`,
         format: 'iife',
-        sourceMap: true,
+        sourceMap: !process.env.PRODUCTION,
         plugins,
     };
+}
+
+function formatEvent(name, event) {
+    return `${name}: ${event.code} ${event.error ? event.error : ''}`;
 }
 
 if (process.env.WATCH) {
     const watch = require('rollup-watch');
     routes.forEach(route => {
-        watch(rollup, getOptions(route))
-            .on('event', event => console.log(`routes/${route}: ${event.code} ${event.error ? event.error : ''}`))
-    })
+        watch(rollup, getRouteOptions(route)).on('event', event => console.log(formatEvent(`route/${route}`, event)));
+    });
+    components.forEach(component => {
+        watch(rollup, getComponentOptions(component)).on('event', event => console.log(formatEvent(`component/${component}`, event)));
+    });
 } else {
     routes.forEach(route => {
-        rollup.rollup(getOptions(route))
-            .then(bundle => bundle.write(getOptions(route)))
+        rollup.rollup(getRouteOptions(route))
+            .then(bundle => bundle.write(getRouteOptions(route)))
             .catch(err => console.error(`Failed to compile route ${route}`, err));
     });
+    rollup.rollup(options).then(bundle => bundle.write(options)).catch(err => console.error(err));
 }
 

@@ -1,0 +1,26 @@
+<div class="error">
+    {{yield}}
+</div>
+
+<style>
+    .error {
+        color: #fff;
+
+        padding: 16px 18px;
+        border-radius: 8px;
+        text-align: center;
+
+        background-image: -webkit-gradient(
+                linear,
+                right bottom,
+                right bottom,
+                color-stop(0, #EF9A9A),
+                color-stop(1, #F44236)
+        );
+        background-image: -o-linear-gradient(right bottom, #EF9A9A 0%, #F44236 100%);
+        background-image: -moz-linear-gradient(right bottom, #EF9A9A 0%, #F44236 100%);
+        background-image: -webkit-linear-gradient(right bottom, #EF9A9A 0%, #F44236 100%);
+        background-image: -ms-linear-gradient(right bottom, #EF9A9A 0%, #F44236 100%);
+        background-image: linear-gradient(to right bottom, #EF9A9A 0%, #F44236 100%);
+    }
+</style>

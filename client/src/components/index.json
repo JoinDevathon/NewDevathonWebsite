@@ -1,0 +1,12 @@
+[
+  "account/AccountInfo",
+  "containers/Body",
+  "containers/BoxInformation",
+  "containers/Error",
+  "containers/FlexBox",
+  "contests/ContestBox",
+  "forms/Button",
+  "header/Header",
+  "header/HeaderTabs",
+  "images/Logo"
+]

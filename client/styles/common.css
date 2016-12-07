@@ -6,7 +6,7 @@ body {
     margin: 0;
 }
 
-h1, h2, h3, h4, h5, a {
+h1, h2, h3, h4, h5, a, button {
     font-family: 'Roboto Slab', serif;
     margin: 0;
 }
@@ -35,7 +35,7 @@ label {
 }
 
 input, select, button {
-    margin-bottom: 30px;
+    margin: 15px 0;
     font-size: 28px;
     width: 100%;
     box-sizing: border-box;
