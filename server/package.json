@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "run": "node build/",
+    "dev": "export DEBUG=Devathon:*; tsc && node build/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.0.34",
+    "@types/source-map-support": "^0.2.28",
+    "express": "^4.14.0",
+    "serve-static": "^1.11.1",
+    "source-map-support": "^0.4.6",
+    "svelte": "^1.1.2",
+    "svelte-ssr": "git://github.com/PaulBGD/svelte-ssr.git",
+    "typescript": "2.1.1"
+  }
+}

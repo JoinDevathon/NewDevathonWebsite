@@ -1,0 +1,24 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "export PRODUCTION=; export WATCH=true; node rollup.js",
+    "build": "export PRODUCTION=true; export WATCH=; node rollup.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "rollup": "^0.36.4",
+    "rollup-plugin-commonjs": "^5.0.5",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-plugin-svelte": "^1.0.0",
+    "rollup-pluginutils": "^1.5.2"
+  },
+  "devDependencies": {
+    "rollup-watch": "^2.5.0"
+  }
+}

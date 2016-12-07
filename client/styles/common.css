@@ -1,0 +1,50 @@
+body, html, #container {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, a {
+    font-family: 'Roboto Slab', serif;
+    margin: 0;
+}
+
+h1 {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+p, b, i, li, label, small, span {
+    font-family: 'Roboto', serif;
+    font-size: 20px;
+}
+
+small, span {
+    font-size: 12px;
+}
+
+a {
+    color: #DDA0DD;
+}
+
+label {
+    display: block;
+    font-size: 18px;
+}
+
+input, select, button {
+    margin-bottom: 30px;
+    font-size: 28px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 4px 6px;
+}
+
+img {
+    max-width: 100%;
+}
