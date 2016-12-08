@@ -9,6 +9,13 @@ export class RouteError {
     }
 }
 
+export function checkObject(obj: {error?: string}) {
+    if (obj.error) {
+        debug(obj);
+        throw new RouteError('An error occurred.');
+    }
+}
+
 export function wrap(func: func) {
     return (req: Request, res: Response) => {
         function handleError(error: RouteError | Error) {

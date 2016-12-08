@@ -1,2 +1,2 @@
-declare module "svelte-ssr/register" {
+declare module "svelte/ssr/register" {
 }
