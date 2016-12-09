@@ -1,6 +1,8 @@
-<div class="flexbox">
-    {{yield}}
-</div>
+<template>
+    <div class="flexbox">
+        <slot/>
+    </div>
+</template>
 
 <style>
     .flexbox {

@@ -1,6 +1,8 @@
-<div class="body">
-    {{yield}}
-</div>
+<template>
+    <div class="body">
+        <slot/>
+    </div>
+</template>
 
 <style>
     .body {

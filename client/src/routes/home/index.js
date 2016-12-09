@@ -1,6 +1,8 @@
 import '../common';
-import Home from './home.html';
+import Home from './home.vue';
+import Vue from 'vue';
 
-new Home({
-    target: document.getElementById('container')
+new Vue({
+    el: '#container',
+    render: h => h(Home)
 });

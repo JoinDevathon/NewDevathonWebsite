@@ -4,19 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "export PRODUCTION=; export WATCH=true; node rollup.js",
-    "build": "export PRODUCTION=true; export WATCH=; node rollup.js"
+    "test": "webpack",
+    "dev": "export PRODUCTION=; webpack --watch",
+    "build": "export PRODUCTION=true; webpack"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "rollup": "^0.36.4",
-    "rollup-plugin-commonjs": "^5.0.5",
-    "rollup-plugin-node-resolve": "^2.0.0",
-    "rollup-plugin-replace": "^1.1.1",
-    "rollup-plugin-svelte": "^1.0.0",
-    "rollup-pluginutils": "^1.5.2",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.9",
+    "babel-preset-es2015": "^6.18.0",
+    "css-loader": "^0.26.1",
+    "vue": "^2.1.4",
+    "vue-loader": "^10.0.2",
+    "vue-template-compiler": "^2.1.4",
+    "webpack": "^1.14.0",
     "whatwg-fetch": "^2.0.1"
   },
   "devDependencies": {

@@ -1,6 +1,8 @@
-<div class="error">
-    {{yield}}
-</div>
+<template>
+    <div class="error">
+        <slot/>
+    </div>
+</template>
 
 <style>
     .error {
@@ -23,4 +25,5 @@
         background-image: -ms-linear-gradient(right bottom, #EF9A9A 0%, #F44236 100%);
         background-image: linear-gradient(to right bottom, #EF9A9A 0%, #F44236 100%);
     }
+
 </style>

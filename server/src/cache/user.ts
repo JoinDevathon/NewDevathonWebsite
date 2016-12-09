@@ -8,7 +8,7 @@ import { getUserFromId } from '../connect/github';
 
 export function getUserName(id: number): Promise<string> {
     return new Promise((resolve, reject) => {
-        client.get(`devathon:uc:${id}`, (error: Error, value: string | null) => {
+        client.get(`dn:uc:${id}`, (error: Error, value: string | null) => {
             if (error) {
                 return resolve(error);
             }
@@ -20,7 +20,7 @@ export function getUserName(id: number): Promise<string> {
                     if (err) {
                         reject(err);
                     }
-                }); // store for 1 week
+                }); // store for 1 week (probably could store longer..)
             })));
         });
     });

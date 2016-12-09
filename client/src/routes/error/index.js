@@ -1,6 +1,8 @@
 import '../common';
-import Error from './error.html';
+import Error from './error.vue';
+import Vue from 'vue';
 
-new Error({
-    target: document.getElementById('container'),
+new Vue({
+    el: '#container',
+    render: h => h(Error)
 });

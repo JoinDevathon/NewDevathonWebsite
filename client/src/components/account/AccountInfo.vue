@@ -1,6 +1,8 @@
-<a class="account-info" href="/authentication/away">
-    Log In or Register
-</a>
+<template>
+    <a class="account-info" href="/authentication/away">
+        Log In or Register
+    </a>
+</template>
 
 <style>
     .account-info {
@@ -35,10 +37,9 @@
             margin: 12px;
         }
     }
+
 </style>
 
 <script>
-    export default {
-
-    };
+    export default {};
 </script>

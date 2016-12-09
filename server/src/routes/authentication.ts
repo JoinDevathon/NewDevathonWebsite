@@ -6,6 +6,7 @@ import fetch from 'node-fetch';
 import config from '../../config/config';
 import { query } from '../data/connect';
 import { getToken, getUserFromAccess, GithubAccessToken, GithubUser } from '../connect/github';
+import { createUser } from '../data/users';
 
 const debug = require('debug')('Devathon:Authentication');
 const router: Router = Router();
@@ -24,14 +25,16 @@ router.get('/back', wrap(async (req: Request, res: Response) => {
 
     const user: GithubUser = await getUserFromAccess(tokens.access_token);
     checkObject(user);
-    console.log(user);
 
     if (!user.login) {
         debug(user.login);
         throw new RouteError('Failed to authenticate with GitHub.');
     }
 
-    res.json(user);
+    const userId: number = await createUser(user.id, user.email || null);
+    req.session.userId = userId;
+
+    res.redirect('/account');
 }));
 
 export default router;

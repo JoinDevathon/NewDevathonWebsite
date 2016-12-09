@@ -1,6 +1,8 @@
-<div class="header">
-    {{yield}}
-</div>
+<template>
+    <div class="header">
+        <slot/>
+    </div>
+</template>
 
 <style>
     .header {
@@ -18,4 +20,5 @@
         background: -moz-linear-gradient(bottom left, #459280, #00ced1); /*Fx 3.6-15*/
         background: linear-gradient(bottom left, #459280, #00ced1); /*Standard*/
     }
+
 </style>

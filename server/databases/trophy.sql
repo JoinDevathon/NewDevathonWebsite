@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS `trophy` (
+	`id` INT(255) NOT NULL,
+	`trophy` VARCHAR(255) NULL DEFAULT NULL,
+	`name` VARCHAR(255) NULL DEFAULT NULL,
+	INDEX `id` (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+;

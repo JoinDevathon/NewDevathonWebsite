@@ -1,8 +1,7 @@
-{{#if href}}
-    <a href="{{href}}" class="button">{{yield}}</a>
-{{else}}
-    <button class="button">{{yield}}</button>
-{{/if}}
+<template>
+    <a v-if="href" :href="href" class="button"><slot/></a>
+    <button v-else class="button"><slot/></button>
+</template>
 
 <style>
     .button {
@@ -30,7 +29,13 @@
         background-color: rgba(255, 255, 255, 0.2);
         border-color: rgba(255, 255, 255, 0.1);
     }
+
 </style>
 
 <script>
+    export default {
+        props: [
+            'href'
+        ],
+    }
 </script>

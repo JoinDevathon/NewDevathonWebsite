@@ -1,5 +1,10 @@
 # Devathon Website
 
+### Notes
+
+- While NPM can be used, YarnPkg is preferred for its speed and version locking.
+- Run `yarn` inside of `client` and `server` before running or building.
+
 ## Client
 
 The client code is written in Svelte, which is compiled before it's downloaded.
@@ -9,13 +14,13 @@ The client code is written in Svelte, which is compiled before it's downloaded.
 Build for production:
 
 ```bash
-npm run build
+yarn run build
 ```
 
 Watch for development:
 
 ```bash
-npm run dev
+yarn run dev
 ```
 
 ## Server
@@ -32,12 +37,12 @@ In order to run the server, you must copy `server/config/config.default.ts` to `
 Run production:
 
 ```bash
-npm run build # run this every time you pull
-npm run run
+yarn run build # run this every time you pull
+yarn run run
 ```
 
 Run development:
 
 ```bash
-npm run dev
+yarn run dev
 ```

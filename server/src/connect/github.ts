@@ -44,5 +44,12 @@ export async function getUserFromId(id: number): Promise<GithubUser> {
     return await (await fetch(`https://api.github.com/user/${id}`, {
         method: 'GET',
         headers
-    }));
+    })).json();
+}
+
+export async function getUserFromName(name: string): Promise<GithubUser> {
+    return await (await fetch(`https://api.github.com/users/${name}`, {
+        method: 'GET',
+        headers
+    })).json();
 }

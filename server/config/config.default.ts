@@ -11,5 +11,8 @@ export default {
         user: 'root',
         password: 'root',
         database: 'devathon'
+    },
+    sessions: {
+        secret: 'abcdefghijklmnopqrstuvwxyzDEVATHON-SUPER-SECRET-SECRET-PLEASE-CHANGE'
     }
 };
