@@ -5,14 +5,15 @@
 </template>
 
 <style>
-    .header-tabs {
-        margin: 20px 0 10px;
-    }
-
     .header-tabs > .button {
         margin: 0 5px;
         display: inline-block;
         width: auto;
     }
+</style>
 
+<style>
+    .header-tabs {
+        margin: 20px 0 10px;
+    }
 </style>

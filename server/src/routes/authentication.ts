@@ -12,7 +12,11 @@ const debug = require('debug')('Devathon:Authentication');
 const router: Router = Router();
 
 router.get('/away', (req: Request, res: Response) => {
-    res.redirect(`https://github.com/login/oauth/authorize?client_id=${config.github.clientId}&scope=user:email`);
+    if (req.session.userId) {
+        res.redirect('/account');
+    } else {
+        res.redirect(`https://github.com/login/oauth/authorize?client_id=${config.github.clientId}&scope=user:email`);
+    }
 });
 
 router.get('/back', wrap(async (req: Request, res: Response) => {
@@ -36,5 +40,10 @@ router.get('/back', wrap(async (req: Request, res: Response) => {
 
     res.redirect('/account');
 }));
+
+router.get('/logout', (req: Request, res: Response) => {
+    req.session.destroy((err: Error) => err && console.error(err));
+    res.redirect('/');
+});
 
 export default router;

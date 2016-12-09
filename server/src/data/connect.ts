@@ -26,7 +26,7 @@ export function query<T>(query: string, params?: any[]): Promise<SQLResponse<T>>
             } else {
                 resolve({
                     meta: data
-                })
+                });
             }
         });
     });

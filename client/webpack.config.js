@@ -1,7 +1,9 @@
 const webpack = require('webpack');
+const ExtractText = require('extract-text-webpack-plugin');
 
 const plugins = [
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'build/vendor.bundle.js')
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'build/vendor.bundle.js'),
+    new ExtractText('/dev/null')
 ];
 
 if (process.env.PRODUCTION) {
@@ -29,6 +31,7 @@ module.exports = {
     context: __dirname + '/src',
     entry: {
         home: './routes/home/index',
+        account: './routes/account/index',
         error: './routes/error/index',
         vendor: ['vue']
     },
@@ -52,7 +55,8 @@ module.exports = {
     },
     vue: {
         loaders: {
-            js: 'babel'
+            js: 'babel',
+            css: ExtractText.extract('css')
         }
     }
 };

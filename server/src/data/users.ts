@@ -1,6 +1,7 @@
 import { query, SQLResponse } from './connect';
+import { Trophy } from '../info/Trophies';
 
-interface UserAttributes {
+export interface UserAttributes {
     id: number;
     github_id: number;
     beam: string;
@@ -21,4 +22,20 @@ export async function createUser(id: number, email: string): Promise<number> {
         return user.data[0].id;
     }
     return res.meta.insertId;
+}
+
+export async function getBasicUserById(id: number): Promise<UserAttributes | null> {
+    return (await query<UserAttributes>("SELECT `id`,`github_id` FROM `users` WHERE `id` = ?", [id])).data[0] || null;
+}
+
+export async function getUserById(id: number): Promise<UserAttributes | null> {
+    return (await query<UserAttributes>("SELECT * FROM `users` WHERE `id` = ?", [id])).data[0] || null;
+}
+
+export async function getTrophies(id: number): Promise<Trophy[]> {
+    return (await query<Trophy>("SELECT * FROM `trophy` WHERE `id` = ?", [id])).data;
+}
+
+export async function awardTrophy(id: number, trophy: Trophy): Promise<any> {
+    await query<any>("INSERT INTO `trophy` (`id`,`trophy`,`name`) VALUES (?,?,?)", [id, trophy.filename, trophy.name]);
 }

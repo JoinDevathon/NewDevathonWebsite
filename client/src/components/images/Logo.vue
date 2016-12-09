@@ -50,7 +50,8 @@
 
     .logo-container {
         max-width: 100%;
-        min-height: 100px;
+        margin: 0 auto 5px;
+        /*min-height: 100px;*/
     }
 
     .logo-container > svg {

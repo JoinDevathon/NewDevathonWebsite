@@ -6,7 +6,10 @@
   "scripts": {
     "test": "webpack",
     "dev": "export PRODUCTION=; webpack --watch",
-    "build": "export PRODUCTION=true; webpack"
+    "build": "export PRODUCTION=true; webpack && yarn run build-server && yarn run css",
+    "dev-server": "export PRODUCTION=; webpack --watch --config webpack.server.config.js",
+    "build-server": "export PRODUCTION=true; webpack --config webpack.server.config.js",
+    "css": "webpack --config webpack.css.config.js --watch"
   },
   "keywords": [],
   "author": "",
@@ -16,13 +19,15 @@
     "babel-loader": "^6.2.9",
     "babel-preset-es2015": "^6.18.0",
     "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "^1.0.1",
     "vue": "^2.1.4",
     "vue-loader": "^10.0.2",
+    "vue-style-loader": "^1.0.0",
     "vue-template-compiler": "^2.1.4",
     "webpack": "^1.14.0",
     "whatwg-fetch": "^2.0.1"
   },
   "devDependencies": {
-    "rollup-watch": "^2.5.0"
+    "chokidar-cli": "^1.2.0"
   }
 }

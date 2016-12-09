@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "run": "node build/",
-    "dev": "export DEBUG=Devathon:*; tsc && node build/"
+    "run": "export NODE_ENV=production; node build/",
+    "dev": "export DEBUG=Devathon:*; export NODE_ENV=development; tsc && node build/"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
     "@types/node-fetch": "^1.6.6",
     "@types/redis": "^0.12.33",
     "@types/source-map-support": "^0.2.28",
+    "@types/vue": "^1.0.31",
     "body-parser": "^1.15.2",
     "connect-smart-redis": "^1.1.0",
     "debug": "^2.3.3",
@@ -32,7 +33,8 @@
     "reify": "^0.4.4",
     "serve-static": "^1.11.1",
     "source-map-support": "^0.4.6",
-    "svelte": "^1.1.2",
-    "typescript": "2.1.4"
+    "typescript": "2.1.4",
+    "vue": "^2.1.4",
+    "vue-server-renderer": "^2.1.4"
   }
 }

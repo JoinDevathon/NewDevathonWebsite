@@ -36,6 +36,7 @@ app.use(session({
 
 app.use('/public/js', serveStatic('../client/build'));
 app.use('/public/css', serveStatic('../client/styles'));
+app.use('/public/images', serveStatic('../client/images'));
 
 app.use(pages);
 app.use('/authentication', authentication);

@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div id="container">
         <DHeader>
-            <AccountInfo/>
-            <Logo height="20vw"/>
+            <AccountInfo :user="user"/>
+            <Logo height="20vw" style="min-height: 200px; max-height: 400px"/>
             <hr/>
             <h2 class="subtext">Devathon is a Bukkit programming contest that allows anyone to join.</h2>
             <h2 class="subtext">Find an upcoming contest and participate!</h2>
@@ -63,6 +63,7 @@
     import AccountInfo from '../../components/account/AccountInfo.vue';
     import FlexBox from '../../components/containers/FlexBox.vue';
     import ContestBox from '../../components/contests/ContestBox.vue';
+    import {devathon} from '../common';
 
     export default {
         components: {
@@ -74,6 +75,11 @@
             DBody,
             FlexBox,
             DButton
+        },
+        data() {
+            return devathon({
+                user: null
+            });
         }
     }
 </script>

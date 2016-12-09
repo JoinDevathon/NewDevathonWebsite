@@ -7,7 +7,7 @@
 
 ## Client
 
-The client code is written in Svelte, which is compiled before it's downloaded.
+The client code is written in Vue, which is compiled before it's downloaded.
 
 ### Scripts
 
@@ -23,10 +23,22 @@ Watch for development:
 yarn run dev
 ```
 
+In a separate terminals:
+
+```bash
+yarn run dev-server
+```
+
+```bash
+yarn run dev-css
+```
+
+This is required for server-side rendering and automatic CSS style updates.
+
 ## Server
 
 The server code is written in TypeScript, using the Express framework for routing.
-In the future the server will use svelte-ssr to prerender our components.
+It pre-renders each webpage so that Vue can start faster.
 
 ### Setup
 

@@ -1,45 +1,44 @@
 <template>
-    <a class="account-info" href="/authentication/away">
-        Log In or Register
-    </a>
+    <TopLeft :href="href">
+        <template v-if="user">
+            <GithubAvatar :username="user.username" size="70" class="info-avatar"/>
+            <TopLink href="/account">Account</TopLink>
+            <TopLink href="/authentication/logout">Log Out</TopLink>
+        </template>
+        <template v-else>
+            <TopLink href="/authentication/away">Log In or Register</TopLink>
+        </template>
+    </TopLeft>
 </template>
 
 <style>
-    .account-info {
-        display: block;
-        border: 0;
-        width: 100%;
-        font-size: 16px;
-        color: #fff;
-        cursor: pointer;
-
-        margin: 14px 2px 18px;
-        padding: 8px 6px;
-        border-radius: 4px;
-        box-sizing: border-box;
-        background-color: rgba(255, 255, 255, 0.3);
-        text-decoration: none;
-
-        transition: background-color 0.2s ease-out;
-    }
-
-    .account-info:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    @media (min-width: 720px) {
-        .account-info {
-            display: inline-block;
-            width: auto;
-            position: absolute;
-            top: 0;
-            right: 0;
-            margin: 12px;
+    @media(min-width: 720px) {
+        .info-avatar {
+            margin: 5px !important;
         }
     }
-
 </style>
 
 <script>
-    export default {};
+    import TopLeft from '../containers/TopLeft.vue';
+    import TopLink from '../containers/TopLink.vue';
+    import GithubAvatar from '../images/GithubAvatar.vue';
+
+    export default {
+        props: ['user'],
+        components: {
+            TopLeft,
+            TopLink,
+            GithubAvatar
+        },
+        computed: {
+            href: function() {
+                if (this.user) {
+                    return '/authentication/logout';
+                } else {
+                    return '/authentication/away';
+                }
+            }
+        }
+    };
 </script>

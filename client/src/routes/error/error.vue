@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="container">
         <DHeader>
             <Logo height="20vw"/>
         </DHeader>
@@ -18,10 +18,13 @@
     import DBody from '../../components/containers/DevathonBody.vue';
     import Error from '../../components/containers/Error.vue';
     import DButton from '../../components/forms/DevathonButton.vue';
+    import {devathon} from '../common';
 
     export default {
         data() {
-            return (typeof _devathon !== 'undefined' ? _devathon : {}).state;
+            return devathon({
+                message: 'Unknown error occurred.'
+            });
         },
         components: {
             DHeader,

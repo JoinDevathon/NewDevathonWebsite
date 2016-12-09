@@ -1,17 +1,26 @@
-import {Router, Request, Response, RequestHandler} from 'express';
-import {readFileSync} from 'fs';
+import { Router, Request, Response } from 'express';
+import { createRenderer, Renderer } from 'vue-server-renderer';
+import * as Vue from 'vue';
+import { readFileSync } from 'fs';
 import { join } from 'path';
+import { wrap } from './utils';
+import { getUserById, UserAttributes, getTrophies, getBasicUserById } from '../data/users';
+import { getUserName } from '../cache/user';
 
 const router: Router = Router();
 
 const routes: {[key: string]: string[]} = {
-    'home': ['/', '/home'],
+    'home': [ '/', '/home' ],
+    'account': ['/account', '/user/:id'],
     'error': []
 };
 
+const vueComponents: any = require(join(process.cwd(), '..', 'client', 'build', 'server', 'server.bundle.js'));
+const renderer: Renderer = createRenderer();
+
 for (let property in routes) {
     if (routes.hasOwnProperty(property)) {
-        registerRoute(property, routes[property]);
+        registerRoute(property, routes[ property ]);
     }
 }
 
@@ -27,9 +36,34 @@ function getTemplate(): string {
 
 export function renderRoute(name: string, state: any = {}, res: Response) {
     let template: string = getTemplate();
+
     template = template.replace('CSSSTUFF', `
-`);
-    template = template.replace('JSSTUFF', `
+<link rel="stylesheet" href="/public/css/components.css"/>`);
+
+    let prerendered: string = '';
+    if (vueComponents[name]) {
+        require(join(process.cwd(), '..', 'client', 'src', 'routes', 'common.js')).setDevathonData({
+            state: state
+        });
+        const instance: vuejs.Vue = new Vue({
+            render: (h: any) => h(vueComponents[ name ])
+        });
+        renderer.renderToString(instance, (err: Error, html: string) => {
+            if (err) {
+                return console.error(err);
+            }
+            prerendered = html;
+            next();
+        });
+    } else {
+        next();
+    }
+
+    function next() {
+        template = template.replace('CONTENT', prerendered);
+
+        template = template.replace('JSSTUFF', `
+
 <script>
 window._devathon = {
     state: ${JSON.stringify(state)}
@@ -38,14 +72,48 @@ window._devathon = {
 <script src="/public/js/vendor.bundle.js"></script>
 <script src="/public/js/${name}.bundle.js"></script>
 `);
-    res.end(template);
+        res.end(template);
+    }
 }
 
 function registerRoute(name: string, routes: string[]) {
-    const handler = (req: Request, res: Response) => {
-        renderRoute(name, {}, res);
+    const handler = async (req: Request, res: Response) => {
+        let state: any = {};
+        switch (name) {
+            case 'home':
+                if (req.session && req.session.userId) {
+                    state.user = await getBasicUserById(req.session.userId);
+                    state.user.username = await getUserName(state.user.github_id);
+                }
+                break;
+            case 'account':
+                if (req.params && req.params.id) {
+                    const user: UserAttributes | undefined = await getUserById(+req.params.id);
+                    if (user) {
+                        state.user = user;
+                    } else {
+                        res.status(400);
+                        renderRoute('error', {
+                            message: 'User not found.'
+                        }, res);
+                        return;
+                    }
+                } else if (req.session.userId) {
+                    state.user = await getUserById(req.session.userId);
+                } else {
+                    res.status(400);
+                    renderRoute('error', {
+                        message: 'You are not logged in.'
+                    }, res);
+                    return;
+                }
+                state.user.username = await getUserName(state.user.github_id);
+                state.user.trophies = await getTrophies(state.user.id);
+                break;
+        }
+        renderRoute(name, state, res);
     };
-    routes.forEach(route => router.get(route, handler));
+    routes.forEach(route => router.get(route, wrap(handler)));
 }
 
 export default router;

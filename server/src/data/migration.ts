@@ -47,3 +47,10 @@ toMigrate.push({
         await query("ALTER TABLE `users` ADD UNIQUE INDEX `github_id` (`github_id`)");
     }
 });
+
+toMigrate.push({
+    name: 'trophy_to_filename',
+    func: async function() {
+        await query("ALTER TABLE `trophy` CHANGE COLUMN `trophy` `filename` VARCHAR(255) NULL DEFAULT NULL AFTER `id`")
+    }
+});
