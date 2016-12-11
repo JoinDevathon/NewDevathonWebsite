@@ -1,8 +1,19 @@
 const webpack = require('webpack');
 const ExtractText = require('extract-text-webpack-plugin');
+// const OfflinePlugin = require('offline-plugin');
+// const {join} = require('path');
 
 const plugins = [
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'build/vendor.bundle.js'),
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
+    // new OfflinePlugin({
+    //     excludes: ['/dev/null']
+    //     // ServiceWorker: {
+    //     //     output: 'build/sw.js'
+    //     // },
+    //     // AppCache: {
+    //     //     directory: ''
+    //     // }
+    // }),
     new ExtractText('/dev/null')
 ];
 
@@ -14,6 +25,7 @@ if (process.env.PRODUCTION) {
     }));
     plugins.push(new webpack.optimize.DedupePlugin());
     plugins.push(new webpack.optimize.OccurenceOrderPlugin());
+    plugins.push(new webpack.optimize.AggressiveMergingPlugin());
     plugins.push(new webpack.optimize.UglifyJsPlugin({
         compress: {
             warnings: false
@@ -36,8 +48,10 @@ module.exports = {
         vendor: ['vue']
     },
     output: {
-        filename: 'build/[name].bundle.js',
-        chunkFilename: 'build/[id].bundle.js'
+        path: 'build/',
+        filename: '[name].bundle.js',
+        chunkFilename: '[id].bundle.js',
+        publicPath: '/public/js/'
     },
     plugins,
     module: {
@@ -48,9 +62,13 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
+                // exclude: /(node_modules|bower_components)/,
                 loader: 'babel-loader',
             },
+            {
+                test: /\.json$/,
+                loader: 'json-loader'
+            }
         ]
     },
     vue: {

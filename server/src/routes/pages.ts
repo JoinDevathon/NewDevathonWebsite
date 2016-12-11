@@ -11,7 +11,7 @@ const router: Router = Router();
 
 const routes: {[key: string]: string[]} = {
     'home': [ '/', '/home' ],
-    'account': ['/account', '/user/:id'],
+    'account': ['/user/:id'],
     'error': []
 };
 
@@ -40,8 +40,8 @@ export function renderRoute(name: string, state: any = {}, res: Response) {
     template = template.replace('CSSSTUFF', `
 <link rel="stylesheet" href="/public/css/components.css"/>`);
 
-    let prerendered: string = '';
-    if (vueComponents[name]) {
+    let prerendered: string = '<div id="container"></div>';
+    if (vueComponents[name] && process.env.NODE_ENV === 'production') {
         require(join(process.cwd(), '..', 'client', 'src', 'routes', 'common.js')).setDevathonData({
             state: state
         });
@@ -78,7 +78,9 @@ window._devathon = {
 
 function registerRoute(name: string, routes: string[]) {
     const handler = async (req: Request, res: Response) => {
-        let state: any = {};
+        let state: any = {
+            user: {}
+        };
         switch (name) {
             case 'home':
                 if (req.session && req.session.userId) {
@@ -91,6 +93,7 @@ function registerRoute(name: string, routes: string[]) {
                     const user: UserAttributes | undefined = await getUserById(+req.params.id);
                     if (user) {
                         state.user = user;
+                        state.user.personal = req.session.userId === user.id;
                     } else {
                         res.status(400);
                         renderRoute('error', {
@@ -98,12 +101,10 @@ function registerRoute(name: string, routes: string[]) {
                         }, res);
                         return;
                     }
-                } else if (req.session.userId) {
-                    state.user = await getUserById(req.session.userId);
                 } else {
                     res.status(400);
                     renderRoute('error', {
-                        message: 'You are not logged in.'
+                        message: 'An error occurred processing the user id.'
                     }, res);
                     return;
                 }

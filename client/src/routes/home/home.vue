@@ -78,7 +78,7 @@
         },
         data() {
             return devathon({
-                user: null
+                user: {}
             });
         }
     }

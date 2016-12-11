@@ -9,6 +9,10 @@ declare module "connect-smart-redis" {
         interface Options {
             client: RedisClient;
             ttl?: number;
+            prefix?: string;
+            lockExpiry?: number;
+            retryTime?: number;
+            deleteExpiry?: number;
         }
 
         export class SmartRedis extends session.Store {

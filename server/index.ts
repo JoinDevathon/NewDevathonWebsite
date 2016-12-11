@@ -26,7 +26,10 @@ const SmartRedis = createSmartRedis(session);
 app.use(session({
     store: new SmartRedis({
         client: client,
-        ttl: 30 * 24 * 60 * 60 // 30 days
+        ttl: 7 * 24 * 60 * 60, // 7 days
+        prefix: 'dn:sess:',
+        lockExpiry: 1500,
+        deleteExpiry: 2000
     }),
     name: 'devathon.sid',
     secret: config.sessions.secret,

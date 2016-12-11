@@ -93,6 +93,7 @@ hr {
     text-align: center;
     color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
+    font-size: 20px;
     background-color: rgba(255, 255, 255, 0.3);
 
     border: 3px solid rgba(255, 255, 255, 0.2);
@@ -105,12 +106,25 @@ hr {
     background-color: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.1);
 }
+.button svg {
+    height: 20px;
+    margin: 0 4px -3px;
+}
 
 
-.header-tabs > .button {
-    margin: 0 5px;
+.header-tabs .button, .header-tabs .input-container {
+    margin: 4px 5px;
     display: inline-block;
-    width: auto;
+    width: 100%;
+}
+.header-tabs .input {
+    width: 100%;
+    margin: 0;
+}
+@media(min-width: 720px) {
+.header-tabs .button, .header-tabs .input-container, .header-tabs .input {
+        width: auto;
+}
 }
 
 .header-tabs {
@@ -119,7 +133,7 @@ hr {
 
 @media(min-width: 720px) {
 .info-avatar {
-        margin: 5px !important;
+        margin: 5px auto 12px !important;
 }
 }
 
@@ -153,10 +167,11 @@ hr {
 
 .top-link {
     width: 100%;
-    padding: 4px 6px;
+    padding-left: 6px;
     margin: 1px 0;
-    display: block;
     box-sizing: border-box;
+    display: block;
+    text-align: left;
     /*border-bottom: 1px solid rgba(255, 255, 255, 0.3);*/
 
     color: #fff;
@@ -165,6 +180,24 @@ hr {
 }
 .top-link:hover {
     background-color: rgba(255, 255, 255, 0.4);
+}
+
+.top-text {
+    text-align: left;
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0;
+    padding: 5px 15px 5px 5px;
+    display: inline-block;
+}
+
+.top-icon {
+    float: right;
+    display: inline-block;
+    text-align: right;
+    margin: 0 0 0 4px;
+    padding: 6px;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .gh-avatar {
@@ -241,4 +274,43 @@ hr {
     display: inline-block;
     vertical-align: top;
     text-align: center;
+}
+
+.input-container {
+    display: inline-block;
+    position: relative;
+}
+.input {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 240px;
+    max-width: 100%;
+    padding: 8px 16px;
+    margin: 15px 0;
+
+    text-align: center;
+
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-radius: 32px;
+}
+.label {
+    display: inline-block;
+    position: absolute;
+    font-size: 14px;
+    width: 100%;
+}
+
+
+.st0 {
+    fill: #fff
+}
+.st1 {
+    fill: #262262
+}
+.st2 {
+    fill: url(#SVGID_1_)
 }

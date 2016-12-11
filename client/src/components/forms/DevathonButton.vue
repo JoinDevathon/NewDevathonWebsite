@@ -1,6 +1,6 @@
 <template>
     <a v-if="href" :href="href" class="button"><slot/></a>
-    <button v-else class="button"><slot/></button>
+    <button v-else class="button" @click="$emit('click')"><slot/></button>
 </template>
 
 <style>
@@ -16,6 +16,7 @@
         text-align: center;
         color: rgba(255, 255, 255, 0.9);
         text-decoration: none;
+        font-size: 20px;
         background-color: rgba(255, 255, 255, 0.3);
 
         border: 3px solid rgba(255, 255, 255, 0.2);
@@ -28,6 +29,11 @@
         color: rgba(255, 255, 255, 0.8);
         background-color: rgba(255, 255, 255, 0.2);
         border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .button svg {
+        height: 20px;
+        margin: 0 4px -3px;
     }
 
 </style>

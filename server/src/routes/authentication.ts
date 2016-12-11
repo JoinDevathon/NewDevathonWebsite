@@ -13,7 +13,7 @@ const router: Router = Router();
 
 router.get('/away', (req: Request, res: Response) => {
     if (req.session.userId) {
-        res.redirect('/account');
+        res.redirect(`/user/${req.session.userId}`);
     } else {
         res.redirect(`https://github.com/login/oauth/authorize?client_id=${config.github.clientId}&scope=user:email`);
     }
@@ -38,7 +38,7 @@ router.get('/back', wrap(async (req: Request, res: Response) => {
     const userId: number = await createUser(user.id, user.email || null);
     req.session.userId = userId;
 
-    res.redirect('/account');
+    res.redirect(`/user/${userId}`);
 }));
 
 router.get('/logout', (req: Request, res: Response) => {

@@ -12,6 +12,6 @@ exports.devathon = function (defaults) {
     } else if ('_devathon' in global) {
         return _devathon.state;
     } else {
-        return defaults;
+        throw new Error('Devathon data not available!');
     }
 };

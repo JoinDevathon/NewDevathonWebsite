@@ -5,10 +5,11 @@
 <style>
     .top-link {
         width: 100%;
-        padding: 4px 6px;
+        padding-left: 6px;
         margin: 1px 0;
-        display: block;
         box-sizing: border-box;
+        display: block;
+        text-align: left;
         /*border-bottom: 1px solid rgba(255, 255, 255, 0.3);*/
 
         color: #fff;
