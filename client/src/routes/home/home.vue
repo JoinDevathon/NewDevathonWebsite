@@ -43,14 +43,6 @@
         font-weight: normal;
     }
 
-    hr {
-        width: 50%;
-        border: 0;
-        border-top: 1px solid rgba(0, 0, 0, 0.2);
-        margin: 20px auto;
-    }
-
-
 </style>
 
 <script>

@@ -9,7 +9,8 @@
     "build": "export PRODUCTION=true; webpack && yarn run build-server && yarn run css",
     "dev-server": "export PRODUCTION=; webpack --watch --config webpack.server.config.js",
     "build-server": "export PRODUCTION=true; webpack --config webpack.server.config.js",
-    "css": "webpack --config webpack.css.config.js --watch"
+    "dev-css": "webpack --config webpack.css.config.js --watch",
+    "css": "webpack --config webpack.css.config.js"
   },
   "keywords": [],
   "author": "",

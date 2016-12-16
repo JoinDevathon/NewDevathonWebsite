@@ -13,14 +13,14 @@
 
 <script>
     export default {
-        props: ['username', 'size'],
+        props: ['username', 'size', 'marginBottom', 'rounded'],
         computed: {
             style: function() {
                 return {
                     borderWidth: `${this.size / 20}px`,
                     marginTop: `${this.size / 5}px`,
-                    marginBottom: `${this.size / 5}px`,
-                    borderRadius: `${this.size / 2}px`,
+                    marginBottom: this.marginBottom || `${this.size / 5}px`,
+                    borderRadius: this.rounded ? `${this.size / 2}px` : '4px',
                     width: `${this.size}px`,
                     height: `${this.size}px`
                 };

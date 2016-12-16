@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const ExtractText = require('extract-text-webpack-plugin');
+console.log('running css config')
 
 module.exports = {
     context: __dirname + '/src',

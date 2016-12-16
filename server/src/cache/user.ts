@@ -10,7 +10,7 @@ export function getUserName(id: number): Promise<string> {
     return new Promise((resolve, reject) => {
         client.get(`dn:uc:${id}`, (error: Error, value: string | null) => {
             if (error) {
-                return resolve(error);
+                return reject(error);
             }
             if (value) {
                 return resolve(value);

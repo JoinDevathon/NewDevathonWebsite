@@ -15,8 +15,13 @@ const routes: {[key: string]: string[]} = {
     'error': []
 };
 
-const vueComponents: any = require(join(process.cwd(), '..', 'client', 'build', 'server', 'server.bundle.js'));
-const renderer: Renderer = createRenderer();
+let vueComponents: any;
+let renderer: Renderer;
+
+if (process.env.NODE_ENV === 'production') {
+    vueComponents = require(join(process.cwd(), '..', 'client', 'build', 'server', 'server.bundle.js'));;
+    renderer = createRenderer();
+}
 
 for (let property in routes) {
     if (routes.hasOwnProperty(property)) {
@@ -37,11 +42,12 @@ function getTemplate(): string {
 export function renderRoute(name: string, state: any = {}, res: Response) {
     let template: string = getTemplate();
 
-    template = template.replace('CSSSTUFF', `
-<link rel="stylesheet" href="/public/css/components.css"/>`);
 
     let prerendered: string = '<div id="container"></div>';
-    if (vueComponents[name] && process.env.NODE_ENV === 'production') {
+    if (vueComponents && vueComponents[name] && process.env.NODE_ENV === 'production') {
+        template = template.replace('CSSSTUFF', `
+<link rel="stylesheet" href="/public/css/components.css"/>`);
+
         require(join(process.cwd(), '..', 'client', 'src', 'routes', 'common.js')).setDevathonData({
             state: state
         });
@@ -56,6 +62,7 @@ export function renderRoute(name: string, state: any = {}, res: Response) {
             next();
         });
     } else {
+        template = template.replace('CSSSTUFF', '');
         next();
     }
 
@@ -110,6 +117,7 @@ function registerRoute(name: string, routes: string[]) {
                 }
                 state.user.username = await getUserName(state.user.github_id);
                 state.user.trophies = await getTrophies(state.user.id);
+                state.user.teams = [];
                 break;
         }
         renderRoute(name, state, res);

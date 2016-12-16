@@ -1,6 +1,6 @@
 <template>
-    <a v-if="href" :href="href" class="button"><slot/></a>
-    <button v-else class="button" @click="$emit('click')"><slot/></button>
+    <a v-if="href" :href="href" :class="classes"><slot/></a>
+    <button v-else :class="classes" @click="$emit('click')"><slot/></button>
 </template>
 
 <style>
@@ -25,6 +25,10 @@
         transition: color 0.2s ease-out, border-color 0.2s ease-out, background-color 0.2s ease-out;
     }
 
+    .button.thin {
+        padding: 2px 4px;
+    }
+
     .button:hover {
         color: rgba(255, 255, 255, 0.8);
         background-color: rgba(255, 255, 255, 0.2);
@@ -41,7 +45,16 @@
 <script>
     export default {
         props: [
-            'href'
+            'href',
+            'size'
         ],
+        data() {
+            return {
+                classes: {
+                    'button': true,
+                    'thin': this.size === 'thin'
+                }
+            }
+        }
     }
 </script>

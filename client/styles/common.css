@@ -6,6 +6,13 @@ body {
     margin: 0;
 }
 
+hr {
+    width: 50%;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+}
+
 h1, h2, h3, h4, h5, a, button, input {
     font-family: 'Roboto Slab', serif;
     margin: 0;

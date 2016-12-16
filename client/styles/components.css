@@ -27,7 +27,6 @@ hr {
     background: linear-gradient(bottom left, #459280, #00ced1); /*Standard*/
 }
 
-
 .dev-1 {
     fill: #38aecc
 }
@@ -101,6 +100,9 @@ hr {
 
     transition: color 0.2s ease-out, border-color 0.2s ease-out, background-color 0.2s ease-out;
 }
+.button.thin {
+    padding: 2px 4px;
+}
 .button:hover {
     color: rgba(255, 255, 255, 0.8);
     background-color: rgba(255, 255, 255, 0.2);
@@ -154,7 +156,7 @@ hr {
 @media (min-width: 720px) {
 .top-left {
         display: inline-block;
-        width: auto;
+        width: 150px;
         position: absolute;
         top: 0;
         left: 0;
@@ -223,22 +225,22 @@ hr {
     display: inline-block;
     max-width: 300px;
 }
-.content {
+.contest .content {
     padding: 20px 10px;
 }
-.title {
+.contest .title {
     font-size: 26px;
     margin-bottom: 10px;
 }
-.description, .status {
+.contest .description, .contest .status {
     color: #eee;
     font-size: 18px;
     font-family: 'Roboto', sans-serif;
 }
-.button-container {
+.contest .button-container {
     padding: 10px;
 }
-.button {
+.contest .button {
     font-size: 20px;
     width: 100%;
 }
@@ -250,11 +252,40 @@ hr {
 }
 
 .account-name {
-    margin: 0 0 20px;
+        margin: 0 0 20px;
+        text-align: center;
 }
+/**/
 .trophy-case-title {
-    margin-top: 15px;
-    margin-bottom: -15px;
+        margin-top: 15px;
+        margin-bottom: -15px;
+}
+.account-media .button, .account-media .input {
+        display: block;
+        width: 100%;
+}
+
+.header-left {
+    min-width: 300px;
+}
+@media(min-width: 720px) {
+.header-left {
+        margin-right: 25px;
+}
+}
+
+.flex-header {
+    width: 1000px;
+    max-width: 100%;
+    margin: 0 auto;
+
+    /*text-align: left;*/
+}
+@media (min-width: 720px) {
+.flex-header {
+        display: flex;
+        align-items: flex-end;
+}
 }
 
 .trophy-case {
@@ -313,4 +344,26 @@ hr {
 }
 .st2 {
     fill: url(#SVGID_1_)
+}
+.tab-title {
+    border: 0;
+    width: auto;
+    cursor: pointer;
+    display: inline-block;
+
+    color: #fff;
+    font-size: 26px;
+
+    margin: 0;
+    padding: 12px 18px;
+}
+
+.tab-box {
+    margin: 0;
+    padding: 12px 18px;
+    color: #fff;
+}
+
+.tab-header {
+    font-size: 0;
 }

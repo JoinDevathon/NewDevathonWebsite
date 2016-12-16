@@ -14,10 +14,20 @@ const plugins = [
     //     //     directory: ''
     //     // }
     // }),
-    new ExtractText('/dev/null')
 ];
 
+let vue;
+
 if (process.env.PRODUCTION) {
+    console.log('Running in production..');
+    vue = {
+        loaders: {
+            js: 'babel',
+            css: ExtractText.extract('css')
+        }
+    };
+
+    plugins.push(new ExtractText('tmp.css'));
     plugins.push(new webpack.DefinePlugin({
         'process.env': {
             NODE_ENV: JSON.stringify("production")
@@ -32,6 +42,7 @@ if (process.env.PRODUCTION) {
         }
     }));
 } else {
+    console.log('Running in development..');
     plugins.push(new webpack.DefinePlugin({
         'process.env': {
             NODE_ENV: JSON.stringify("development")
@@ -45,7 +56,7 @@ module.exports = {
         home: './routes/home/index',
         account: './routes/account/index',
         error: './routes/error/index',
-        vendor: ['vue']
+        // vendor: ['vue']
     },
     output: {
         path: 'build/',
@@ -71,10 +82,5 @@ module.exports = {
             }
         ]
     },
-    vue: {
-        loaders: {
-            js: 'babel',
-            css: ExtractText.extract('css')
-        }
-    }
+    vue
 };
