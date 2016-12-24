@@ -8,6 +8,8 @@
     .top-icon {
         float: right;
         display: inline-block;
+        box-sizing: border-box;
+        height: 30px;
         text-align: right;
         margin: 0 0 0 4px;
         padding: 6px;

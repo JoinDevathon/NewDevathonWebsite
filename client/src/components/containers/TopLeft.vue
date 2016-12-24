@@ -23,7 +23,7 @@
     @media (min-width: 720px) {
         .top-left {
             display: inline-block;
-            width: 150px;
+            width: 175px;
             position: absolute;
             top: 0;
             left: 0;

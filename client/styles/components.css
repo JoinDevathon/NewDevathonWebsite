@@ -2,13 +2,6 @@
 .subtext {
     font-weight: normal;
 }
-hr {
-    width: 50%;
-    border: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
-    margin: 20px auto;
-}
-
 
 
 .header {
@@ -83,9 +76,7 @@ hr {
 .button {
     display: inline-block;
     box-sizing: border-box;
-    width: auto;
     padding: 8px 16px;
-    margin: 15px 0;
 
     cursor: pointer;
 
@@ -96,23 +87,29 @@ hr {
     background-color: rgba(255, 255, 255, 0.3);
 
     border: 3px solid rgba(255, 255, 255, 0.2);
-    border-radius: 32px;
+    border-radius: 4px;
 
     transition: color 0.2s ease-out, border-color 0.2s ease-out, background-color 0.2s ease-out;
 }
 .button.thin {
     padding: 2px 4px;
+    font-size: 14px;
+}
+.button.round {
+    border-radius: 32px;
+}
+.button.full {
+    width: 100%;
 }
 .button:hover {
     color: rgba(255, 255, 255, 0.8);
     background-color: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.1) !important;
 }
 .button svg {
     height: 20px;
     margin: 0 4px -3px;
 }
-
 
 .header-tabs .button, .header-tabs .input-container {
     margin: 4px 5px;
@@ -133,7 +130,7 @@ hr {
     margin: 20px 0 10px;
 }
 
-@media(min-width: 720px) {
+@media (min-width: 720px) {
 .info-avatar {
         margin: 5px auto 12px !important;
 }
@@ -156,7 +153,7 @@ hr {
 @media (min-width: 720px) {
 .top-left {
         display: inline-block;
-        width: 150px;
+        width: 175px;
         position: absolute;
         top: 0;
         left: 0;
@@ -172,6 +169,7 @@ hr {
     padding-left: 6px;
     margin: 1px 0;
     box-sizing: border-box;
+    height: 30px;
     display: block;
     text-align: left;
     /*border-bottom: 1px solid rgba(255, 255, 255, 0.3);*/
@@ -186,7 +184,7 @@ hr {
 
 .top-text {
     text-align: left;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: normal;
     margin: 0;
     padding: 5px 15px 5px 5px;
@@ -196,6 +194,8 @@ hr {
 .top-icon {
     float: right;
     display: inline-block;
+    box-sizing: border-box;
+    height: 30px;
     text-align: right;
     margin: 0 0 0 4px;
     padding: 6px;
@@ -252,48 +252,24 @@ hr {
 }
 
 .account-name {
-        margin: 0 0 20px;
-        text-align: center;
+    margin: 5px 0 10px;
 }
-/**/
+.account-teams {
+    /*text-align: center;*/
+}
 .trophy-case-title {
-        margin-top: 15px;
-        margin-bottom: -15px;
+    margin-bottom: 5px;
 }
-.account-media .button, .account-media .input {
-        display: block;
-        width: 100%;
-}
-
-.header-left {
-    min-width: 300px;
-}
-@media(min-width: 720px) {
-.header-left {
-        margin-right: 25px;
-}
-}
-
-.flex-header {
-    width: 1000px;
-    max-width: 100%;
-    margin: 0 auto;
-
-    /*text-align: left;*/
-}
-@media (min-width: 720px) {
-.flex-header {
-        display: flex;
-        align-items: flex-end;
-}
+.account-media .input {
+    display: block;
+    width: 100%;
 }
 
 .trophy-case {
     width: auto;
     display: inline-block;
 
-    margin: 20px auto;
-    padding: 10px 10px 0;
+    padding: 10px;
 
     background-color: rgba(255, 255, 255, 0.4);
     border-radius: 4px;
@@ -321,12 +297,12 @@ hr {
 
     text-align: center;
 
-    color: rgba(255, 255, 255, 0.9);
+    /*color: rgba(255, 255, 255, 0.9);*/
     font-size: 20px;
-    background-color: rgba(255, 255, 255, 0.3);
+    /*background-color: rgba(255, 255, 255, 0.3);*/
 
-    border: 3px solid rgba(255, 255, 255, 0.2);
-    border-radius: 32px;
+    border: 3px solid rgba(0, 0, 0, 0.4);
+    /*border-radius: 32px;*/
 }
 .label {
     display: inline-block;
@@ -345,25 +321,19 @@ hr {
 .st2 {
     fill: url(#SVGID_1_)
 }
-.tab-title {
-    border: 0;
-    width: auto;
-    cursor: pointer;
-    display: inline-block;
+.colored-box {
+    border-radius: 8px;
+    border: 3px solid #fff;
+    background-color: #fff;
 
-    color: #fff;
-    font-size: 26px;
-
-    margin: 0;
-    padding: 12px 18px;
+    margin: 10px;
 }
-
-.tab-box {
-    margin: 0;
-    padding: 12px 18px;
+.colored-box-title {
+    font-weight: 300;
+    text-align: center;
+    padding: 10px 16px;
     color: #fff;
 }
-
-.tab-header {
-    font-size: 0;
+.colored-box-padded {
+    padding: 6px;
 }

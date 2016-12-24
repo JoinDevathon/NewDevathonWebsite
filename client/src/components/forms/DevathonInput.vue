@@ -21,12 +21,12 @@
 
         text-align: center;
 
-        color: rgba(255, 255, 255, 0.9);
+        /*color: rgba(255, 255, 255, 0.9);*/
         font-size: 20px;
-        background-color: rgba(255, 255, 255, 0.3);
+        /*background-color: rgba(255, 255, 255, 0.3);*/
 
-        border: 3px solid rgba(255, 255, 255, 0.2);
-        border-radius: 32px;
+        border: 3px solid rgba(0, 0, 0, 0.4);
+        /*border-radius: 32px;*/
     }
 
     .label {

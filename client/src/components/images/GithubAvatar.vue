@@ -13,7 +13,7 @@
 
 <script>
     export default {
-        props: ['username', 'size', 'marginBottom', 'rounded'],
+        props: ['username', 'id', 'size', 'marginBottom', 'rounded'],
         computed: {
             style: function() {
                 return {
@@ -26,6 +26,9 @@
                 };
             },
             src: function() {
+                if (this.id) {
+                    return `/avatar/${this.id}.png?size=${this.size}`;
+                }
                 return `https://github.com/${this.username}.png?size=${this.size}`
             }
         }

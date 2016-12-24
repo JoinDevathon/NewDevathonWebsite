@@ -46,12 +46,16 @@ export function wrap(func: func) {
 
         try {
             const possible: Promise<any> | void = func(req, res);
-            if (possible && 'then' in possible) {
+            if (possible && possible.then) {
                 const promise: Promise<any> = possible;
                 promise.catch((err: Error) => handleError(err));
             }
         } catch (err) {
-            handleError(err);
+            try {
+                handleError(err);
+            } catch (newError) {
+                debug('Failed to handle error', err, newError);
+            }
         }
     };
 }

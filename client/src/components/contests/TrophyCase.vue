@@ -9,8 +9,7 @@
         width: auto;
         display: inline-block;
 
-        margin: 20px auto;
-        padding: 10px 10px 0;
+        padding: 10px;
 
         background-color: rgba(255, 255, 255, 0.4);
         border-radius: 4px;

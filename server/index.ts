@@ -1,6 +1,6 @@
 import {install} from 'source-map-support';
 import * as express from 'express';
-import {Express} from 'express';
+import {Express, Request, Response, NextFunction} from 'express';
 import * as serveStatic from 'serve-static';
 import * as bodyParser from 'body-parser';
 import * as session from 'express-session';
@@ -8,6 +8,7 @@ import * as createSmartRedis from 'connect-smart-redis';
 
 import pages from './src/routes/pages';
 import authentication from './src/routes/authentication';
+import avatar from './src/routes/avatar';
 
 import config from './config/config';
 import { doMigrations } from './src/data/migration';
@@ -16,7 +17,15 @@ import { renderRoute } from './src/routes/pages';
 
 install();
 
+const debug = require('debug')('Devathon:Main');
 const app: Express = express();
+
+if (process.env.NODE_ENV === 'development') {
+    app.use(function (req: Request, res: Response, next: NextFunction) {
+        debug(req.method, req.url);
+        next();
+    });
+}
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -42,6 +51,7 @@ app.use('/public/css', serveStatic('../client/styles'));
 app.use('/public/images', serveStatic('../client/images'));
 
 app.use(pages);
+app.use('/avatar', avatar);
 app.use('/authentication', authentication);
 
 app.use((req, res) => { // 404

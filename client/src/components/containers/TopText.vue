@@ -7,7 +7,7 @@
 <style>
     .top-text {
         text-align: left;
-        font-size: 18px;
+        font-size: 14px;
         font-weight: normal;
         margin: 0;
         padding: 5px 15px 5px 5px;

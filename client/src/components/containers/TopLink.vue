@@ -8,6 +8,7 @@
         padding-left: 6px;
         margin: 1px 0;
         box-sizing: border-box;
+        height: 30px;
         display: block;
         text-align: left;
         /*border-bottom: 1px solid rgba(255, 255, 255, 0.3);*/

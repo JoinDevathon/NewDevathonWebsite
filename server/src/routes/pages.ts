@@ -77,7 +77,7 @@ window._devathon = {
 };
 </script>
 <script src="/public/js/vendor.bundle.js"></script>
-<script src="/public/js/${name}.bundle.js"></script>
+<script src="/public/js/${name}.bundle.js" async></script>
 `);
         res.end(template);
     }
@@ -86,13 +86,13 @@ window._devathon = {
 function registerRoute(name: string, routes: string[]) {
     const handler = async (req: Request, res: Response) => {
         let state: any = {
-            user: {}
+            account: {}
         };
         switch (name) {
             case 'home':
                 if (req.session && req.session.userId) {
-                    state.user = await getBasicUserById(req.session.userId);
-                    state.user.username = await getUserName(state.user.github_id);
+                    state.account = await getBasicUserById(req.session.userId);
+                    // state.account.username = await getUserName(state.account.github_id);
                 }
                 break;
             case 'account':
@@ -100,7 +100,6 @@ function registerRoute(name: string, routes: string[]) {
                     const user: UserAttributes | undefined = await getUserById(+req.params.id);
                     if (user) {
                         state.user = user;
-                        state.user.personal = req.session.userId === user.id;
                     } else {
                         res.status(400);
                         renderRoute('error', {
@@ -116,6 +115,11 @@ function registerRoute(name: string, routes: string[]) {
                     return;
                 }
                 state.user.username = await getUserName(state.user.github_id);
+                if (req.session.userId === state.user.id) {
+                    state.account = {
+                        username: state.user.username
+                    };
+                }
                 state.user.trophies = await getTrophies(state.user.id);
                 state.user.teams = [];
                 break;

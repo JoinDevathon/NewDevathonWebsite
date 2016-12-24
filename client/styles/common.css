@@ -1,5 +1,33 @@
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-style: normal;
+    src: url('/public/css/fonts/Roboto-regular/Roboto-regular.eot');
+    src: url('/public/css/fonts/Roboto-regular/Roboto-regular.eot?#iefix') format('embedded-opentype'),
+    local('Roboto'),
+    local('Roboto-regular'),
+    url('/public/css/fonts/Roboto-regular/Roboto-regular.woff2') format('woff2'),
+    url('/public/css/fonts/Roboto-regular/Roboto-regular.woff') format('woff'),
+    url('/public/css/fonts/Roboto-regular/Roboto-regular.ttf') format('truetype'),
+    url('/public/css/fonts/Roboto-regular/Roboto-regular.svg#Roboto') format('svg');
+}
+
+@font-face {
+    font-family: 'Roboto Slab';
+    font-weight: 400;
+    font-style: normal;
+    src: url('/public/css/fonts/Roboto-Slab-regular/Roboto-Slab-regular.eot');
+    src: url('/public/css/fonts/Roboto-Slab-regular/Roboto-Slab-regular.eot?#iefix') format('embedded-opentype'),
+    local('Roboto Slab Regular'),
+    local('Roboto-Slab-regular'),
+    url('/public/css/fonts/Roboto-Slab-regular/Roboto-Slab-regular.woff2') format('woff2'),
+    url('/public/css/fonts/Roboto-Slab-regular/Roboto-Slab-regular.woff') format('woff'),
+    url('/public/css/fonts/Roboto-Slab-regular/Roboto-Slab-regular.ttf') format('truetype'),
+    url('/public/css/fonts/Roboto-Slab-regular/Roboto-Slab-regular.svg#RobotoSlab') format('svg');
+}
+
 body, html, #container {
-    height: 100%;
+    /*height: 100%;*/
 }
 
 body {
@@ -15,6 +43,7 @@ hr {
 
 h1, h2, h3, h4, h5, a, button, input {
     font-family: 'Roboto Slab', serif;
+    font-weight: normal;
     margin: 0;
 }
 
@@ -36,16 +65,22 @@ a {
     color: #DDA0DD;
 }
 
+p {
+    margin: 10px 0;
+}
+
 label {
     display: block;
     font-size: 18px;
 }
 
 input, select, button {
-    margin: 15px 0;
     font-size: 28px;
-    width: 100%;
     box-sizing: border-box;
+}
+
+input, select {
+    width: 100%;
 }
 
 button {
@@ -55,3 +90,30 @@ button {
 img {
     max-width: 100%;
 }
+
+@media (min-width: 720px) {
+    .clearfix:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .fifty {
+        box-sizing: border-box;
+        float: left;
+        width: 50%;
+    }
+
+    .twenty-five {
+        box-sizing: border-box;
+        float: left;
+        width: 25%;
+    }
+
+    .seventy-five {
+        box-sizing: border-box;
+        float: left;
+        width: 75%;
+    }
+}
+

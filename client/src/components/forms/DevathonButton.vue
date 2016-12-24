@@ -1,15 +1,17 @@
 <template>
-    <a v-if="href" :href="href" :class="classes"><slot/></a>
-    <button v-else :class="classes" @click="$emit('click')"><slot/></button>
+    <a v-if="href" :href="href" :class="classes" :style="styles">
+        <slot/>
+    </a>
+    <button v-else :style="styles" :class="classes" @click="$emit('click')">
+        <slot/>
+    </button>
 </template>
 
 <style>
     .button {
         display: inline-block;
         box-sizing: border-box;
-        width: auto;
         padding: 8px 16px;
-        margin: 15px 0;
 
         cursor: pointer;
 
@@ -20,40 +22,62 @@
         background-color: rgba(255, 255, 255, 0.3);
 
         border: 3px solid rgba(255, 255, 255, 0.2);
-        border-radius: 32px;
+        border-radius: 4px;
 
         transition: color 0.2s ease-out, border-color 0.2s ease-out, background-color 0.2s ease-out;
     }
 
     .button.thin {
         padding: 2px 4px;
+        font-size: 14px;
+    }
+
+    .button.round {
+        border-radius: 32px;
+    }
+
+    .button.full {
+        width: 100%;
     }
 
     .button:hover {
         color: rgba(255, 255, 255, 0.8);
         background-color: rgba(255, 255, 255, 0.2);
-        border-color: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.1) !important;
     }
 
     .button svg {
         height: 20px;
         margin: 0 4px -3px;
     }
-
 </style>
 
 <script>
+    import {colors, mix, hexToRgba} from '../helpers/colors';
+
     export default {
         props: [
             'href',
-            'size'
+            'size',
+            'index',
+            'box',
+            'full'
         ],
-        data() {
-            return {
-                classes: {
+        computed: {
+            classes() {
+                return {
                     'button': true,
-                    'thin': this.size === 'thin'
-                }
+                    'thin': this.size === 'thin',
+                    'round': !this.box,
+                    'full': this.full,
+                    'colored': !isNaN(this.index)
+                };
+            },
+            styles() {
+                return {
+                    backgroundColor: !isNaN(this.index) ? mix(hexToRgba(colors[+this.index % colors.length]), [255, 255, 255, 0.1]) : undefined,
+                    borderColor: !isNaN(this.index) ? 'rgba(255, 255, 255, 0.6)' : undefined
+                };
             }
         }
     }

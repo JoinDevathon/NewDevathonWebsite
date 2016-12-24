@@ -1,7 +1,7 @@
 <template>
     <div id="container">
         <DHeader>
-            <AccountInfo :user="user"/>
+            <AccountInfo :account="account" home="true"/>
             <Logo height="20vw" style="min-height: 200px; max-height: 400px"/>
             <hr/>
             <h2 class="subtext">Devathon is a Bukkit programming contest that allows anyone to join.</h2>
@@ -70,7 +70,7 @@
         },
         data() {
             return devathon({
-                user: {}
+                account: {}
             });
         }
     }
