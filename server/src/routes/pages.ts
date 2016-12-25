@@ -12,6 +12,7 @@ const router: Router = Router();
 const routes: {[key: string]: string[]} = {
     'home': [ '/', '/home' ],
     'account': ['/user/:id'],
+    'teamCreate': ['/teams/create'],
     'error': []
 };
 
@@ -90,6 +91,7 @@ function registerRoute(name: string, routes: string[]) {
         };
         switch (name) {
             case 'home':
+            case 'teamCreate':
                 if (req.session && req.session.userId) {
                     state.account = await getBasicUserById(req.session.userId);
                     // state.account.username = await getUserName(state.account.github_id);

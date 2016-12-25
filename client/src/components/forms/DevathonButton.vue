@@ -48,6 +48,7 @@
 
     .button svg {
         height: 20px;
+        width: auto;
         margin: 0 4px -3px;
     }
 </style>

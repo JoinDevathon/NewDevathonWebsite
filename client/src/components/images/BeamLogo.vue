@@ -10,14 +10,16 @@
     </svg>
 </template>
 
-<style>.st0 {
-    fill: #fff
-}
+<style>
+    .st0 {
+        fill: #fff;
+    }
 
-.st1 {
-    fill: #262262
-}
+    .st1 {
+        fill: #262262;
+    }
 
-.st2 {
-    fill: url(#SVGID_1_)
-}</style>
+    .st2 {
+        fill: url(#SVGID_1_);
+    }
+</style>

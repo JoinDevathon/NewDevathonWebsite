@@ -9,6 +9,7 @@ import * as createSmartRedis from 'connect-smart-redis';
 import pages from './src/routes/pages';
 import authentication from './src/routes/authentication';
 import avatar from './src/routes/avatar';
+import api from './src/routes/api';
 
 import config from './config/config';
 import { doMigrations } from './src/data/migration';
@@ -53,6 +54,7 @@ app.use('/public/images', serveStatic('../client/images'));
 app.use(pages);
 app.use('/avatar', avatar);
 app.use('/authentication', authentication);
+app.use('/api', api);
 
 app.use((req, res) => { // 404
     res.status(404);

@@ -1,10 +1,7 @@
 import {Router, Request, Response} from 'express';
 import { wrap, RouteError, checkObject } from './utils';
-import {stringify} from 'querystring';
-import fetch from 'node-fetch';
 
 import config from '../../config/config';
-import { query } from '../data/connect';
 import { getToken, getUserFromAccess, GithubAccessToken, GithubUser } from '../connect/github';
 import { createUser } from '../data/users';
 

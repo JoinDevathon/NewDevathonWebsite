@@ -15,18 +15,24 @@
         <DBody>
             <h2>Current Contests</h2>
             <FlexBox>
-                <ContestBox index="0"
-                            title="Devathon 2016"
-                            description="The very first Devathon Contest. The 2016 judges are Kazzababe, Nick Parks, and CodeBeasty."
-                            status="Judging"
-                            href="/2016"/>
+                <div class="padded">
+                    <ContestBox index="0"
+                                title="Devathon 2016"
+                                description="The very first Devathon Contest. The 2016 judges are Kazzababe, Nick Parks, and CodeBeasty."
+                                status="Judging"
+                                href="/2016"/>
+                </div>
             </FlexBox>
             <hr/>
 
             <h2>Upcoming Contests</h2>
             <FlexBox>
-                <ContestBox index="1" title="Devathon Spring 2017" description="A battle between networks, each one submitting 3 developers to contest." status="Planning"/>
-                <ContestBox index="2" title="Devathon Summer 2017" description="A future contest that anyone can join." status="Planning"/>
+                <div class="padded">
+                    <ContestBox index="1" title="Devathon Spring 2017" description="A battle between networks, each one submitting 3 developers to contest." status="Planning"/>
+                </div>
+                <div class="padded">
+                    <ContestBox index="2" title="Devathon Summer 2017" description="A future contest that anyone can join." status="Planning"/>
+                </div>
             </FlexBox>
             <hr/>
 

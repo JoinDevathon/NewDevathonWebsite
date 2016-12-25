@@ -1,37 +1,33 @@
 <template>
     <div class="input-container">
         <label class="label" :for="id"><slot/></label>
-        <input class="input" :id="id" :value="value" @input="$emit('input', $event)"/>
+        <input v-if="!multiline" class="input" :id="id" :value="value" @input="$emit('input', $event)"/>
+        <textarea v-else class="input" :id="id" @input="$emit('input', $event)">{{value}}</textarea>
     </div>
 </template>
 
 <style>
     .input-container {
-        display: inline-block;
-        position: relative;
+        display: block;
     }
 
     .input {
-        display: inline-block;
+        display: block;
         box-sizing: border-box;
-        width: 240px;
+        width: 100%;
         max-width: 100%;
-        padding: 8px 16px;
-        margin: 15px 0;
+        padding: 10px;
+        margin: 0 0 10px;
 
-        text-align: center;
+        font-size: 14px;
 
-        /*color: rgba(255, 255, 255, 0.9);*/
-        font-size: 20px;
-        /*background-color: rgba(255, 255, 255, 0.3);*/
-
-        border: 3px solid rgba(0, 0, 0, 0.4);
-        /*border-radius: 32px;*/
+        border-radius: 10px;
+        border: 2px solid rgba(0, 0, 0, 0.4);
     }
 
     .label {
-        display: inline-block;
-        position: absolute;
+        margin: 0;
+        padding: 0;
         font-size: 14px;
         width: 100%;
     }
@@ -40,6 +36,6 @@
 
 <script>
     export default {
-        props: ['id', 'value']
+        props: ['id', 'value', 'multiline']
     }
 </script>

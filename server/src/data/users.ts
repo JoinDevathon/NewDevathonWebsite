@@ -39,3 +39,7 @@ export async function getTrophies(id: number): Promise<Trophy[]> {
 export async function awardTrophy(id: number, trophy: Trophy): Promise<any> {
     await query<any>("INSERT INTO `trophy` (`id`,`trophy`,`name`) VALUES (?,?,?)", [id, trophy.filename, trophy.name]);
 }
+
+export async function updateMedia(id: number, beam: string, twitch: string, twitter: string) {
+    await query<any>("UPDATE `users` SET `beam` = ?, `twitch` = ?, `twitter` = ? WHERE `id` = ?", [beam, twitch, twitter, id]);
+}

@@ -24,7 +24,7 @@
     }
 
     .colored-box-padded {
-        padding: 6px;
+        padding: 8px;
     }
 </style>
 

@@ -5,7 +5,7 @@
             <span class="description">{{description}}</span>
         </div>
         <div class="status">
-            <BoxInformation>Status: {{status}}</BoxInformation>
+            <BoxInformation>{{status ? 'Status: ' + status : info}}</BoxInformation>
         </div>
         <div class="button-container">
             <DButton class="button" :href="href">More Info</DButton>
@@ -15,11 +15,12 @@
 
 <style>
     .contest {
-        margin: 10px 20px;
+        /*margin: 10px 20px;*/
 
         color: #fff;
 
         display: inline-block;
+        box-sizing: border-box;
         max-width: 300px;
     }
 
@@ -59,8 +60,10 @@
             index: {'default': 0},
             title: {'default': 'Default Title and Year'},
             description: {'default': 'Default description of this Devathon contest, things that happened maybe the winner?'},
-            status: {'default': 'Planned'},
+            status: {},
+            info: {'default': 'Status: Planned'},
             href: {},
+            width: {'default': null}
         },
         data() {
             return {
@@ -68,8 +71,9 @@
                 shadow: '0 0 #fff',
                 contestStyles: {
                     backgroundColor: colors[this.index % colors.length],
-                    boxShadow: `6px 6px ${shade(colors[this.index % colors.length], -30)}`
-                }
+                    boxShadow: `6px 6px ${shade(colors[this.index % colors.length], -30)}`,
+                    width: this.width
+                },
             };
         },
         components: {

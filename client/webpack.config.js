@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const ExtractText = require('extract-text-webpack-plugin');
+const glob = require('glob');
 // const OfflinePlugin = require('offline-plugin');
 // const {join} = require('path');
 
@@ -55,8 +56,10 @@ module.exports = {
     entry: {
         home: './routes/home/index',
         account: './routes/account/index',
+        teamCreate: './routes/teams/create',
         error: './routes/error/index',
-        // vendor: ['vue']
+        // vendor: ['node_modules/**', './components/**'],
+        vendor: glob.sync(process.cwd() + '/src/components/**/*.vue').concat(['vue', 'whatwg-fetch'])
     },
     output: {
         path: 'build/',
@@ -73,7 +76,7 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                // exclude: /(node_modules|bower_components)/,
+                exclude: /(node_modules|bower_components)/,
                 loader: 'babel-loader',
             },
             {

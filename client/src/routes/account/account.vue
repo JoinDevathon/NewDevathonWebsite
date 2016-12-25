@@ -1,21 +1,21 @@
 <template>
     <div id="container">
         <DHeader>
-            <AccountInfo :account="d.account"/>
-            <GithubAvatar size="70" :id="d.user.github_id" rounded="true"/>
-            <h2 class="account-name">{{d.user.username}}</h2>
+            <AccountInfo :account="account"/>
+            <GithubAvatar size="150" :id="user.github_id" rounded="true" marginBottom="10px" marginTop="10px"/>
+            <h2 class="account-name">{{user.username}}</h2>
         </DHeader>
         <DBody>
             <div class="clearfix">
                 <div class="fifty">
                     <ColoredBox title="Trophy Case" index="1">
                         <TrophyCase>
-                            <template v-for="trophy in d.user.trophies">
+                            <template v-for="trophy in user.trophies">
                                 <Trophy :trophy="trophy"/>
                             </template>
-                            <template v-if="d.user.trophies.length === 0">
+                            <template v-if="user.trophies.length === 0">
                                 <h2>No trophies have been earned yet.</h2>
-                                <p v-if="d.account.username === d.user.username">To get an easy trophy, link your Twitter and Tweet <b>#devathon</b>!</p>
+                                <p v-if="account.username === user.username">To get an easy trophy, link your Twitter and Tweet <b>#devathon</b>!</p>
                             </template>
                         </TrophyCase>
                     </ColoredBox>
@@ -23,7 +23,7 @@
                         <div class="fifty">
                             <ColoredBox title="Teams" index="0">
                                 <div class="account-teams">
-                                    <DButton v-if="d.account.username === d.user.username"
+                                    <DButton v-if="account.username === user.username"
                                              index="0"
                                              box="true"
                                              full="true"
@@ -36,57 +36,20 @@
                         </div>
                         <div class="fifty">
                             <ColoredBox title="Social Media" index="2">
-                                <div class="account-media">
-                                    <template v-if="edit === false">
-                                        <DButton v-if="d.user.beam" :href="'https://beam.pro/' + d.user.beam" target="_blank">
-                                            <BeamLogo/>
-                                            {{d.user.beam}}
-                                        </DButton>
-                                        <DButton v-if="d.user.twitter" :href="'https://twitter.com/' + d.user.twitter" target="_blank">
-                                            {{d.user.twitter}}
-                                        </DButton>
-                                        <DButton v-if="d.user.twitch" :href="'https://twitch.tv/' + d.user.twitch">{{d.user.twitch}}
-                                        </DButton>
-                                    </template>
-                                    <template v-else>
-                                        <DInput :value="d.user.beam" id="beam" @input="input('beam', $event)">Beam</DInput>
-                                        <DInput :value="d.user.twitter" id="twitter" @input="input('twitter', $event)">Twitter</DInput>
-                                        <DInput :value="d.user.twitch" id="twitch" @input="input('twitch', $event)">Twitch</DInput>
-                                    </template>
-                                    <DButton @click="edit = !edit" index="2" box="true" full="true" size="thin">
-                                        <template v-if="edit === false">
-                                            Edit Media
-                                        </template>
-                                        <template v-else>
-                                            Save
-                                        </template>
-                                    </DButton>
-                                </div>
+                                <SocialMedia :user="user" index="2"/>
                             </ColoredBox>
                         </div>
                     </div>
                 </div>
                 <div class="fifty">
-                    <ColoredBox title="Contest Entries" index="3">
-                        <h3>Contest Name <DButton index="3" size="thin">More Info</DButton></h3>
-                        <small>Contest details including what the theme is and what they should've entered.</small>
-                        <hr/>
-                        <h3>Contest Name <DButton index="3" size="thin">More Info</DButton></h3>
-                        <small>Contest details including what the theme is and what they should've entered.</small>
-                        <hr/>
-                        <h3>Contest Name <DButton index="3" size="thin">More Info</DButton></h3>
-                        <small>Contest details including what the theme is and what they should've entered.</small>
-                        <hr/>
-                        <h3>Contest Name <DButton index="3" size="thin">More Info</DButton></h3>
-                        <small>Contest details including what the theme is and what they should've entered.</small>
-                        <hr/>
-                        <h3>Contest Name <DButton index="3" size="thin">More Info</DButton></h3>
-                        <small>Contest details including what the theme is and what they should've entered.</small>
-                        <hr/>
-                        <h3>Contest Name <DButton index="3" size="thin">More Info</DButton></h3>
-                        <small>Contest details including what the theme is and what they should've entered.</small>
-                        <hr/>
-                    </ColoredBox>
+                    <div class="clearfix">
+                        <div class="fifty padded">
+                            <ContestBox info="Score: 25.6/30" width="100%"/>
+                        </div>
+                        <div class="fifty padded">
+                            <ContestBox info="Score: 25.6/30" width="100%" index="1"/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </DBody>
@@ -95,20 +58,7 @@
 
 <style>
     .account-name {
-        margin: 5px 0 10px;
-    }
-
-    .account-teams {
-        /*text-align: center;*/
-    }
-
-    .trophy-case-title {
-        margin-bottom: 5px;
-    }
-
-    .account-media .input {
-        display: block;
-        width: 100%;
+        margin: 0;
     }
 </style>
 
@@ -124,23 +74,14 @@
     import Tabs from '../../components/header/HeaderTabs.vue';
     import BeamLogo from '../../components/images/BeamLogo.vue';
     import ColoredBox from '../../components/containers/ColoredBox.vue';
+    import ContestBox from '../../components/contests/ContestBox.vue';
+    import SocialMedia from '../../components/account/SocialMedia.vue';
     import {devathon} from '../common';
 
     export default {
         data() {
-            return {
-                d: devathon(),
-                edit: false,
-                tab: 'entries'
-            };
+            return devathon();
         },
-
-        methods: {
-            input(type, event) {
-                this.d.user[type] = event.target.value;
-            }
-        },
-
         components: {
             DHeader,
             DBody,
@@ -152,6 +93,8 @@
             BeamLogo,
             AccountInfo,
             ColoredBox,
+            ContestBox,
+            SocialMedia,
             DInput
         },
 

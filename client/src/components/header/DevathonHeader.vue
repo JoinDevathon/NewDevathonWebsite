@@ -11,6 +11,7 @@
 
         padding: 16px;
         margin-bottom: 16px;
+        min-height: 30px;
 
         box-shadow: 0 6px #254e44;
 

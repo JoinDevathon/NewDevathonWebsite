@@ -1,5 +1,5 @@
-import {Request, Response} from 'express';
-import {renderRoute} from './pages';
+import { Request, Response } from 'express';
+import { renderRoute } from './pages';
 
 const debug = require('debug')('Devathon:Utils');
 type func = (req: Request, res: Response) => Promise<any> | void;
