@@ -54,3 +54,10 @@ toMigrate.push({
         await query("ALTER TABLE `trophy` CHANGE COLUMN `trophy` `filename` VARCHAR(255) NULL DEFAULT NULL AFTER `id`")
     }
 });
+
+toMigrate.push({
+    name: 'user_admin_bit',
+    func: async function() {
+        await query("ALTER TABLE `users` ADD COLUMN `admin` BIT(1) NOT NULL DEFAULT b'0' AFTER `email`");
+    }
+});

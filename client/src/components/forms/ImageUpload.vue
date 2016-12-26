@@ -10,16 +10,16 @@
 
 <style>
     .image-upload {
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 150px;
         margin: 0 auto;
         border: 1px solid #ccc;
     }
 
     .image-upload-image {
         display: block;
-        height: 100px;
-        width: 100px;
+        height: 150px;
+        width: 150px;
         margin: 0 auto;
     }
 
@@ -29,7 +29,7 @@
 
         font-family: sans-serif;
         vertical-align: middle;
-        line-height: 100px;
+        line-height: 150px;
 
         background-color: #ccc;
     }
@@ -37,9 +37,9 @@
     .image-upload-input {
         cursor: pointer;
         position: relative;
-        top: -100px;
-        width: 100px;
-        height: 100px;
+        top: -150px;
+        width: 150px;
+        height: 150px;
         opacity: 0;
     }
 </style>
@@ -62,9 +62,9 @@
                         image.onload = () => {
                             const canvas = document.createElement('canvas');
                             const ctx = canvas.getContext('2d');
-                            canvas.width = canvas.height = 100;
+                            canvas.width = canvas.height = 150;
                             ctx.clearRect(0, 0, canvas.width, canvas.height);
-                            ctx.drawImage(image, 0, 0, 100, 100);
+                            ctx.drawImage(image, 0, 0, 150, 150);
 
                             this.image = canvas.toDataURL('image/png');
 

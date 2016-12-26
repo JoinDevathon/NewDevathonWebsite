@@ -15,7 +15,7 @@
                             </template>
                             <template v-if="user.trophies.length === 0">
                                 <h2>No trophies have been earned yet.</h2>
-                                <p v-if="account.username === user.username">To get an easy trophy, link your Twitter and Tweet <b>#devathon</b>!</p>
+                                <p v-if="account.id === user.id">To get an easy trophy, link your Twitter and Tweet <b>#devathon</b>!</p>
                             </template>
                         </TrophyCase>
                     </ColoredBox>
@@ -23,7 +23,12 @@
                         <div class="fifty">
                             <ColoredBox title="Teams" index="0">
                                 <div class="account-teams">
-                                    <DButton v-if="account.username === user.username"
+                                    <template v-for="team in user.teams">
+                                        <a :href="`/teams/${team.url}`">
+                                            <img :src="`/teams/${team.url}.png`" :alt="team.name" :title="team.name" class="team-icon"/>
+                                        </a>
+                                    </template>
+                                    <DButton v-if="account.id === user.id"
                                              index="0"
                                              box="true"
                                              full="true"
@@ -36,7 +41,7 @@
                         </div>
                         <div class="fifty">
                             <ColoredBox title="Social Media" index="2">
-                                <SocialMedia :user="user" index="2"/>
+                                <SocialMedia :user="user" :account="account" index="2"/>
                             </ColoredBox>
                         </div>
                     </div>
@@ -59,6 +64,14 @@
 <style>
     .account-name {
         margin: 0;
+    }
+
+    .account-teams {
+        text-align: center;
+    }
+
+    .team-icon {
+        height: 40px;
     }
 </style>
 

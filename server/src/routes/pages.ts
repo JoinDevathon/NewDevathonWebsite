@@ -6,13 +6,15 @@ import { join } from 'path';
 import { wrap } from './utils';
 import { getUserById, UserAttributes, getTrophies, getBasicUserById } from '../data/users';
 import { getUserName } from '../cache/user';
+import { getTeam, getTeamsForUser, getTeamMembers, UserWithRole } from '../data/teams';
 
 const router: Router = Router();
 
 const routes: {[key: string]: string[]} = {
     'home': [ '/', '/home' ],
-    'account': ['/user/:id'],
-    'teamCreate': ['/teams/create'],
+    'account': [ '/user/:id' ],
+    'teamCreate': [ '/teams/create' ],
+    'teams': [ '/teams/:url' ],
     'error': []
 };
 
@@ -20,7 +22,8 @@ let vueComponents: any;
 let renderer: Renderer;
 
 if (process.env.NODE_ENV === 'production') {
-    vueComponents = require(join(process.cwd(), '..', 'client', 'build', 'server', 'server.bundle.js'));;
+    vueComponents = require(join(process.cwd(), '..', 'client', 'build', 'server', 'server.bundle.js'));
+    ;
     renderer = createRenderer();
 }
 
@@ -45,7 +48,7 @@ export function renderRoute(name: string, state: any = {}, res: Response) {
 
 
     let prerendered: string = '<div id="container"></div>';
-    if (vueComponents && vueComponents[name] && process.env.NODE_ENV === 'production') {
+    if (vueComponents && vueComponents[ name ] && process.env.NODE_ENV === 'production') {
         template = template.replace('CSSSTUFF', `
 <link rel="stylesheet" href="/public/css/components.css"/>`);
 
@@ -85,45 +88,57 @@ window._devathon = {
 }
 
 function registerRoute(name: string, routes: string[]) {
-    const handler = async (req: Request, res: Response) => {
+    const handler = async(req: Request, res: Response) => {
         let state: any = {
             account: {}
         };
         switch (name) {
+            case 'teams':
+                state.team = await getTeam(req.params.url); // falling falling falling
+                state.team.members = await getTeamMembers(state.team.id);
+                state.team.members = await Promise.all(state.team.members.map(async (member: UserWithRole) => {
+                    return Object.assign({
+                        username: await getUserName(member.github_id)
+                    }, member);
+                }));
             case 'home':
             case 'teamCreate':
                 if (req.session && req.session.userId) {
                     state.account = await getBasicUserById(req.session.userId);
-                    // state.account.username = await getUserName(state.account.github_id);
                 }
                 break;
             case 'account':
-                if (req.params && req.params.id) {
-                    const user: UserAttributes | undefined = await getUserById(+req.params.id);
-                    if (user) {
-                        state.user = user;
-                    } else {
-                        res.status(400);
-                        renderRoute('error', {
-                            message: 'User not found.'
-                        }, res);
-                        return;
-                    }
-                } else {
+                if (!(req.params && req.params.id)) {
                     res.status(400);
                     renderRoute('error', {
                         message: 'An error occurred processing the user id.'
                     }, res);
                     return;
                 }
+
+                const user: UserAttributes | undefined = await getUserById(+req.params.id);
+                if (user) {
+                    state.user = user;
+                } else {
+                    res.status(400);
+                    renderRoute('error', {
+                        message: 'User not found.'
+                    }, res);
+                    return;
+                }
                 state.user.username = await getUserName(state.user.github_id);
-                if (req.session.userId === state.user.id) {
-                    state.account = {
-                        username: state.user.username
-                    };
+                if (req.session.userId) {
+                    if (req.session.userId === state.user.id) {
+                        state.account = {
+                            id: state.user.id,
+                            github_id: state.user.github_id
+                        };
+                    } else {
+                        state.account = await getBasicUserById(req.session.userId);
+                    }
                 }
                 state.user.trophies = await getTrophies(state.user.id);
-                state.user.teams = [];
+                state.user.teams = await getTeamsForUser(state.user.id);
                 break;
         }
         renderRoute(name, state, res);

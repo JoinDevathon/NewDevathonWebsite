@@ -5,7 +5,11 @@ const glob = require('glob');
 // const {join} = require('path');
 
 const plugins = [
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        filename: 'vendor.bundle.js',
+        minChunks: 2
+    }),
     // new OfflinePlugin({
     //     excludes: ['/dev/null']
     //     // ServiceWorker: {
@@ -58,8 +62,8 @@ module.exports = {
         account: './routes/account/index',
         teamCreate: './routes/teams/create',
         error: './routes/error/index',
-        // vendor: ['node_modules/**', './components/**'],
-        vendor: glob.sync(process.cwd() + '/src/components/**/*.vue').concat(['vue', 'whatwg-fetch'])
+        teams: './routes/teams/index',
+        vendor: ['vue', 'whatwg-fetch']
     },
     output: {
         path: 'build/',

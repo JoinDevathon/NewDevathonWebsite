@@ -16,7 +16,7 @@
         margin: 0;
     }
 
-    @media(min-width: 720px) {
+    @media(min-width: 1000px) {
         .header-tabs .button, .header-tabs .input-container, .header-tabs .input {
             width: auto;
         }

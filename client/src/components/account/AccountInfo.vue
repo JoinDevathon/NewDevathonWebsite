@@ -1,18 +1,17 @@
 <template>
     <TopLeft :href="href">
-        <template v-if="account && (account.username || account.id)">
-            <template v-if="home">
-                <GithubAvatar :id="account.github_id" size="70" class="info-avatar" rounded="true"/>
-            </template>
-            <template v-else>
-                <Logo height="70px"/>
-            </template>
-            <TopLink :href="href">
-                <TopText v-if="home">Account</TopText>
-                <TopText v-else>Home</TopText>
+        <Logo height="70px"/>
+        <template v-if="account && account.id">
+            <TopLink href="/">
+                <TopText>Home</TopText>
                 <TopIcon>
-                    <AccountIcon v-if="home"/>
-                    <HomeIcon v-else/>
+                    <HomeIcon/>
+                </TopIcon>
+            </TopLink>
+            <TopLink href="/authentication/away">
+                <TopText>Account</TopText>
+                <TopIcon>
+                    <GithubAvatar :id="account.github_id" size="18" marginBottom="0" marginTop="0"/>
                 </TopIcon>
             </TopLink>
             <TopLink href="/authentication/logout">
@@ -23,13 +22,12 @@
             </TopLink>
         </template>
         <template v-else>
-            <template v-if="!home">
-                <Logo height="70px"/>
-                <TopLink href="/" v-if="!home">
-                    <TopText>Home</TopText>
-                    <TopIcon><AccountIcon/></TopIcon>
-                </TopLink>
-            </template>
+            <TopLink href="/">
+                <TopText>Home</TopText>
+                <TopIcon>
+                    <HomeIcon/>
+                </TopIcon>
+            </TopLink>
             <TopLink href="/authentication/away">
                 <TopText>Log In/Register</TopText>
                 <TopIcon>
@@ -41,7 +39,7 @@
 </template>
 
 <style>
-    @media (min-width: 720px) {
+    @media (min-width: 1000px) {
         .info-avatar {
             margin: 5px auto 12px !important;
         }

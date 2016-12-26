@@ -14,6 +14,7 @@ export interface SQLResponse<T> {
 
 export function query<T>(query: string, params?: any[]): Promise<SQLResponse<T>> {
     return new Promise((resolve, reject) => {
+        debug(query.replace(/\n/g, '\\n'));
         pool.query(query, params, function(err: IError, data: any, meta: any) {
             if (err) {
                 return reject(err);
@@ -36,4 +37,7 @@ Promise.all([
     query(readFileSync(join(process.cwd(), 'databases', 'users.sql'), 'utf-8')),
     query(readFileSync(join(process.cwd(), 'databases', 'trophy.sql'), 'utf-8')),
     query(readFileSync(join(process.cwd(), 'databases', 'migrations.sql'), 'utf-8')),
+    query(readFileSync(join(process.cwd(), 'databases', 'teams.sql'), 'utf-8')),
+    query(readFileSync(join(process.cwd(), 'databases', 'team_roles.sql'), 'utf-8')),
+    query(readFileSync(join(process.cwd(), 'databases', 'contests.sql'), 'utf-8')),
 ]).then(() => debug('Created databases')).catch(err => debug(err));

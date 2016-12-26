@@ -8,6 +8,7 @@
     .trophy-case {
         width: auto;
         display: inline-block;
+        text-align: center;
 
         padding: 10px;
 

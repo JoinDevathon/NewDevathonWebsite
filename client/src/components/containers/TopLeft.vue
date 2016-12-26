@@ -20,10 +20,10 @@
         text-decoration: none;
     }
 
-    @media (min-width: 720px) {
+    @media (min-width: 1000px) {
         .top-left {
             display: inline-block;
-            width: 175px;
+            width: 180px;
             position: absolute;
             top: 0;
             left: 0;

@@ -21,7 +21,13 @@
 
         display: inline-block;
         box-sizing: border-box;
-        max-width: 300px;
+        width: 100%;
+    }
+
+    @media(min-width: 1000px) {
+        .contest {
+            max-width: 300px;
+        }
     }
 
     .contest .content {

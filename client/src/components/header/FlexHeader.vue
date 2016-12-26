@@ -11,7 +11,7 @@
         margin: 0 auto;
     }
 
-    @media (min-width: 720px) {
+    @media (min-width: 1000px) {
         .flex-header {
             display: flex;
         }

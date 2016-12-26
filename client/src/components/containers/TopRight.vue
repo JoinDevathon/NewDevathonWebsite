@@ -20,7 +20,7 @@
         text-decoration: none;
     }
 
-    @media (min-width: 720px) {
+    @media (min-width: 1000px) {
         .top-right {
             display: inline-block;
             width: auto;

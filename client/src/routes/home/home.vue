@@ -75,9 +75,7 @@
             DButton
         },
         data() {
-            return devathon({
-                account: {}
-            });
+            return devathon();
         }
     }
 </script>

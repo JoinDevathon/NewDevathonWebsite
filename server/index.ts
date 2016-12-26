@@ -10,6 +10,7 @@ import pages from './src/routes/pages';
 import authentication from './src/routes/authentication';
 import avatar from './src/routes/avatar';
 import api from './src/routes/api';
+import teams from './src/routes/teams';
 
 import config from './config/config';
 import { doMigrations } from './src/data/migration';
@@ -51,6 +52,7 @@ app.use('/public/js', serveStatic('../client/build'));
 app.use('/public/css', serveStatic('../client/styles'));
 app.use('/public/images', serveStatic('../client/images'));
 
+app.use('/teams', teams);
 app.use(pages);
 app.use('/avatar', avatar);
 app.use('/authentication', authentication);

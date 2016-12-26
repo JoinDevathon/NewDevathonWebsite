@@ -22,9 +22,7 @@
 
     export default {
         data() {
-            return devathon({
-                message: 'Unknown error occurred.'
-            });
+            return devathon();
         },
         components: {
             DHeader,

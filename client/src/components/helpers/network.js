@@ -16,5 +16,10 @@ export class NetworkError extends Error {
     constructor(message) {
         super(message);
         this.message = message;
+        this.__networkError = true;
+    }
+
+    static is(error) {
+        return error && error.__networkError;
     }
 }

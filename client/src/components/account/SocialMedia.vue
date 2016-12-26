@@ -4,6 +4,9 @@
         <template v-else>
             <Error v-if="error" style="margin-bottom: 15px">{{error}}</Error>
             <template v-if="edit === false">
+                <DButton :href="`https://github.com/${user.username}`" target="_blank" :index="index">
+                    <GithubLogo/>/ {{user.username}}
+                </DButton>
                 <DButton v-if="user.beam" :href="'https://beam.pro/' + user.beam" target="_blank" :index="index">
                     <BeamLogo/>/ {{user.beam}}
                 </DButton>
@@ -19,7 +22,7 @@
                 <DInput :value="user.twitter" id="twitter" @input="input('twitter', $event)">Twitter</DInput>
                 <DInput :value="user.twitch" id="twitch" @input="input('twitch', $event)">Twitch</DInput>
             </template>
-            <DButton @click="save()" index="2" box="true" full="true" size="thin">
+            <DButton @click="save()" index="2" box="true" full="true" size="thin" v-if="account.id === user.id">
                 <template v-if="edit === false">Edit Media</template>
                 <template v-else>Save</template>
             </DButton>
@@ -41,6 +44,7 @@
 <script>
     import 'whatwg-fetch';
 
+    import GithubLogo from '../../components/images/GithubLogo.vue';
     import BeamLogo from '../../components/images/BeamLogo.vue';
     import TwitterLogo from '../../components/images/TwitterLogo.vue';
     import TwitchLogo from '../../components/images/TwitchLogo.vue'
@@ -52,7 +56,7 @@
     import {request, NetworkError} from '../../components/helpers/network';
 
     export default {
-        props: ['user', 'index'],
+        props: ['user', 'index', 'account'],
         methods: {
             input(type, event) {
                 this.user[type] = event.target.value;
@@ -71,7 +75,7 @@
                         }); // we don't care about the return, if it's not an error
                         this.error = null;
                     } catch (err) {
-                        if (err instanceof NetworkError) {
+                        if (NetworkError.is(err)) {
                             this.error = err.message;
                         } else {
                             console.error(err);
@@ -92,6 +96,7 @@
             }
         },
         components: {
+            GithubLogo,
             BeamLogo,
             TwitterLogo,
             TwitchLogo,

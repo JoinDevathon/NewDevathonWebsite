@@ -1,0 +1,49 @@
+<template>
+    <div class="image-row">
+        <div class="image-row-left">
+            <img :src="src" :alt="alt"/>
+        </div>
+        <div class="image-row-right">
+            <h4>{{title}}</h4>
+            <small><h4>{{sub}}</h4></small>
+        </div>
+    </div>
+</template>
+
+<style>
+    .image-row {
+        padding: 2px 0;
+    }
+
+    .image-row-left > img {
+        border-radius: 25px;
+    }
+
+    .image-row-left, .image-row-right {
+        display: inline-block;
+        vertical-align: text-top;
+    }
+
+    .image-row-left {
+        margin-left: 10px;
+    }
+
+    .image-row-right {
+        margin-left: 10px;
+    }
+
+    .image-row-right > small > h4 {
+        margin: 0;
+        color: #666;
+    }
+
+    .image-row-right > h4 {
+        margin: 5px 0 0;
+    }
+</style>
+
+<script>
+    export default {
+        props: ['src', 'alt', 'title', 'sub']
+    }
+</script>

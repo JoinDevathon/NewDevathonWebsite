@@ -15,4 +15,8 @@
         padding: 6px;
         background-color: rgba(255, 255, 255, 0.2);
     }
+
+    .top-icon img {
+        height: 30px;
+    }
 </style>

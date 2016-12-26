@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS `teams` (
+	`id` INT(255) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255) NOT NULL,
+	`url` VARCHAR(255) NOT NULL,
+	`description` TEXT NOT NULL,
+	`image` BLOB NOT NULL,
+	UNIQUE INDEX `url` (`url`),
+	PRIMARY KEY (`id`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
