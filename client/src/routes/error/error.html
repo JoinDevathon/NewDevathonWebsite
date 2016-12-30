@@ -1,0 +1,33 @@
+<div id="container">
+    <DHeader>
+        <Logo height="'20vw'"/>
+    </DHeader>
+    <DBody>
+        <Error>
+            <h2>Error Occurred: {{message}}</h2>
+            <DButton href="/">Go Home</DButton>
+        </Error>
+    </DBody>
+</div>
+
+<script>
+    import DHeader from '../../components/header/DevathonHeader.html';
+    import Logo from '../../components/images/Logo.html';
+    import DBody from '../../components/containers/DevathonBody.html';
+    import Error from '../../components/containers/Error.html';
+    import DButton from '../../components/forms/DevathonButton.html';
+    import {devathon} from '../common';
+
+    export default {
+        data() {
+            return devathon();
+        },
+        components: {
+            DHeader,
+            Logo,
+            DBody,
+            Error,
+            DButton
+        }
+    }
+</script>

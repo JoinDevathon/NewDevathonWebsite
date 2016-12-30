@@ -1,6 +1,4 @@
 import { Router, Request, Response } from 'express';
-import { createRenderer, Renderer } from 'vue-server-renderer';
-import * as Vue from 'vue';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { wrap } from './utils';
@@ -18,13 +16,10 @@ const routes: {[key: string]: string[]} = {
     'error': []
 };
 
-let vueComponents: any;
-let renderer: Renderer;
+let svelteComponents: any;
 
 if (process.env.NODE_ENV === 'production') {
-    vueComponents = require(join(process.cwd(), '..', 'client', 'build', 'server', 'server.bundle.js'));
-    ;
-    renderer = createRenderer();
+    svelteComponents = require(join(process.cwd(), '..', 'client', 'build', 'bundle.server.js'));
 }
 
 for (let property in routes) {
@@ -45,26 +40,20 @@ function getTemplate(): string {
 
 export function renderRoute(name: string, state: any = {}, res: Response) {
     let template: string = getTemplate();
-
+    state = Object.assign({}, state, {
+        page: name
+    });
 
     let prerendered: string = '<div id="container"></div>';
-    if (vueComponents && vueComponents[ name ] && process.env.NODE_ENV === 'production') {
-        template = template.replace('CSSSTUFF', `
-<link rel="stylesheet" href="/public/css/components.css"/>`);
+    if (svelteComponents && svelteComponents[ name ] && process.env.NODE_ENV === 'production') {
+        template = template.replace('CSSSTUFF', ``);
 
-        require(join(process.cwd(), '..', 'client', 'src', 'routes', 'common.js')).setDevathonData({
-            state: state
-        });
-        const instance: vuejs.Vue = new Vue({
-            render: (h: any) => h(vueComponents[ name ])
-        });
-        renderer.renderToString(instance, (err: Error, html: string) => {
-            if (err) {
-                return console.error(err);
-            }
-            prerendered = html;
-            next();
-        });
+        (global as any)._devathon = {
+            state
+        };
+
+        console.log(svelteComponents[name]);
+        next();
     } else {
         template = template.replace('CSSSTUFF', '');
         next();
@@ -80,8 +69,7 @@ window._devathon = {
     state: ${JSON.stringify(state)}
 };
 </script>
-<script src="/public/js/vendor.bundle.js"></script>
-<script src="/public/js/${name}.bundle.js" async></script>
+<script src="/public/js/bundle.js" async></script>
 `);
         res.end(template);
     }

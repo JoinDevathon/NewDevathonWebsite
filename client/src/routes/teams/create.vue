@@ -41,17 +41,17 @@
 </template>
 
 <script>
-    import DHeader from '../../components/header/DevathonHeader.vue';
-    import DBody from '../../components/containers/DevathonBody.vue';
-    import AccountInfo from '../../components/account/AccountInfo.vue';
+    import DHeader from '../../components/header/DevathonHeader.html';
+    import DBody from '../../components/containers/DevathonBody.html';
+    import AccountInfo from '../../components/account/AccountInfo.html';
     import ColoredBox from '../../components/containers/ColoredBox.vue';
     import DInput from '../../components/forms/DevathonInput.vue';
-    import DButton from '../../components/forms/DevathonButton.vue';
-    import TopLeft from '../../components/containers/TopLeft.vue';
-    import TopLink from '../../components/containers/TopLink.vue';
-    import TopText from '../../components/containers/TopText.vue';
+    import DButton from '../../components/forms/DevathonButton.html';
+    import TopLeft from '../../components/containers/TopLeft.html';
+    import TopLink from '../../components/containers/TopLink.html';
+    import TopText from '../../components/containers/TopText.html';
     import ImageUpload from '../../components/forms/ImageUpload.vue';
-    import Error from '../../components/containers/Error.vue';
+    import Error from '../../components/containers/Error.html';
 
     import {request, NetworkError} from '../../components/helpers/network';
     import {devathon} from '../common';

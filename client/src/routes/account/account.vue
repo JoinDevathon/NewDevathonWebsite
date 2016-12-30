@@ -76,18 +76,18 @@
 </style>
 
 <script>
-    import DHeader from '../../components/header/DevathonHeader.vue';
-    import DBody from '../../components/containers/DevathonBody.vue';
+    import DHeader from '../../components/header/DevathonHeader.html';
+    import DBody from '../../components/containers/DevathonBody.html';
     import TrophyCase from '../../components/contests/TrophyCase.vue';
     import Trophy from '../../components/contests/Trophy.vue';
-    import GithubAvatar from '../../components/images/GithubAvatar.vue';
-    import AccountInfo from '../../components/account/AccountInfo.vue';
-    import DButton from '../../components/forms/DevathonButton.vue';
+    import GithubAvatar from '../../components/images/GithubAvatar.html';
+    import AccountInfo from '../../components/account/AccountInfo.html';
+    import DButton from '../../components/forms/DevathonButton.html';
     import DInput from '../../components/forms/DevathonInput.vue';
-    import Tabs from '../../components/header/HeaderTabs.vue';
+    import Tabs from '../../components/header/HeaderTabs.html';
     import BeamLogo from '../../components/images/BeamLogo.vue';
     import ColoredBox from '../../components/containers/ColoredBox.vue';
-    import ContestBox from '../../components/contests/ContestBox.vue';
+    import ContestBox from '../../components/contests/ContestBox.html';
     import SocialMedia from '../../components/account/SocialMedia.vue';
     import {devathon} from '../common';
 

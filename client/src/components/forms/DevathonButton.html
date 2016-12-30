@@ -1,11 +1,12 @@
-<template>
-    <a v-if="href" :href="href" :class="classes" :style="styles">
-        <slot/>
-    </a>
-    <button v-else :style="styles" :class="classes" @click="$emit('click')">
-        <slot/>
-    </button>
-</template>
+{{#if href}}
+<a href="{{href}}" class="{{classes}}" style="{{styles}}">
+    {{yield}}
+</a>
+{{else}}
+<button style="{{styles}}" class="{{classes}}" on:click="click(event)">
+    {{yield}}
+</button>
+{{/if}}
 
 <style>
     .button {
@@ -57,27 +58,33 @@
     import {colors, mix, hexToRgba} from '../helpers/colors';
 
     export default {
-        props: [
-            'href',
-            'size',
-            'index',
-            'box',
-            'full'
-        ],
+//        props: [
+//            'href',
+//            'size',
+//            'index',
+//            'box',
+//            'full'
+//        ],
+        data() {
+            return {
+                box: false,
+                full: false,
+            };
+        },
         computed: {
-            classes() {
+            classes(size, box, index, full) {
                 return {
                     'button': true,
-                    'thin': this.size === 'thin',
-                    'round': !this.box,
-                    'full': this.full,
-                    'colored': !isNaN(this.index)
+                    'thin': size === 'thin',
+                    'round': !box,
+                    'full': full,
+                    'colored': !isNaN(index)
                 };
             },
-            styles() {
+            styles(index) {
                 return {
-                    backgroundColor: !isNaN(this.index) ? mix(hexToRgba(colors[+this.index % colors.length]), [255, 255, 255, 0.1]) : undefined,
-                    borderColor: !isNaN(this.index) ? 'rgba(255, 255, 255, 0.6)' : undefined
+                    backgroundColor: !isNaN(index) ? mix(hexToRgba(colors[+index % colors.length]), [255, 255, 255, 0.1]) : undefined,
+                    borderColor: !isNaN(index) ? 'rgba(255, 255, 255, 0.6)' : undefined
                 };
             }
         }

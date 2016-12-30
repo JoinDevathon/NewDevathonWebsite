@@ -1,8 +1,6 @@
-<template>
-    <div class="top-left">
-        <slot/>
-    </div>
-</template>
+<div class="top-left">
+    {{yield}}
+</div>
 
 <style>
     .top-left {
@@ -37,7 +35,5 @@
 </style>
 
 <script>
-    export default {
-
-    };
+    export default {};
 </script>

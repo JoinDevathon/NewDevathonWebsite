@@ -1,8 +1,6 @@
-<template>
-    <div class="header">
-        <slot/>
-    </div>
-</template>
+<div class="header">
+    {{yield}}
+</div>
 
 <style>
     .header {
@@ -24,6 +22,5 @@
 </style>
 
 <script>
-    export default {
-    }
+    export default {}
 </script>

@@ -1,0 +1,35 @@
+<img class="gh-avatar" :src="src" :style="style"/>
+
+<style>
+    .gh-avatar {
+        border: 4px solid rgba(255, 255, 255, 0.4);
+        box-sizing: border-box;
+        display: block;
+        margin: 0 auto;
+    }
+</style>
+
+<script>
+    export default {
+//        props: ['username', 'id', 'size', 'marginBottom', 'marginTop', 'rounded'],
+        computed: {
+            style: function (size, rounded) {
+                return {
+                    borderWidth: `${size / 20}px`,
+                    marginTop: this.marginTop || `${size / 5}px`,
+                    marginBottom: this.marginBottom || `${size / 5}px`,
+                    borderRadius: rounded ? `${size / 2}px` : '4px',
+                    width: `${size}px`,
+                    height: `${size}px`
+                };
+            },
+            src: function (id, size, username) {
+                if (id) {
+                    return `/avatar/${id}.png?size=${size}`;
+                }
+                return `https://github.com/${username}.png?size=${size}`
+            }
+        }
+    }
+</script>
+

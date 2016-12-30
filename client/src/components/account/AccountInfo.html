@@ -1,0 +1,87 @@
+<TopLeft href="{{href}}">
+    <Logo height="{{'70px'}}"/>
+    {{#if account && account.id}}
+        <TopLink href="/">
+            <TopText>Home</TopText>
+            <TopIcon>
+                <HomeIcon/>
+            </TopIcon>
+        </TopLink>
+        <TopLink href="/authentication/away">
+            <TopText wow="wow">Account</TopText>
+            <TopIcon>
+                <GithubAvatar id="{{account.github_id}}" size="18" marginBottom="0" marginTop="0"/>
+            </TopIcon>
+        </TopLink>
+        <TopLink href="/authentication/logout">
+            <TopText>Log Out</TopText>
+            <TopIcon>
+                <LogOutIcon/>
+            </TopIcon>
+        </TopLink>
+    {{else}}
+        <TopLink href="/">
+            <TopText>Home</TopText>
+            <TopIcon>
+                <HomeIcon/>
+            </TopIcon>
+        </TopLink>
+        <TopLink href="/authentication/away">
+            <TopText>Log In/Register</TopText>
+            <TopIcon>
+                <LogInIcon/>
+            </TopIcon>
+        </TopLink>
+    {{/if}}
+</TopLeft>
+
+<style>
+    @media (min-width: 1000px) {
+        .info-avatar {
+            margin: 5px auto 12px !important;
+        }
+    }
+</style>
+
+<script>
+    import TopLeft from '../containers/TopLeft.html';
+    import TopLink from '../containers/TopLink.html';
+    import TopText from '../containers/TopText.html';
+    import TopIcon from '../containers/TopIcon.html';
+    import Logo from '../images/Logo.html';
+    import LogInIcon from '../images/LogInIcon.html';
+    import LogOutIcon from '../images/LogOutIcon.html';
+    import AccountIcon from '../images/AccountIcon.html';
+    import HomeIcon from '../images/HomeIcon.html';
+    import GithubAvatar from '../images/GithubAvatar.html';
+
+    export default {
+//        props: ['account', 'home'],
+        components: {
+            TopLeft,
+            TopLink,
+            TopText,
+            TopIcon,
+            LogInIcon,
+            LogOutIcon,
+            HomeIcon,
+            Logo,
+            AccountIcon,
+            GithubAvatar
+        },
+        computed: {
+            link(home) {
+                if (home) {
+                    return '/authentication/away';
+                }
+            },
+            href(home) {
+                if (home) {
+                    return '/authentication/away';
+                } else {
+                    return '/';
+                }
+            }
+        }
+    };
+</script>

@@ -1,10 +1,12 @@
-<template>
-    <div class="header-tabs">
-        <slot/>
-    </div>
-</template>
+<div class="header-tabs">
+    {{yield}}
+</div>
 
 <style>
+    .header-tabs {
+        margin: 20px 0 10px;
+    }
+
     .header-tabs .button, .header-tabs .input-container {
         margin: 4px 5px;
         display: inline-block;
@@ -16,15 +18,9 @@
         margin: 0;
     }
 
-    @media(min-width: 1000px) {
+    @media (min-width: 1000px) {
         .header-tabs .button, .header-tabs .input-container, .header-tabs .input {
             width: auto;
         }
-    }
-</style>
-
-<style>
-    .header-tabs {
-        margin: 20px 0 10px;
     }
 </style>

@@ -38,11 +38,11 @@
 </template>
 
 <script>
-    import DHeader from '../../components/header/DevathonHeader.vue';
-    import AccountInfo from '../../components/account/AccountInfo.vue';
-    import DBody from '../../components/containers/DevathonBody.vue';
+    import DHeader from '../../components/header/DevathonHeader.html';
+    import AccountInfo from '../../components/account/AccountInfo.html';
+    import DBody from '../../components/containers/DevathonBody.html';
     import ColoredBox from '../../components/containers/ColoredBox.vue';
-    import ContestBox from '../../components/contests/ContestBox.vue';
+    import ContestBox from '../../components/contests/ContestBox.html';
     import ImageRow from '../../components/containers/ImageRow.vue';
     import {devathon} from '../common';
 

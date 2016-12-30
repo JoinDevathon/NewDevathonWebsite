@@ -48,10 +48,10 @@
     import BeamLogo from '../../components/images/BeamLogo.vue';
     import TwitterLogo from '../../components/images/TwitterLogo.vue';
     import TwitchLogo from '../../components/images/TwitchLogo.vue'
-    import DButton from '../../components/forms/DevathonButton.vue';
+    import DButton from '../forms/DevathonButton.html';
     import DInput from '../../components/forms/DevathonInput.vue';
     import LoaderIcon from '../../components/images/LoaderIcon.vue';
-    import Error from '../../components/containers/Error.vue';
+    import Error from '../containers/Error.html';
 
     import {request, NetworkError} from '../../components/helpers/network';
 
