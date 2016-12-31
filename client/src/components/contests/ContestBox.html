@@ -58,6 +58,7 @@
     import DButton from '../forms/DevathonButton.html';
     import BoxInformation from '../containers/BoxInformation.html';
     import {colors, shade} from '../helpers/colors';
+    import {toString} from '../helpers/css';
 
     export default {
 //        props: {
@@ -69,20 +70,25 @@
 //            href: {},
 //            width: {'default': null}
 //        },
-        computed: {
-            contestStyles(index) {
-                return {
-                    backgroundColor: colors[this.index % colors.length],
-                    boxShadow: `6px 6px ${shade(colors[this.index % colors.length], -30)}`,
-                    width: this.width
-                };
-            }
-        },
         data() {
             return {
-                color: '#fff',
-                shadow: '0 0 #fff',
+                index: 0,
+                title: 'Default Title and Year',
+                description: 'Default description',
+                status: null,
+                info: 'Status: Planned',
+                href: null,
+                width: null
             };
+        },
+        computed: {
+            contestStyles(index) {
+                return toString({
+                    backgroundColor: colors[index % colors.length],
+                    boxShadow: `6px 6px ${shade(colors[index % colors.length], -30)}`,
+                    width: this.width
+                });
+            }
         },
         components: {
             DButton,

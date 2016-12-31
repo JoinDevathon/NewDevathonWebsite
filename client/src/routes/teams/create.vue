@@ -44,8 +44,8 @@
     import DHeader from '../../components/header/DevathonHeader.html';
     import DBody from '../../components/containers/DevathonBody.html';
     import AccountInfo from '../../components/account/AccountInfo.html';
-    import ColoredBox from '../../components/containers/ColoredBox.vue';
-    import DInput from '../../components/forms/DevathonInput.vue';
+    import ColoredBox from '../../components/containers/ColoredBox.html';
+    import DInput from '../../components/forms/DevathonInput.html';
     import DButton from '../../components/forms/DevathonButton.html';
     import TopLeft from '../../components/containers/TopLeft.html';
     import TopLink from '../../components/containers/TopLink.html';

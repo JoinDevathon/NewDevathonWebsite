@@ -1,4 +1,5 @@
 import home from './home/index';
+import account from './account/index';
 import error from './error/index';
 import {devathon} from './common';
 
@@ -6,6 +7,8 @@ import {devathon} from './common';
     switch (devathon().page) {
         case 'home':
             return home();
+        case 'account':
+            return account();
         case 'error':
             return error();
         default:

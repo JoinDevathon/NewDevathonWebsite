@@ -1,0 +1,50 @@
+    <div class="colored-box" style="{{styles}}">
+        {{#if title}}
+            <h4 class="colored-box-title" style="{{titleStyles}}">{{title}}</h4>
+        {{/if}}
+        <div class="colored-box-padded">
+            {{yield}}
+        </div>
+    </div>
+
+<style>
+    .colored-box {
+        border-radius: 8px;
+        border: 3px solid #fff;
+        background-color: #fff;
+
+        margin: 10px;
+    }
+
+    .colored-box-title {
+        font-weight: 300;
+        text-align: center;
+        padding: 10px 16px;
+        color: #fff;
+    }
+
+    .colored-box-padded {
+        padding: 8px;
+    }
+</style>
+
+<script>
+    import {colors} from '../helpers/colors';
+    import {toString} from '../helpers/css';
+
+    export default {
+//        props: ['index', 'title'],
+        computed: {
+            styles(index) {
+                return toString({
+                    borderColor: colors[+index % colors.length]
+                });
+            },
+            titleStyles(index) {
+                return toString({
+                    backgroundColor: colors[+index % colors.length]
+                });
+            }
+        }
+    }
+</script>

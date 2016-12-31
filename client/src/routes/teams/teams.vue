@@ -41,7 +41,7 @@
     import DHeader from '../../components/header/DevathonHeader.html';
     import AccountInfo from '../../components/account/AccountInfo.html';
     import DBody from '../../components/containers/DevathonBody.html';
-    import ColoredBox from '../../components/containers/ColoredBox.vue';
+    import ColoredBox from '../../components/containers/ColoredBox.html';
     import ContestBox from '../../components/contests/ContestBox.html';
     import ImageRow from '../../components/containers/ImageRow.vue';
     import {devathon} from '../common';

@@ -1,37 +1,37 @@
 <TopLeft href="{{href}}">
     <Logo height="{{'70px'}}"/>
     {{#if account && account.id}}
-        <TopLink href="/">
-            <TopText>Home</TopText>
-            <TopIcon>
+        <a class="top-link" href="/">
+            <h5 class="top-text">Home</h5>
+            <div class="top-icon">
                 <HomeIcon/>
-            </TopIcon>
-        </TopLink>
-        <TopLink href="/authentication/away">
-            <TopText wow="wow">Account</TopText>
-            <TopIcon>
-                <GithubAvatar id="{{account.github_id}}" size="18" marginBottom="0" marginTop="0"/>
-            </TopIcon>
-        </TopLink>
-        <TopLink href="/authentication/logout">
-            <TopText>Log Out</TopText>
-            <TopIcon>
+            </div>
+        </a>
+        <a class="top-link" href="/authentication/away">
+            <h5 class="top-text">Account</h5>
+            <div class="top-icon">
+                <GithubAvatar id="{{account.github_id}}" size="18" marginBottom="'0px'" marginTop="'0px'"/>
+            </div>
+        </a>
+        <a class="top-link" href="/authentication/logout">
+            <h5 class="top-text">Log Out</h5>
+            <div class="top-icon">
                 <LogOutIcon/>
-            </TopIcon>
-        </TopLink>
+            </div>
+        </a>
     {{else}}
-        <TopLink href="/">
-            <TopText>Home</TopText>
-            <TopIcon>
+        <a class="top-link" href="/">
+            <h5 class="top-text">Home</h5>
+            <div class="top-icon">
                 <HomeIcon/>
-            </TopIcon>
-        </TopLink>
-        <TopLink href="/authentication/away">
-            <TopText>Log In/Register</TopText>
-            <TopIcon>
+            </div>
+        </a>
+        <a class="top-link" href="/authentication/away">
+            <h5 class="top-text">Log In/Register</h5>
+            <div class="top-icon">
                 <LogInIcon/>
-            </TopIcon>
-        </TopLink>
+            </div>
+        </a>
     {{/if}}
 </TopLeft>
 
@@ -45,7 +45,7 @@
 
 <script>
     import TopLeft from '../containers/TopLeft.html';
-    import TopLink from '../containers/TopLink.html';
+//    import TopLink from '../containers/TopLink.html';
     import TopText from '../containers/TopText.html';
     import TopIcon from '../containers/TopIcon.html';
     import Logo from '../images/Logo.html';
@@ -59,7 +59,7 @@
 //        props: ['account', 'home'],
         components: {
             TopLeft,
-            TopLink,
+//            TopLink,
             TopText,
             TopIcon,
             LogInIcon,

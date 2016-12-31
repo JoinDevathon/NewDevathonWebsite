@@ -1,11 +1,14 @@
-<template>
-    <div class="input-container">
-        <label class="label" :for="id"><slot/></label>
-        <input v-if="!multiline" class="input" :id="id" :value="value" @input="$emit('input', $event)"/>
-        <textarea v-else class="input" :id="id" @input="$emit('input', $event)">{{value}}</textarea>
-        <small class="sub">{{sub || ''}}</small>
-    </div>
-</template>
+<div class="input-container">
+    <label class="label" for="{{id}}">
+        {{yield}}
+    </label>
+    {{#if multiline}}
+        <textarea class="input" id="{{id}}" on:input="input($event)">{{value}}</textarea>
+    {{else}}
+        <input class="input" id="{{id}}" value="{{value}}" on:input="input($event)"/>
+    {{/if}}
+    <small class="sub">{{sub || ''}}</small>
+</div>
 
 <style>
     .input-container {
@@ -45,6 +48,6 @@
 
 <script>
     export default {
-        props: ['id', 'value', 'multiline', 'sub']
+//        props: ['id', 'value', 'multiline', 'sub']
     }
 </script>

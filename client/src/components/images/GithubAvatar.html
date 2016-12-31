@@ -1,4 +1,4 @@
-<img class="gh-avatar" :src="src" :style="style"/>
+<img class="gh-avatar" src="{{src}}" style="{{style}}"/>
 
 <style>
     .gh-avatar {
@@ -13,15 +13,13 @@
     export default {
 //        props: ['username', 'id', 'size', 'marginBottom', 'marginTop', 'rounded'],
         computed: {
-            style: function (size, rounded) {
-                return {
-                    borderWidth: `${size / 20}px`,
-                    marginTop: this.marginTop || `${size / 5}px`,
-                    marginBottom: this.marginBottom || `${size / 5}px`,
-                    borderRadius: rounded ? `${size / 2}px` : '4px',
-                    width: `${size}px`,
-                    height: `${size}px`
-                };
+            style: function (size, rounded, marginBottom, marginTop) {
+                return `border-width: ${size / 20}px;` +
+                        `margin-top: ${marginTop || `${size / 5}px`};` +
+                        `margin-bottom: ${marginBottom || `${size / 5}px`};` +
+                        `border-radius: ${rounded ? `${size / 2}px` : `4px`};` +
+                        `width: ${size}px;` +
+                        `height: ${size}px;`;
             },
             src: function (id, size, username) {
                 if (id) {

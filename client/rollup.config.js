@@ -4,9 +4,24 @@ const babel = require('rollup-plugin-babel');
 const resolve = require('rollup-plugin-node-resolve');
 const common = require('rollup-plugin-commonjs');
 const replace = require('rollup-plugin-replace');
+const closure = require('rollup-plugin-closure-compiler-js');
 
+const plugins = [
+    resolve({
+        include: ['node_modules/**'],
+        jsnext: true,
+        main: true,
+        browser: true
+    }),
+    common({
+        include: ['node_modules/**']
+    }),
+    babel({
+        exclude: 'node_modules/**',
+        runtimeHelpers: true
+    })
+];
 let entry = './src/routes/client.js';
-let svelteSettings = undefined;
 let destName = 'bundle.js';
 let format = 'iife';
 
@@ -15,34 +30,25 @@ if (process.env.NODE_ENV === 'production') {
         destName = 'bundle.server.js';
         entry = './src/routes/server.js';
         format = 'cjs';
-        svelteSettings = {
+        plugins.unshift(svelte({
             generate: 'ssr'
-        };
+        }));
     } else {
-        svelteSettings = {
+        plugins.unshift(svelte({
             css: false
-        };
+        }));
+        plugins.push(closure({
+            compilationLevel: 'ADVANCED',
+            warningLevel: 'QUIET'
+        }));
     }
+} else {
+    plugins.unshift(svelte());
 }
 
 export default {
     entry,
     dest: `./build/${destName}`,
     format,
-    plugins: [
-        svelte(svelteSettings),
-        resolve({
-            include: ['node_modules/**'],
-            jsnext: true,
-            main: true,
-            browser: true
-        }),
-        common({
-            include: ['node_modules/**']
-        }),
-        babel({
-            exclude: 'node_modules/**',
-            externalHelpers: false
-        })
-    ]
-}
+    plugins
+};

@@ -1,34 +1,51 @@
-<template>
-    <div class="account-media">
-        <LoaderIcon v-if="loading"/>
-        <template v-else>
-            <Error v-if="error" style="margin-bottom: 15px">{{error}}</Error>
-            <template v-if="edit === false">
-                <DButton :href="`https://github.com/${user.username}`" target="_blank" :index="index">
-                    <GithubLogo/>/ {{user.username}}
+<div class="account-media">
+    {{#if loading}}
+        <LoaderIcon/>
+    {{else}}
+        {{#if error}}
+            <Error style="margin-bottom: 15px">{{error}}</Error>
+        {{/if}}
+        {{#if !edit}}
+            {{#if user.username}}
+                <DButton href="https://github.com/{{user.username}}" target="_blank" index="{{index}}">
+                    <GithubLogo/>
+                    / {{user.username}}
                 </DButton>
-                <DButton v-if="user.beam" :href="'https://beam.pro/' + user.beam" target="_blank" :index="index">
-                    <BeamLogo/>/ {{user.beam}}
+            {{/if}}
+            {{#if user.beam}}
+                <DButton href="https://beam.pro/{{user.beam}}" target="_blank" index="{{index}}">
+                    <BeamLogo/>
+                    / {{user.beam}}
                 </DButton>
-                <DButton v-if="user.twitter" :href="'https://twitter.com/' + user.twitter" target="_blank" :index="index">
-                    <TwitterLogo class="twitter-logo"/>/ {{user.twitter}}
+            {{/if}}
+            {{#if user.twitter}}
+                <DButton href="https://twitter.com/{{user.twitter}}" target="_blank" index="{{index}}">
+                    <TwitterLogo class="twitter-logo"/>
+                    / {{user.twitter}}
                 </DButton>
-                <DButton v-if="user.twitch" :href="'https://twitch.tv/' + user.twitch" target="_blank" :index="index">
-                    <TwitchLogo/>/ {{user.twitch}}
+            {{/if}}
+            {{#if user.twitch}}
+                <DButton href="https://twitch.tv/{{user.twitch}}" target="_blank" index="{{index}}">
+                    <TwitchLogo/>
+                    / {{user.twitch}}
                 </DButton>
-            </template>
-            <template v-else>
-                <DInput :value="user.beam" id="beam" @input="input('beam', $event)">Beam</DInput>
-                <DInput :value="user.twitter" id="twitter" @input="input('twitter', $event)">Twitter</DInput>
-                <DInput :value="user.twitch" id="twitch" @input="input('twitch', $event)">Twitch</DInput>
-            </template>
-            <DButton @click="save()" index="2" box="true" full="true" size="thin" v-if="account.id === user.id">
-                <template v-if="edit === false">Edit Media</template>
-                <template v-else>Save</template>
+            {{/if}}
+        {{else}}
+            <DInput value="{{user.beam}}" id="beam" on:input="input('beam', $event)">Beam</DInput>
+            <DInput value="{{user.twitter}}" id="twitter" on:input="input('twitter', $event)">Twitter</DInput>
+            <DInput value="{{user.twitch}}" id="twitch" on:input="input('twitch', $event)">Twitch</DInput>
+        {{/if}}
+        {{#if account.id === user.id}}
+            <DButton on:click="save()" index="2" box="true" full="true" size="thin">
+                {{#if edit}}
+                    Save
+                {{else}}
+                    Edit Media
+                {{/if}}
             </DButton>
-        </template>
-    </div>
-</template>
+        {{/if}}
+    {{/if}}
+</div>
 
 <style>
     .account-media a.button {
@@ -44,19 +61,19 @@
 <script>
     import 'whatwg-fetch';
 
-    import GithubLogo from '../../components/images/GithubLogo.vue';
-    import BeamLogo from '../../components/images/BeamLogo.vue';
-    import TwitterLogo from '../../components/images/TwitterLogo.vue';
-    import TwitchLogo from '../../components/images/TwitchLogo.vue'
+    import GithubLogo from '../images/GithubLogo.html';
+    import BeamLogo from '../images/BeamLogo.html';
+    import TwitterLogo from '../images/TwitterLogo.html';
+    import TwitchLogo from '../images/TwitchLogo.html'
     import DButton from '../forms/DevathonButton.html';
-    import DInput from '../../components/forms/DevathonInput.vue';
-    import LoaderIcon from '../../components/images/LoaderIcon.vue';
+    import DInput from '../forms/DevathonInput.html';
+    import LoaderIcon from '../images/LoaderIcon.html';
     import Error from '../containers/Error.html';
 
     import {request, NetworkError} from '../../components/helpers/network';
 
     export default {
-        props: ['user', 'index', 'account'],
+//        props: ['user', 'index', 'account'],
         methods: {
             input(type, event) {
                 this.user[type] = event.target.value;

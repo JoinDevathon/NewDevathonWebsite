@@ -1,8 +1,6 @@
 import '../common';
-import Account from './account.vue';
-import Vue from 'vue';
+import Account from './account.html';
 
-new Vue({
-    el: '#container',
-    render: h => h(Account)
+export default () => new Account({
+    target: document.getElementById('container')
 });

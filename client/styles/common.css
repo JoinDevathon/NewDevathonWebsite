@@ -102,6 +102,50 @@ img {
     width: 150px;
 }
 
+.top-link {
+    width: 100%;
+    padding-left: 6px;
+    margin: 1px 0;
+    box-sizing: border-box;
+    height: 30px;
+    display: block;
+    text-align: left;
+    /*border-bottom: 1px solid rgba(255, 255, 255, 0.3);*/
+
+    color: #fff;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.top-link:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.top-text {
+    text-align: left;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0;
+    padding: 5px 15px 5px 5px;
+    display: inline-block;
+}
+
+.top-icon {
+    float: right;
+    display: inline-block;
+    box-sizing: border-box;
+    height: 30px;
+    text-align: right;
+    margin: 0 0 0 4px;
+    padding: 6px;
+    line-height: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.top-icon img {
+    height: 30px;
+}
+
 @media (min-width: 1000px) {
 
     /*
