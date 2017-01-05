@@ -3,9 +3,9 @@
         {{yield}}
     </label>
     {{#if multiline}}
-        <textarea class="input" id="{{id}}" on:input="input($event)">{{value}}</textarea>
+        <textarea class="input" id="{{id}}" on:input="fire('input', event)">{{value}}</textarea>
     {{else}}
-        <input class="input" id="{{id}}" value="{{value}}" on:input="input($event)"/>
+        <input class="input" id="{{id}}" value="{{value}}" on:input="fire('input', event)"/>
     {{/if}}
     <small class="sub">{{sub || ''}}</small>
 </div>

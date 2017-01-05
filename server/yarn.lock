@@ -55,8 +55,8 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "6.0.55"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.55.tgz#e5cb679a43561f42afd1bd6d58d3992ec8f31720"
+  version "6.0.57"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.57.tgz#100f9d4390331297bc3b6160ac4805b46de6e752"
 
 "@types/redis@^0.12.33":
   version "0.12.34"

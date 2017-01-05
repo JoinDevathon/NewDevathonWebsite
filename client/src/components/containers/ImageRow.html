@@ -1,14 +1,12 @@
-<template>
-    <div class="image-row">
-        <div class="image-row-left">
-            <img :src="src" :alt="alt"/>
-        </div>
-        <div class="image-row-right">
-            <h4>{{title}}</h4>
-            <small><h4>{{sub}}</h4></small>
-        </div>
+<div class="image-row">
+    <div class="image-row-left">
+        <img src="{{src}}" alt="{{alt}}"/>
     </div>
-</template>
+    <div class="image-row-right">
+        <h4>{{title}}</h4>
+        <small><h4>{{sub}}</h4></small>
+    </div>
+</div>
 
 <style>
     .image-row {
@@ -44,6 +42,6 @@
 
 <script>
     export default {
-        props: ['src', 'alt', 'title', 'sub']
+//        props: ['src', 'alt', 'title', 'sub']
     }
 </script>

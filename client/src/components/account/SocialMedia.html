@@ -31,9 +31,9 @@
                 </DButton>
             {{/if}}
         {{else}}
-            <DInput value="{{user.beam}}" id="beam" on:input="input('beam', $event)">Beam</DInput>
-            <DInput value="{{user.twitter}}" id="twitter" on:input="input('twitter', $event)">Twitter</DInput>
-            <DInput value="{{user.twitch}}" id="twitch" on:input="input('twitch', $event)">Twitch</DInput>
+            <DInput value="{{user.beam}}" id="beam" on:input="input('beam', event)">Beam</DInput>
+            <DInput value="{{user.twitter}}" id="twitter" on:input="input('twitter', event)">Twitter</DInput>
+            <DInput value="{{user.twitch}}" id="twitch" on:input="input('twitch', event)">Twitch</DInput>
         {{/if}}
         {{#if account.id === user.id}}
             <DButton on:click="save()" index="2" box="true" full="true" size="thin">
@@ -76,32 +76,35 @@
 //        props: ['user', 'index', 'account'],
         methods: {
             input(type, event) {
-                this.user[type] = event.target.value;
+                this.get('user')[type] = event.target.value;
             },
             async save() {
-                if (this.edit) {
-                    this.loading = true;
+                if (this.get('edit')) {
+                    this.set({loading: true});
                     try {
+                        const user = this.get('user');
                         await request('/api/profile/media/edit', {
                             method: 'POST',
                             body: JSON.stringify({
-                                beam: this.user.beam,
-                                twitch: this.user.twitch,
-                                twitter: this.user.twitter
+                                beam: user.beam,
+                                twitch: user.twitch,
+                                twitter: user.twitter
                             })
                         }); // we don't care about the return, if it's not an error
-                        this.error = null;
+                        this.set({error: null});
                     } catch (err) {
+                        let error;
                         if (NetworkError.is(err)) {
-                            this.error = err.message;
+                            error = err.message;
                         } else {
                             console.error(err);
-                            this.error = 'An unknown server error occurred.';
+                            error = 'An unknown server error occurred.';
                         }
+                        this.set({error});
                     }
-                    this.loading = this.edit = false;
+                    this.set({loading: false, edit: false});
                 } else {
-                    this.edit = true;
+                    this.set({edit: true});
                 }
             }
         },

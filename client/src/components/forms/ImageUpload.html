@@ -1,12 +1,13 @@
-<template>
     <div class="image-upload">
-        <img v-if="image" :src="image" class="image-upload-image"/>
-        <div v-else class="image-upload-placeholder">
-            Upload
-        </div>
-        <input class="image-upload-input" type="file" accept="image/gif, image/jpeg, image/png" @change="change($event)">
+        {{#if image}}
+            <img v-if="image" src="{{image}}" class="image-upload-image"/>
+        {{else}}
+            <div class="image-upload-placeholder">
+                Upload
+            </div>
+        {{/if}}
+        <input class="image-upload-input" type="file" accept="image/gif, image/jpeg, image/png" on:change="change(event)">
     </div>
-</template>
 
 <style>
     .image-upload {
@@ -66,9 +67,9 @@
                             ctx.clearRect(0, 0, canvas.width, canvas.height);
                             ctx.drawImage(image, 0, 0, 150, 150);
 
-                            this.image = canvas.toDataURL('image/png');
+                            this.set({image: canvas.toDataURL('image/png')});
 
-                            this.$emit('change', this.image);
+                            this.fire('change', this.get('image'));
                         };
                         image.src = file.target.result;
                     };

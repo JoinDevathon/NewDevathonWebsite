@@ -1,8 +1,6 @@
 import '../common';
-import Teams from './teams.vue';
-import Vue from 'vue';
+import Teams from './teams.html';
 
-new Vue({
-    el: '#container',
-    render: h => h(Teams)
+export default () => new Teams({
+    target: document.getElementById('container')
 });

@@ -3,7 +3,7 @@
     {{yield}}
 </a>
 {{else}}
-<button style="{{styles}}" class="{{classes}}" on:click="click(event)">
+<button style="{{styles}}" class="{{classes}}" on:click="fire('click', event)">
     {{yield}}
 </button>
 {{/if}}

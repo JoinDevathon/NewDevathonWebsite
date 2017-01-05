@@ -1,8 +1,8 @@
 import '../common';
-import Create from './create.vue';
-import Vue from 'vue';
+import Create from './create.html';
 
-new Vue({
-    el: '#container',
-    render: h => h(Create)
-});
+export default () => {
+    return new Create({
+        target: document.getElementById('container')
+    });
+};

@@ -1,0 +1,118 @@
+<div id="container">
+    <DHeader>
+        <TopLeft>
+            <TopLink href="/authentication/away">
+                <TopText>Back</TopText>
+            </TopLink>
+        </TopLeft>
+
+        <h1 class="buttercup">Create Team</h1>
+    </DHeader>
+    <DBody>
+        <div class="clearfix">
+            <div class="twenty-five" style="text-indent: -9999px">
+                If you find this send an email to paul@burngames.net and I'll hook you up with a trophy.
+            </div>
+            <div class="fifty">
+                {{#if error}}
+                    <Error>{{error}}</Error>
+                {{/if}}
+                <br/>
+
+                <div class="clearfix">
+                    <div class="fifty">
+                        <DInput on:input="update('name', event)" value="{{form.name}}">Team Name</DInput>
+                        <DInput on:input="update('url', event)" value="{{form.url}}" sub="devathon.org/teams/{{url}}">
+                            Team URL
+                        </DInput>
+                    </div>
+                    <div class="fifty padded" style="text-align: center">
+                        <small style="margin: 0; padding: 0">Team Avatar</small>
+                        <ImageUpload on:change="setImage(event)"/>
+                    </div>
+                </div>
+
+                <DInput multiline="true" on:input="update('description', event)" value="{{form.description}}">Team Description</DInput>
+
+                <DButton index="1" full="true" on:click="save()">Create Team</DButton>
+            </div>
+        </div>
+    </DBody>
+</div>
+
+<script>
+    import DHeader from '../../components/header/DevathonHeader.html';
+    import DBody from '../../components/containers/DevathonBody.html';
+    import AccountInfo from '../../components/account/AccountInfo.html';
+    import ColoredBox from '../../components/containers/ColoredBox.html';
+    import DInput from '../../components/forms/DevathonInput.html';
+    import DButton from '../../components/forms/DevathonButton.html';
+    import TopLeft from '../../components/containers/TopLeft.html';
+    import TopLink from '../../components/containers/TopLink.html';
+    import TopText from '../../components/containers/TopText.html';
+    import ImageUpload from '../../components/forms/ImageUpload.html';
+    import Error from '../../components/containers/Error.html';
+
+    import {request, NetworkError} from '../../components/helpers/network';
+    import {devathon} from '../common';
+
+    export default {
+        data() {
+            return devathon({
+                error: null,
+                form: {
+                    name: '',
+                    url: '',
+                    image: '',
+                    description: ''
+                }
+            });
+        },
+        methods: {
+            setImage(image) {
+                this.set({form: Object.assign({}, this.get('form'), {image})});
+            },
+            update(type, event) {
+                const obj = {};
+                obj[type] = event.target.value;
+                this.set({form: Object.assign({}, this.get('form'), obj)});
+            },
+            async save() {
+                try {
+                    const res = await request('/api/profile/teams/create', {
+                        method: 'POST',
+                        body: JSON.stringify(this.get('form'))
+                    });
+                    window.location.href = `/teams/${res.url}`;
+                } catch (err) {
+                    let error;
+                    if (NetworkError.is(err)) {
+                        error = err.message;
+                    } else {
+                        error = 'An unknown server error occurred.';
+                        console.error(err);
+                    }
+                    this.set({error});
+                }
+            }
+        },
+        computed: {
+            url(form) {
+                return form.url.toLowerCase().replace(/[^a-zA-Z0-9-_]/g, '').substr(0, 16);
+            }
+        },
+        components: {
+            Error,
+            DHeader,
+            DBody,
+            ColoredBox,
+            DInput,
+            DButton,
+            TopLeft,
+            TopLink,
+            TopText,
+            ImageUpload,
+            AccountInfo
+        }
+    }
+</script>

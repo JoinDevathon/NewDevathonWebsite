@@ -820,8 +820,8 @@ lodash.templatesettings@^3.0.0:
     lodash.escape "^3.0.0"
 
 lodash@^4.2.0:
-  version "4.17.3"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.3.tgz#557ed7d2a9438cac5fd5a43043ca60cb455e01f7"
+  version "4.17.4"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
 loose-envify@^1.0.0:
   version "1.3.0"
@@ -1084,8 +1084,8 @@ supports-color@^2.0.0:
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
 
 svelte@^1.6.0, svelte@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-1.6.1.tgz#ab0eea00102aab2e21d7f5713d51b7a6dc4022d2"
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-1.6.3.tgz#a1a7172e98c660f692b0ed9c6473b0756a75b1de"
   dependencies:
     magic-string "^0.19.0"
 
