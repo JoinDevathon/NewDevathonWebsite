@@ -5,14 +5,17 @@ import { wrap } from './utils';
 import { getUserById, UserAttributes, getTrophies, getBasicUserById } from '../data/users';
 import { getUserName } from '../cache/user';
 import { getTeam, getTeamsForUser, getTeamMembers, UserWithRole } from '../data/teams';
+import { getAllContests, getContestFromURL } from '../data/contests';
 
+const debug = require('debug')('Devathon:Pages');
 const router: Router = Router();
 
 const routes: {[key: string]: string[]} = {
     'home': [ '/', '/home' ],
     'account': [ '/user/:id' ],
-    'teamCreate': [ '/teams/create' ],
-    'teams': [ '/teams/:url' ],
+    // 'teamCreate': [ '/teams/create' ],
+    // 'teams': [ '/teams/:url' ],
+    '2016': ['/2016'],
     'error': []
 };
 
@@ -52,7 +55,7 @@ export function renderRoute(name: string, state: any = {}, res: Response) {
             state
         };
 
-        console.log(svelteComponents[name]);
+        console.log(svelteComponents[ name ]);
         next();
     } else {
         template = template.replace('CSSSTUFF', '');
@@ -77,20 +80,22 @@ window._devathon = {
 
 function registerRoute(name: string, routes: string[]) {
     const handler = async(req: Request, res: Response) => {
+        const time = Date.now();
         let state: any = {
             account: {}
         };
         switch (name) {
-            case 'teams':
-                state.team = await getTeam(req.params.url); // falling falling falling
-                state.team.members = await getTeamMembers(state.team.id);
-                state.team.members = await Promise.all(state.team.members.map(async (member: UserWithRole) => {
-                    return Object.assign({
-                        username: await getUserName(member.github_id)
-                    }, member);
-                }));
+            // case 'teams':
+            //     state.team = await getTeam(req.params.url); // falling falling falling
+            //     state.team.members = await getTeamMembers(state.team.id);
+            //     state.team.members = await Promise.all(state.team.members.map(async(member: UserWithRole) => {
+            //         return Object.assign({
+            //             username: await getUserName(member.github_id)
+            //         }, member);
+            //     }));
             case 'home':
-            case 'teamCreate':
+                state.contests = await getAllContests();
+            // case 'teamCreate':
                 if (req.session && req.session.userId) {
                     state.account = await getBasicUserById(req.session.userId);
                 }
@@ -126,10 +131,16 @@ function registerRoute(name: string, routes: string[]) {
                     }
                 }
                 state.user.trophies = await getTrophies(state.user.id);
-                state.user.teams = await getTeamsForUser(state.user.id);
+                // state.user.teams = await getTeamsForUser(state.user.id);
                 break;
+            case '2016':
+                if (req.session && req.session.userId) {
+                    state.account = await getBasicUserById(req.session.userId);
+                    state.contest = await getContestFromURL('2016');
+                }
         }
         renderRoute(name, state, res);
+        debug('Took', Date.now() - time, 'ms to render page', name);
     };
     routes.forEach(route => router.get(route, wrap(handler)));
 }

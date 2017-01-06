@@ -1,0 +1,111 @@
+<div id="container">
+    <DHeader>
+        <AccountInfo account="{{account}}"/>
+        <Logo height="20vw" style="min-height: 200px; max-height: 400px"/>
+        <h2>The only 24 hour Bukkit Plugin Development Contest for everyone.</h2>
+        <hr/>
+        <Countdown start="{{start}}" end="{{end}}"/>
+        <hr/>
+    </DHeader>
+    <DBody>
+        <h2 class="header">About</h2>
+        <p>Devathon is a contest running from November 5th to November 6th. The contest is on for all timezones. You're allowed to work the full 24 hours, or just while the sun is up. Once Sunday comes around, all projects are closed and judging will begin.</p>
+
+        <h3 class="header">Why</h3>
+        <p>After the ten.java contest moved on to Sponge, we decided since the majority of the Minecraft community uses Bukkit we'd put on a contest of our own.</p>
+        <p>Unlike ten.java you have a full 24 hours and are competing against people from all timezones. So be sure your submission is the best!</p>
+
+        <h3 class="header">When</h3>
+        <p>The contest starts on <b>November 5th at 8AM Central</b> and ends on <b>November 6th at 8AM Central</b>.</p>
+
+        <div class="block">
+            <h2 class="header">Rewards</h2>
+            <p>We offer money and prizes as rewards. All rewards were given by our great sponsors.</p>
+
+            <h3 class="header">First Place</h3>
+            <p>$100, the official t-shirt, and a 6 month Enjin Plan!</p>
+
+            <h3 class="header">Second Place</h3>
+            <p>$50, the official t-shirt, and a 6 month Enjin Plan!</p>
+
+            <h3 class="header">Third Place</h3>
+            <p>$25 and the official t-shirt!</p>
+
+            <h3 class="header">Participants</h3>
+            <p>Everyone who submits a project that is not disqualified (see rules) will get a participant t-shirt!</p>
+        </div>
+
+        <h2 class="header">Rules</h2>
+        <ol>
+            <li>Teaming is not allowed.</li>
+            <li>No usage of public code &amp; libraries.</li>
+            <li>Streaming is allowed.</li>
+            <li>Purposely copying another person’s idea is not allowed.</li>
+            <li>You are not allowed to use code written before the contest has started.</li>
+            <li>Code will be pushed regularly.</li>
+            <li>Binaries should not be pushed.</li>
+            <li>Accepting pull requests is not allowed.</li>
+            <li>Code must be able to compile, we will not fix compile errors.</li>
+            <li>You must use Java 8.</li>
+            <li>Your plugin must fit the theme or it will be disqualified.</li>
+            <li>You must use Maven.</li>
+        </ol>
+    </DBody>
+</div>
+
+<style>
+    h2.header {
+        font-size: 36px;
+        line-height: 72px;
+        font-weight: bold;
+    }
+
+    h3.header {
+        font-size: 28px;
+        line-height: 56px;
+        font-weight: bold;
+    }
+
+    .block {
+        background: #7ddfdf;
+        background: -webkit-linear-gradient(top left, #518a8a, #00aeb0);
+        background: -o-linear-gradient(top left, #518a8a, #00aeb0);
+        background: -moz-linear-gradient(top left, #518a8a, #00aeb0);
+        background: linear-gradient(top left, #518a8a, #00aeb0);
+        color: #fff;
+
+        margin: 40px 0;
+        padding: 24px;
+        border-radius: 8px;
+    }
+</style>
+
+<script>
+    import DHeader from '../../components/header/DevathonHeader.html';
+    import Logo from '../../components/images/Logo.html';
+    import AccountInfo from '../../components/account/AccountInfo.html';
+    import DBody from '../../components/containers/DevathonBody.html';
+    import Countdown from '../../components/contests/Countdown.html';
+    import {devathon} from '../common';
+
+    export default {
+        data() {
+            return devathon();
+        },
+        computed: {
+            start(contest) {
+                return new Date(contest.start).getTime();
+            },
+            end(contest) {
+                return new Date(contest.end).getTime();
+            }
+        },
+        components: {
+            DHeader,
+            Logo,
+            AccountInfo,
+            DBody,
+            Countdown
+        }
+    }
+</script>

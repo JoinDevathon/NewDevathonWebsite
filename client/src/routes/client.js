@@ -1,7 +1,8 @@
 import home from './home/index';
 import account from './account/index';
-import teamCreate from './teams/create';
-import teams from './teams/index';
+// import teamCreate from './teams/create';
+// import teams from './teams/index';
+import TwentySixteen from './contests/2016';
 import error from './error/index';
 import {devathon} from './common';
 
@@ -11,10 +12,12 @@ import {devathon} from './common';
             return home();
         case 'account':
             return account();
-        case 'teams':
-            return teams();
-        case 'teamCreate':
-            return teamCreate();
+        // case 'teams':
+        //     return teams();
+        // case 'teamCreate':
+        //     return teamCreate();
+        case '2016':
+            return TwentySixteen();
         case 'error':
             return error();
         default:

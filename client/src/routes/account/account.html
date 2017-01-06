@@ -7,38 +7,20 @@
     <DBody>
         <div class="clearfix">
             <div class="fifty">
-                <ColoredBox title="Trophy Case" index="1">
-                    <TrophyCase>
-                        {{#each user.trophies as trophy}}
-                            <Trophy trophy="{{trophy}}"/>
-                        {{/each}}
-                        {{#if user.trophies.length === 0}}
-                            <h2>No trophies have been earned yet.</h2>
-                            {{#if account.id === user.id}}
-                                <p>To get an easy trophy, link your Twitter and Tweet <b>#devathon</b>!</p>
-                            {{/if}}
-                        {{/if}}
-                    </TrophyCase>
-                </ColoredBox>
                 <div class="clearfix">
                     <div class="fifty">
-                        <ColoredBox title="Teams" index="0">
-                            <div class="account-teams">
-                                {{#each user.teams as team}}
-                                <a href="/teams/{{team.url}}">
-                                    <img src="/teams/{{team.url}}.png" alt="{{team.name}}" title="{{team.name}}" class="team-icon"/>
-                                </a>
+                        <ColoredBox title="Trophy Case" index="1">
+                            <TrophyCase>
+                                {{#each user.trophies as trophy}}
+                                <Trophy trophy="{{trophy}}"/>
                                 {{/each}}
+                                {{#if user.trophies.length === 0}}
+                                <h2>No trophies have been earned yet.</h2>
                                 {{#if account.id === user.id}}
-                                <DButton index="0"
-                                         box="true"
-                                         full="true"
-                                         href="/teams/create"
-                                         size="thin">
-                                    Create Team
-                                </DButton>
+                                <p>To get an easy trophy, link your Twitter and Tweet <b>#devathon</b>!</p>
                                 {{/if}}
-                            </div>
+                                {{/if}}
+                            </TrophyCase>
                         </ColoredBox>
                     </div>
                     <div class="fifty">
@@ -47,6 +29,33 @@
                         </ColoredBox>
                     </div>
                 </div>
+                <!--<div class="clearfix">-->
+                <!--<div class="fifty">-->
+                <!--<ColoredBox title="Teams" index="0">-->
+                <!--<div class="account-teams">-->
+                <!--{{#each user.teams as team}}-->
+                <!--<a href="/teams/{{team.url}}">-->
+                <!--<img src="/teams/{{team.url}}.png" alt="{{team.name}}" title="{{team.name}}" class="team-icon"/>-->
+                <!--</a>-->
+                <!--{{/each}}-->
+                <!--{{#if account.id === user.id}}-->
+                <!--<DButton index="0"-->
+                <!--box="true"-->
+                <!--full="true"-->
+                <!--href="/teams/create"-->
+                <!--size="thin">-->
+                <!--Create Team-->
+                <!--</DButton>-->
+                <!--{{/if}}-->
+                <!--</div>-->
+                <!--</ColoredBox>-->
+                <!--</div>-->
+                <!--<div class="fifty">-->
+                <!--<ColoredBox title="Social Media" index="2">-->
+                <!--<SocialMedia user="{{user}}" account="{{account}}" index="2"/>-->
+                <!--</ColoredBox>-->
+                <!--</div>-->
+                <!--</div>-->
             </div>
             <div class="fifty">
                 <div class="clearfix">

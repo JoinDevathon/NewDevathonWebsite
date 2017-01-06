@@ -1,0 +1,118 @@
+<div class="countdown">
+    <p class="countdown-status">{{times.status}}</p>
+    <div class="countdown-box">
+        <b class="countdown-title">Days</b>
+        <p class="countdown-value">{{times.days}}</p>
+    </div>
+    <p class="countdown-colon">:</p>
+    <div class="countdown-box">
+        <b class="countdown-title">Hours</b>
+        <p class="countdown-value">{{times.hours}}</p>
+    </div>
+    <p class="countdown-colon">:</p>
+    <div class="countdown-box">
+        <b class="countdown-title">Minutes</b>
+        <p class="countdown-value">{{times.minutes}}</p>
+    </div>
+    <p class="countdown-colon">:</p>
+    <div class="countdown-box">
+        <b class="countdown-title">Seconds</b>
+        <p class="countdown-value">{{times.seconds}}</p>
+    </div>
+</div>
+
+<style>
+    .countdown {
+        text-align: center;
+    }
+
+    .countdown-status {
+        font-size: 42px;
+    }
+
+    .countdown-box {
+        display: inline-block;
+    }
+
+    .countdown-title {
+        margin-bottom: 4px;
+        font-size: 20px;
+    }
+
+    .countdown-value {
+        font-size: 48px;
+        margin: 5px 12px;
+    }
+
+    .countdown-colon {
+        font-size: 48px;
+        display: inline;
+    }
+</style>
+
+<script>
+    export default {
+        data() {
+            return {
+                start: 0,
+                end: 0,
+                now: Date.now()
+            };
+        },
+
+        onrender() {
+            this.interval = setInterval(() => this.set({now: Date.now()}), 1000);
+        },
+        onteardown() {
+            clearInterval(this.interval);
+        },
+
+        computed: {
+            times(start, end, now) {
+                const SECOND = 1000;
+                const MINUTE = SECOND * 60;
+                const HOUR = MINUTE * 60;
+                const DAY = HOUR * 24;
+
+                let msDiff;
+
+                let status = 'Contest Ended';
+                if (now > end) {
+                    return {
+                        days: 0,
+                        hours: 0,
+                        minutes: 0,
+                        seconds: 0,
+                        status
+                    };
+                } else if (now > start) {
+                    msDiff = end - now;
+                    status = 'Ends In';
+                } else {
+                    msDiff = start - now;
+                    status = 'Starts In';
+                }
+
+                const days = Math.floor(msDiff / DAY);
+                msDiff -= DAY * days;
+
+                const hours = Math.floor(msDiff / HOUR);
+                msDiff -= HOUR * hours;
+
+                const minutes = Math.floor(msDiff / MINUTE);
+                msDiff -= MINUTE * minutes;
+
+                const seconds = Math.floor(msDiff / SECOND);
+//                msDiff -= SECOND * seconds;
+
+                return {
+                    days,
+                    hours,
+                    minutes,
+                    seconds,
+                    status
+                };
+            }
+        }
+    }
+</script>
