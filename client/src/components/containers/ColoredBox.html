@@ -1,11 +1,11 @@
-    <div class="colored-box" style="{{styles}}">
-        {{#if title}}
-            <h4 class="colored-box-title" style="{{titleStyles}}">{{title}}</h4>
-        {{/if}}
-        <div class="colored-box-padded">
-            {{yield}}
-        </div>
+<div class="colored-box" style="{{styles}}">
+    {{#if title}}
+        <h4 class="colored-box-title" style="{{titleStyles}}">{{title}}</h4>
+    {{/if}}
+    <div class="colored-box-padded">
+        {{yield}}
     </div>
+</div>
 
 <style>
     .colored-box {

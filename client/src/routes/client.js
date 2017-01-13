@@ -3,6 +3,7 @@ import account from './account/index';
 // import teamCreate from './teams/create';
 // import teams from './teams/index';
 import TwentySixteen from './contests/2016';
+import Entry from './contests/entry';
 import error from './error/index';
 import {devathon} from './common';
 
@@ -18,6 +19,8 @@ import {devathon} from './common';
         //     return teamCreate();
         case '2016':
             return TwentySixteen();
+        case 'entry':
+            return Entry();
         case 'error':
             return error();
         default:

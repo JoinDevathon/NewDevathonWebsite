@@ -1,5 +1,5 @@
 {{#if href}}
-<a href="{{href}}" class="{{classes}}" style="{{styles}}">
+<a href="{{href}}" class="{{classes}}" target="{{target || '_self'}}" style="{{styles}}">
     {{yield}}
 </a>
 {{else}}

@@ -20,6 +20,7 @@ export function getUserName(id: number): Promise<string> {
                     if (err) {
                         reject(err);
                     }
+                    resolve(user.login);
                 }); // store for 1 week (probably could store longer..)
             })));
         });

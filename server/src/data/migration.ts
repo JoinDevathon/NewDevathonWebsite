@@ -61,3 +61,10 @@ toMigrate.push({
         await query("ALTER TABLE `users` ADD COLUMN `admin` BIT(1) NOT NULL DEFAULT b'0' AFTER `email`");
     }
 });
+
+toMigrate.push({
+    name: 'user_entry_url',
+    func: async function() {
+        await query("ALTER TABLE `user_entry` ADD COLUMN `url` VARCHAR(255) NOT NULL AFTER `contest`");
+    }
+});

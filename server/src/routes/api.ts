@@ -20,9 +20,12 @@ router.post('/profile/media/edit', wrap(async(req: Request, res: Response) => {
     await validate(req.body, EditMediaRules);
     await updateMedia(req.session.userId, req.body.beam, req.body.twitch, req.body.twitter);
 
-    res.json({
-        error: false
-    });
+    // give them that sexy loading indicator
+    setTimeout(() => {
+        res.json({
+            error: false
+        });
+    }, 800);
 }));
 
 const CreateTeamRules: Rules = {

@@ -1,0 +1,141 @@
+<div>
+    <DHeader>
+        <AccountInfo account="{{account}}"/>
+        <Logo height="10vw" style="min-height: 150px; max-height: 250px"/>
+        <h2>{{username}}'s Entry for {{contest.name}}</h2>
+        <HeaderTabs>
+            <DButton href="/user/{{id}}">User Page</DButton>
+            <DButton href="/{{contest.url}}">Contest Info</DButton>
+            <DButton href="{{contest.source_url}}" target="_blank">Source Code</DButton>
+        </HeaderTabs>
+    </DHeader>
+    <DBody>
+        <h2 class="overall-score">
+            Final Score:
+            <span>{{score}}</span>
+        </h2>
+
+        {{#each reviews as review, index}}
+            <div class="review">
+                <div class="review-title"><a href="/user/{{review.reviewer}}">Reviewer #{{index + 1}}</a></div>
+                <div class="review-body clearfix">
+                    {{#each review.reviews as single}}
+                        <div class="review-content">
+                            <div class="review-key">{{single.key}}</div>
+                            <div class="review-score">{{single.score}}</div>
+                            <div class="review-text">{{single.text}}</div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        {{/each}}
+    </DBody>
+</div>
+
+<style>
+    .overall-score {
+        font-size: 36px;
+        text-align: center;
+        margin: 20px 0 52px;
+    }
+
+    .overall-score > span {
+        font-size: 82px;
+        display: block;
+    }
+
+    .review {
+        margin: 16px 0;
+
+        border: 2px solid #38AECC;
+        border-radius: 8px;
+    }
+
+    .review-title {
+        background-color: #38AECC;
+        padding: 14px;
+        font-size: 24px;
+    }
+
+    .review-title a {
+        color: #fff;
+    }
+
+    .review-body {
+        padding: 14px;
+    }
+
+    .review-content {
+        text-align: center;
+        font-family: 'Roboto Slab', serif;
+    }
+
+    .review-key {
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .review-score {
+        font-size: 64px;
+        margin: 24px 0;
+    }
+
+    .review-key, .review-text {
+        margin: 16px 0;
+    }
+
+    @media(min-width: 1000px) {
+        .review-content {
+            width: 33%;
+            display: block;
+            float: left;
+        }
+    }
+</style>
+
+<script>
+    import DHeader from '../../components/header/DevathonHeader.html';
+    import DBody from '../../components/containers/DevathonBody.html';
+    import AccountInfo from '../../components/account/AccountInfo.html';
+    import Logo from '../../components/images/Logo.html';
+    import HeaderTabs from '../../components/header/HeaderTabs.html';
+    import DButton from '../../components/forms/DevathonButton.html';
+    import {devathon} from '../common';
+
+    export default {
+        data() {
+            return devathon();
+        },
+        computed: {
+            score(feedback) {
+                return (feedback.reduce((prev, review) => review.value + prev, 0) / feedback.length).toFixed(2);
+            },
+            reviews(feedback) {
+                const reviews = {};
+                feedback.forEach(review => {
+                    reviews[review.reviewer] = reviews[review.reviewer] || [];
+                    reviews[review.reviewer].push({
+                        key: review.key,
+                        text: review.text,
+                        score: review.value
+                    });
+                });
+                return Object.keys(reviews).map(key => {
+                    const review = reviews[key];
+                    return {
+                        reviewer: key,
+                        reviews: review
+                    };
+                }).sort((r1, r2) => r1.reviewer - r2.reviewer);
+            }
+        },
+        components: {
+            DHeader,
+            DBody,
+            AccountInfo,
+            Logo,
+            HeaderTabs,
+            DButton
+        }
+    };
+</script>

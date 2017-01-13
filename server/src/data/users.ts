@@ -8,6 +8,7 @@ export interface UserAttributes {
     twitch: string;
     twitter: string;
     email: string;
+    admin: Buffer | boolean;
 }
 
 interface InsertData {
@@ -29,7 +30,9 @@ export async function getBasicUserById(id: number): Promise<UserAttributes | nul
 }
 
 export async function getUserById(id: number): Promise<UserAttributes | null> {
-    return (await query<UserAttributes>("SELECT * FROM `users` WHERE `id` = ?", [id])).data[0] || null;
+    const user: UserAttributes = (await query<UserAttributes>("SELECT * FROM `users` WHERE `id` = ?", [id])).data[0] || null;
+    user.admin = !!(user.admin as Buffer)[0];
+    return user;
 }
 
 export async function getTrophies(id: number): Promise<Trophy[]> {

@@ -1,4 +1,4 @@
-<div id="container">
+<div>
     <DHeader>
         <AccountInfo account="{{account}}" home="true"/>
         <Logo height="20vw" style="min-height: 200px; max-height: 400px"/>
@@ -26,38 +26,38 @@
                     <h3>No contests currently running.</h3>
                 {{/each}}
         </FlexBox>
-        <hr/>
 
-        <h2>Upcoming Contests</h2>
-        <FlexBox>
-            {{#each upcoming as contest}}
-            <div class="padded">
-                <ContestBox index="0"
-                            title="{{contest.name}}"
-                            description="{{contest.description}}"
-                            status="{{contest.status}}"
-                            href="/{{contest.url}}"/>
-            </div>
-            {{else}}
-                <h3>No upcoming contests at this moment. Stay tuned!</h3>
-            {{/each}}
-        </FlexBox>
-        <hr/>
+        {{#if upcoming.length > 0}}
+            <hr/>
+            <h2>Upcoming Contests</h2>
+            <FlexBox>
+                {{#each upcoming as contest}}
+                <div class="padded">
+                    <ContestBox index="0"
+                                title="{{contest.name}}"
+                                description="{{contest.description}}"
+                                status="{{contest.status}}"
+                                href="/{{contest.url}}"/>
+                </div>
+                {{/each}}
+            </FlexBox>
+        {{/if}}
 
-        <h2>Previous Contests</h2>
-        <FlexBox>
-            {{#each previous as contest}}
-            <div class="padded">
-                <ContestBox index="0"
-                            title="{{contest.name}}"
-                            description="{{contest.description}}"
-                            status="{{contest.status}}"
-                            href="/{{contest.url}}"/>
-            </div>
-            {{else}}
-                <h3>No previous contests.</h3>
-            {{/each}}
-        </FlexBox>
+        {{#if previous.length > 0}}
+            <hr/>
+            <h2>Previous Contests</h2>
+            <FlexBox>
+                {{#each previous as contest}}
+                <div class="padded">
+                    <ContestBox index="0"
+                                title="{{contest.name}}"
+                                description="{{contest.description}}"
+                                status="{{contest.status}}"
+                                href="/{{contest.url}}"/>
+                </div>
+                {{/each}}
+            </FlexBox>
+        {{/if}}
     </DBody>
 </div>
 

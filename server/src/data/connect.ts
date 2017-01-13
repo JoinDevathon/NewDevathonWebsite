@@ -40,5 +40,6 @@ Promise.all([
     query(readFileSync(join(process.cwd(), 'databases', 'teams.sql'), 'utf-8')),
     query(readFileSync(join(process.cwd(), 'databases', 'team_roles.sql'), 'utf-8')),
     query(readFileSync(join(process.cwd(), 'databases', 'contests.sql'), 'utf-8')),
-    query(readFileSync(join(process.cwd(), 'databases', 'user_entries.sql'), 'utf-8')),
+    query(readFileSync(join(process.cwd(), 'databases', 'user_entry.sql'), 'utf-8')),
+    query(readFileSync(join(process.cwd(), 'databases', 'user_entry_feedback.sql'), 'utf-8')),
 ]).then(() => debug('Created databases')).catch(err => debug(err));

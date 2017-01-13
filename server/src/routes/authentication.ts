@@ -4,13 +4,14 @@ import { wrap, RouteError, checkObject } from './utils';
 import config from '../../config/config';
 import { getToken, getUserFromAccess, GithubAccessToken, GithubUser } from '../connect/github';
 import { createUser } from '../data/users';
+import { hash } from '../utils/ids';
 
 const debug = require('debug')('Devathon:Authentication');
 const router: Router = Router();
 
 router.get('/away', (req: Request, res: Response) => {
     if (req.session.userId) {
-        res.redirect(`/user/${req.session.userId}`);
+        res.redirect(`/user/${hash(req.session.userId)}`);
     } else {
         res.redirect(`https://github.com/login/oauth/authorize?client_id=${config.github.clientId}&scope=user:email`);
     }
@@ -35,7 +36,7 @@ router.get('/back', wrap(async (req: Request, res: Response) => {
     const userId: number = await createUser(user.id, user.email || null);
     req.session.userId = userId;
 
-    res.redirect(`/user/${userId}`);
+    res.redirect(`/user/${hash(userId)}`);
 }));
 
 router.get('/logout', (req: Request, res: Response) => {

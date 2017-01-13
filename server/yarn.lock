@@ -38,6 +38,12 @@
   dependencies:
     "@types/node" "*"
 
+"@types/hashids@^1.0.28":
+  version "1.0.28"
+  resolved "https://registry.yarnpkg.com/@types/hashids/-/hashids-1.0.28.tgz#53c76b7bbb3e2d391aa1183a41a6f7f06368231d"
+  dependencies:
+    "@types/node" "*"
+
 "@types/mime@*":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-0.0.29.tgz#fbcfd330573b912ef59eeee14602bface630754b"
@@ -55,8 +61,8 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "6.0.57"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.57.tgz#100f9d4390331297bc3b6160ac4805b46de6e752"
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.0.tgz#c081147b109da5f9c57af70571771be97ce9c0ba"
 
 "@types/redis@^0.12.33":
   version "0.12.34"
@@ -294,6 +300,10 @@ gm@^1.23.0:
     cross-spawn "^4.0.0"
     debug "~2.2.0"
 
+hashids@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/hashids/-/hashids-1.1.1.tgz#3c36fcc5b3ba1a96a8fa67a632eb7877c41c6d3e"
+
 http-errors@~1.5.0:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-1.5.1.tgz#788c0d2c1de2c81b9e6e8c01843b6b97eb920750"
@@ -459,8 +469,8 @@ redis-parser@^2.0.0:
   resolved "https://registry.yarnpkg.com/redis-parser/-/redis-parser-2.3.0.tgz#313a47965e49ee35ab3a86c93388b403d76237f6"
 
 redis@^2.6.3:
-  version "2.6.3"
-  resolved "https://registry.yarnpkg.com/redis/-/redis-2.6.3.tgz#84305b92553c6a1f09c7c47c30b11ace7dbb7ad4"
+  version "2.6.4"
+  resolved "https://registry.yarnpkg.com/redis/-/redis-2.6.4.tgz#220577c2409c23a1d144a8f85304beb70104ab95"
   dependencies:
     double-ended-queue "^2.1.0-0"
     redis-commands "^1.2.0"

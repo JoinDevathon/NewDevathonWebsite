@@ -4,7 +4,8 @@ const babel = require('rollup-plugin-babel');
 const resolve = require('rollup-plugin-node-resolve');
 const common = require('rollup-plugin-commonjs');
 const replace = require('rollup-plugin-replace');
-const closure = require('rollup-plugin-closure-compiler-js');
+// const closure = require('rollup-plugin-closure-compiler-js');
+const uglify = require('rollup-plugin-uglify');
 
 const plugins = [
     resolve({
@@ -37,10 +38,11 @@ if (process.env.NODE_ENV === 'production') {
         plugins.unshift(svelte({
             css: false
         }));
-        plugins.push(closure({
-            compilationLevel: 'ADVANCED',
-            warningLevel: 'QUIET'
-        }));
+        // plugins.push(closure({
+        //     compilationLevel: 'SIMPLE',
+        //     warningLevel: 'QUIET'
+        // }));
+        plugins.push(uglify());
     }
 } else {
     plugins.unshift(svelte());

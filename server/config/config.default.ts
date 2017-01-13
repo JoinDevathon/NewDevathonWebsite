@@ -14,5 +14,6 @@ export default {
     },
     sessions: {
         secret: 'abcdefghijklmnopqrstuvwxyzDEVATHON-SUPER-SECRET-SECRET-PLEASE-CHANGE'
-    }
+    },
+    hashesSalt: 'thiswillbebrokeneventually'
 };

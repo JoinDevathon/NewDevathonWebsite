@@ -4,8 +4,8 @@ import { join } from 'path';
 import { wrap } from './utils';
 import { getUserById, UserAttributes, getTrophies, getBasicUserById } from '../data/users';
 import { getUserName } from '../cache/user';
-import { getTeam, getTeamsForUser, getTeamMembers, UserWithRole } from '../data/teams';
-import { getAllContests, getContestFromURL } from '../data/contests';
+import { getAllContests, getContestFromURL, getEntryAndScores, getFeedback, getContestFromEntry, getUserFromEntry, ScoredEntry } from '../data/contests';
+import { hash, unhash } from '../utils/ids';
 
 const debug = require('debug')('Devathon:Pages');
 const router: Router = Router();
@@ -15,7 +15,8 @@ const routes: {[key: string]: string[]} = {
     'account': [ '/user/:id' ],
     // 'teamCreate': [ '/teams/create' ],
     // 'teams': [ '/teams/:url' ],
-    '2016': ['/2016'],
+    '2016': [ '/2016' ],
+    'entry': [ '/entry/:id' ],
     'error': []
 };
 
@@ -95,9 +96,10 @@ function registerRoute(name: string, routes: string[]) {
             //     }));
             case 'home':
                 state.contests = await getAllContests();
-            // case 'teamCreate':
+                // case 'teamCreate':
                 if (req.session && req.session.userId) {
                     state.account = await getBasicUserById(req.session.userId);
+                    state.account.id = hash(state.account.id);
                 }
                 break;
             case 'account':
@@ -109,7 +111,7 @@ function registerRoute(name: string, routes: string[]) {
                     return;
                 }
 
-                const user: UserAttributes | undefined = await getUserById(+req.params.id);
+                const user: UserAttributes | undefined = await getUserById(unhash(req.params.id));
                 if (user) {
                     state.user = user;
                 } else {
@@ -123,20 +125,47 @@ function registerRoute(name: string, routes: string[]) {
                 if (req.session.userId) {
                     if (req.session.userId === state.user.id) {
                         state.account = {
-                            id: state.user.id,
+                            id: hash(state.user.id),
                             github_id: state.user.github_id
                         };
                     } else {
                         state.account = await getBasicUserById(req.session.userId);
+                        state.account.id = hash(state.account.id);
                     }
                 }
                 state.user.trophies = await getTrophies(state.user.id);
+                state.user.contests = await getEntryAndScores(state.user.id);
+                state.user.contests = state.user.contests.map((contest: ScoredEntry) => {
+                    (<any>contest).entry_id = hash(contest.entry_id);
+                    return contest;
+                });
                 // state.user.teams = await getTeamsForUser(state.user.id);
+                (<any>state.user).id = hash(state.user.id);
                 break;
             case '2016':
                 if (req.session && req.session.userId) {
                     state.account = await getBasicUserById(req.session.userId);
+                    state.account.id = hash(state.account.id);
                     state.contest = await getContestFromURL('2016');
+                }
+                break;
+            case 'entry':
+                const id = unhash(req.params.id);
+                state.feedback = await getFeedback(id);
+                state.contest = await getContestFromEntry(id);
+                const theUser: UserAttributes = await getUserFromEntry(id);
+                state.username = await getUserName(theUser.github_id);
+                state.id = hash(theUser.id);
+                if (req.session && req.session.userId) {
+                    if (req.session.userId === theUser.id) {
+                        state.account = {
+                            id: hash(theUser.id),
+                            github_id: theUser.github_id
+                        }
+                    } else {
+                        state.account = await getBasicUserById(req.session.userId);
+                        state.account.id = hash(state.account.id);
+                    }
                 }
         }
         renderRoute(name, state, res);

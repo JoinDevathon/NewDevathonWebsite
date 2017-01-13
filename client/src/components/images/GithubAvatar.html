@@ -10,8 +10,30 @@
 </style>
 
 <script>
+    const cached = {};
+
     export default {
 //        props: ['username', 'id', 'size', 'marginBottom', 'marginTop', 'rounded'],
+        onrender() {
+            const {id, size, username} = this.get();
+            const cache = cached[id || username];
+            if (cache) {
+                if (cache.size >= size) {
+                    return this.set({src: cache.url});
+                }
+            }
+            let url;
+            if (id) {
+                url = `/avatar/${id}.png?size=${size}`;
+            } else {
+                url = `https://github.com/${username}.png?size=${size}`
+            }
+            cached[id || username] = {
+                size,
+                url
+            };
+            this.set({src: url});
+        },
         computed: {
             style: function (size, rounded, marginBottom, marginTop) {
                 return `border-width: ${size / 20}px;` +
@@ -21,12 +43,6 @@
                         `width: ${size}px;` +
                         `height: ${size}px;`;
             },
-            src: function (id, size, username) {
-                if (id) {
-                    return `/avatar/${id}.png?size=${size}`;
-                }
-                return `https://github.com/${username}.png?size=${size}`
-            }
         }
     }
 </script>
