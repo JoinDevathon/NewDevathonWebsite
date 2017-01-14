@@ -50,13 +50,13 @@ export function renderRoute(name: string, state: any = {}, res: Response) {
 
     let prerendered: string = '<div id="container"></div>';
     if (svelteComponents && svelteComponents[ name ] && process.env.NODE_ENV === 'production') {
-        template = template.replace('CSSSTUFF', ``);
+        template = template.replace('CSSSTUFF', `<style>${svelteComponents[name].renderCss().css}</style>`);
 
         (global as any)._devathon = {
             state
         };
 
-        console.log(svelteComponents[ name ]);
+        prerendered = `<div id="container">${svelteComponents[name].render()}</div>`;
         next();
     } else {
         template = template.replace('CSSSTUFF', '');

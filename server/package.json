@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "run": "export NODE_ENV=production; node build/",
+    "dev-production": "export DEBUG=Devathon:*; yarn run run",
     "dev": "export DEBUG=Devathon:*; export NODE_ENV=development; tsc && node build/"
   },
   "keywords": [],
