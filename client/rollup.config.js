@@ -64,6 +64,7 @@ if (process.env.NODE_ENV === 'production') {
 export default {
     entry,
     dest: `./build/${destName}`,
+    sourceMap: true,
     external,
     context,
     format,

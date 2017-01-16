@@ -94,10 +94,10 @@
         },
         computed: {
             start(contest) {
-                return new Date(contest.start).getTime();
+                return contest ? new Date(contest.start).getTime() : 0;
             },
             end(contest) {
-                return new Date(contest.end).getTime();
+                return contest ? new Date(contest.end).getTime() : 0;
             }
         },
         components: {

@@ -3,6 +3,7 @@ import config from '../../config/config';
 import { RouteError } from '../routes/utils';
 
 const hasher = new Hashids(config.hashesSalt, 5);
+const debug = require('debug')('Devathon:Hash');
 
 export function hash(id: number): string {
     return hasher.encode(id);

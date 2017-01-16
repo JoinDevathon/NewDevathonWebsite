@@ -6,6 +6,7 @@ import { getUserById, UserAttributes, getTrophies, getBasicUserById } from '../d
 import { getUserName } from '../cache/user';
 import { getAllContests, getContestFromURL, getEntryAndScores, getFeedback, getContestFromEntry, getUserFromEntry, ScoredEntry } from '../data/contests';
 import { hash, unhash } from '../utils/ids';
+import * as CleanCSS from 'clean-css';
 
 const debug = require('debug')('Devathon:Pages');
 const router: Router = Router();
@@ -15,15 +16,31 @@ const routes: {[key: string]: string[]} = {
     'account': [ '/user/:id' ],
     // 'teamCreate': [ '/teams/create' ],
     // 'teams': [ '/teams/:url' ],
-    '2016': [ '/2016' ],
+    'twentysixteen': [ '/2016' ],
     'entry': [ '/entry/:id' ],
     'error': []
 };
 
 let svelteComponents: any;
+let svelteCss: {[key: string]: string} = {};
+let compiledCss: string = '';
+
+function addCSS(obj: any) {
+    if (obj.filename) {
+        svelteCss[obj.filename] = obj.css;
+    }
+    if (obj.components) {
+        obj.components.forEach(addCSS);
+    }
+}
 
 if (process.env.NODE_ENV === 'production') {
     svelteComponents = require(join(process.cwd(), '..', 'client', 'build', 'bundle.server.js'));
+    Object.keys(svelteComponents).forEach((key: string) => {
+        const route = svelteComponents[key];
+        let rendered = route.renderCss();
+        svelteCss[key] = new CleanCSS().minify(rendered.css).styles;
+    });
 }
 
 for (let property in routes) {
@@ -50,7 +67,7 @@ export function renderRoute(name: string, state: any = {}, res: Response) {
 
     let prerendered: string = '<div id="container"></div>';
     if (svelteComponents && svelteComponents[ name ] && process.env.NODE_ENV === 'production') {
-        template = template.replace('CSSSTUFF', `<style>${svelteComponents[name].renderCss().css}</style>`);
+        template = template.replace('CSSSTUFF', `<style>${svelteCss[name]}</style>`);
 
         (global as any)._devathon = {
             state
@@ -125,7 +142,7 @@ function registerRoute(name: string, routes: string[]) {
                 if (req.session.userId) {
                     if (req.session.userId === state.user.id) {
                         state.account = {
-                            id: hash(state.user.id),
+                            id: req.params.id,
                             github_id: state.user.github_id
                         };
                     } else {
@@ -142,7 +159,7 @@ function registerRoute(name: string, routes: string[]) {
                 // state.user.teams = await getTeamsForUser(state.user.id);
                 (<any>state.user).id = hash(state.user.id);
                 break;
-            case '2016':
+            case 'twentysixteen':
                 if (req.session && req.session.userId) {
                     state.account = await getBasicUserById(req.session.userId);
                     state.account.id = hash(state.account.id);

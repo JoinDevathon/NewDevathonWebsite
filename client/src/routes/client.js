@@ -17,7 +17,7 @@ import {devathon} from './common';
         //     return teams();
         // case 'teamCreate':
         //     return teamCreate();
-        case '2016':
+        case 'twentysixteen':
             return TwentySixteen();
         case 'entry':
             return Entry();
