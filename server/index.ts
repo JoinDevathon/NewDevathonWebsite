@@ -58,18 +58,25 @@ app.use('/avatar', avatar);
 app.use('/authentication', authentication);
 app.use('/api', api);
 
-app.use((req, res) => { // 404
-    res.status(404);
+app.use((err: Error, req: Request, res: Response, next: () => void) => { // 404
+    let data = {
+        error: true,
+        message: 'Page not found.'
+    };
+    let status = 404;
+    if (err) {
+        data = {
+            error: true,
+            message: 'A server error occurred.'
+        };
+        console.error(err);
+        status = 500;
+    }
+    res.status(status);
     if (req.header('accept') && req.header('accept').indexOf('text/html') > -1) { // browser who wants HTML
-        renderRoute('error', {
-            error: true,
-            message: 'Page not found.'
-        }, res);
+        renderRoute('error', data, res);
     } else {
-        res.json({
-            error: true,
-            message: 'Page not found.'
-        });
+        res.json(data);
     }
 });
 
