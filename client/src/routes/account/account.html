@@ -28,14 +28,16 @@
             </div>
         </div>
         <br/>
+        {{#if user.contests.length > 0}}
         <h2 class="text-center">Contest Entries</h2>
         <div class="clearfix">
             {{#each user.contests as contest}}
-                <div class="twenty-five padded">
-                    <ContestBox contest="{{contest}}"/>
-                </div>
+            <div class="twenty-five padded">
+                <ContestBox contest="{{contest}}"/>
+            </div>
             {{/each}}
         </div>
+        {{/if}}
     </DBody>
 </div>
 
