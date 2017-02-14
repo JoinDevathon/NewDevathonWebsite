@@ -3,6 +3,7 @@ import {readFileSync} from 'fs';
 import { join } from 'path';
 
 import config from '../../config/config';
+import { doMigrations } from './migration';
 
 const debug = require('debug')('Devathon:MySQL');
 const pool: IPool = createPool(config.mysql);
@@ -42,4 +43,6 @@ Promise.all([
     query(readFileSync(join(process.cwd(), 'databases', 'contests.sql'), 'utf-8')),
     query(readFileSync(join(process.cwd(), 'databases', 'user_entry.sql'), 'utf-8')),
     query(readFileSync(join(process.cwd(), 'databases', 'user_entry_feedback.sql'), 'utf-8')),
-]).then(() => debug('Created databases')).catch(err => debug(err));
+])
+    .then(() => doMigrations())
+    .then(() => debug('Created databases')).catch(err => debug(err));

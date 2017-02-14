@@ -19,7 +19,10 @@ export async function createUser(id: number, email: string): Promise<number> {
     const res: SQLResponse<InsertData> = await query<InsertData>("INSERT INTO `users` (`github_id`, `email`) VALUES (?,?)" +
         "ON DUPLICATE KEY UPDATE `email` = ?", [id, email, email]);
     if (res.meta.insertId === 0) { // already exists, but we need the ID so let's look it up
-        const user: SQLResponse<UserAttributes> = await query<UserAttributes>("SELECT `id` FROM `users` WHERE `github_id` = ?", [id]);
+        const user: SQLResponse<UserAttributes> = await query<UserAttributes>("SELECT `id`,`email` FROM `users` WHERE `github_id` = ?", [id]);
+        if (email && user.data[0].email !== email) {
+            await query<any>("UPDATE `users` (`email`) VALUES (?) WHERE `id` = ?", [email, user.data[0].id]);
+        }
         return user.data[0].id;
     }
     return res.meta.insertId;

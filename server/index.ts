@@ -73,6 +73,4 @@ app.use((req, res) => { // 404
     }
 });
 
-doMigrations();
-
 app.listen(config.port, config.host, () => console.log(`Listening on ${config.host}:${config.port}`));
