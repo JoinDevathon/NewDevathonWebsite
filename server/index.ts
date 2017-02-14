@@ -60,7 +60,7 @@ app.use('/api', api);
 
 app.use((req, res) => { // 404
     res.status(404);
-    if (req.header('accept').indexOf('text/html') > -1) { // browser who wants HTML
+    if (req.header('accept') && req.header('accept').indexOf('text/html') > -1) { // browser who wants HTML
         renderRoute('error', {
             error: true,
             message: 'Page not found.'
