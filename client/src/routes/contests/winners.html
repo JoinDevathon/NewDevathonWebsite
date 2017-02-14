@@ -1,0 +1,104 @@
+<div>
+    <DHeader>
+        <AccountInfo account="{{account}}"/>
+        <Logo height="10vw" style="min-height: 150px; max-height: 250px"/>
+        <h2>{{contest.name}} Winners</h2>
+    </DHeader>
+    <DBody>
+        <table>
+            <thead>
+                <tr>
+                    <td>Place</td>
+                    <td>Name</td>
+                    <td>Score</td>
+                </tr>
+            </thead>
+            <tbody>
+            {{#each sorted as score, index}}
+            <tr>
+                <td>{{index + 1}}</td>
+                <td><GithubAvatar id="{{score.user}}" size="{{index < 3 ? 50 : 30}}" rounded/> {{score.name}}</td>
+                <td>{{score.score}}</td>
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </DBody>
+</div>
+
+<style>
+    table {
+        font-family: 'Roboto Slab', serif;
+
+        border: 1px solid #eee;
+        border-collapse: collapse;
+        table-layout: auto;
+        border-spacing: 0;
+
+        width: 100%;
+        max-width: 100%;
+    }
+
+    table tr > td:nth-child(2) {
+        width: 100%;
+    }
+
+    table > tbody > tr:nth-of-type(2n+1) {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    table td {
+        padding: 15px;
+        vertical-align: top;
+        border-top: 1px solid #eee;
+    }
+
+    table > thead > tr {
+        background-color: transparent;
+        border-top: 0;
+        border-bottom: 2px solid #eee;
+    }
+
+    table > thead > tr > td {
+        border-top: 0;
+    }
+
+    @media(min-width: 720px) {
+        table {
+            font-size: 1.8em;
+        }
+
+        table > tbody > tr:nth-child(1), table > tbody > tr:nth-child(2), table > tbody > tr:nth-child(3) {
+            font-size: 1.4em;
+        }
+    }
+
+    table .gh-avatar {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 12px !important;
+    }
+</style>
+
+<script>
+    import DHeader from '../../components/header/DevathonHeader.html';
+    import AccountInfo from '../../components/account/AccountInfo.html';
+    import Logo from '../../components/images/Logo.html';
+    import DBody from '../../components/containers/DevathonBody.html';
+    import GithubAvatar from '../../components/images/GithubAvatar.html';
+    import {devathon} from '../common';
+
+    export default {
+        data: () => devathon(),
+        computed: {
+            sorted: scores => scores.sort((s1, s2) => s2.score - s1.score)
+        },
+        components: {
+            DHeader,
+            AccountInfo,
+            Logo,
+            DBody,
+            GithubAvatar
+        }
+    }
+</script>

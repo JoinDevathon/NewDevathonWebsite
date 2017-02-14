@@ -4,6 +4,7 @@ import account from './account/index';
 // import teams from './teams/index';
 import TwentySixteen from './contests/2016';
 import Entry from './contests/entry';
+import Winners from './contests/winners';
 import error from './error/index';
 import {devathon} from './common';
 
@@ -19,6 +20,8 @@ import {devathon} from './common';
         //     return teamCreate();
         case 'twentysixteen':
             return TwentySixteen();
+        case 'winners':
+            return Winners();
         case 'entry':
             return Entry();
         case 'error':

@@ -21,8 +21,16 @@ export interface ScoredEntry extends ContestEntry {
     score: number;
 }
 
+export interface ContestScore {
+    user: number;
+    score: number;
+    github_id: number;
+    name?: string;
+}
+
 export interface ContestFeedback {
     // todo doc
+    reviewer: number | string;
 }
 
 export async function getAllContests(): Promise<Contest[]> {
@@ -65,5 +73,12 @@ export async function getContestFromEntry(entry: number): Promise<Contest> {
 
 export async function getUserFromEntry(entry: number): Promise<UserAttributes> {
     return (await query<UserAttributes>('SELECT `users`.* FROM `user_entry` LEFT JOIN `users` ON `users`.`id` = `user_entry`.`user` WHERE `user_entry`.`id` = ?', [ entry ])).data[ 0 ];
+}
+
+export async function getContestScores(contest: number): Promise<ContestScore[]> {
+    return (await query<ContestScore>('SELECT `user_entry`.`id`, `user_entry`.`user`, `users`.`github_id`, AVG(`user_entry_feedback`.`value`) as `score` FROM `user_entry` ' +
+        'LEFT JOIN `user_entry_feedback` ON `user_entry_feedback`.`entry` = `user_entry`.`id` ' +
+        'LEFT JOIN `users` ON `users`.`id` = `user_entry`.`user` ' +
+        'WHERE `user_entry`.`contest` = ? GROUP BY `user_entry`.`id`', [contest])).data;
 }
 

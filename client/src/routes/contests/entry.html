@@ -17,7 +17,7 @@
 
         {{#each reviews as review, index}}
             <div class="review">
-                <div class="review-title"><a href="/user/{{review.reviewer}}">Reviewer #{{index + 1}}</a></div>
+                <div class="review-title"><a href="/user/{{review.reviewer}}">Judge #{{index + 1}}</a></div>
                 <div class="review-body clearfix">
                     {{#each review.reviews as single}}
                         <div class="review-content">
@@ -45,7 +45,7 @@
     }
 
     .review {
-        margin: 16px 0;
+        margin: 16px;
 
         border: 2px solid #38AECC;
         border-radius: 8px;

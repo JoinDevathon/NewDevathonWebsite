@@ -1,6 +1,3 @@
-// const fetch = require('isomorphic-fetch');
-import fetch from 'isomorphic-fetch';
-
 export async function request(url, data) {
     const res = await (await fetch(url, Object.assign({
         method: 'GET',

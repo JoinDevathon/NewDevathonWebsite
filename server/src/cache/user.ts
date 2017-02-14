@@ -16,7 +16,10 @@ export function getUserName(id: number): Promise<string> {
                 return resolve(value);
             }
             resolve(getUserFromId(id).then(user => new Promise((resolve, reject) => {
-                client.set(`dn:uc:${id}`, user.login, 'EX', 7 * 24 * 60 * 60, (err: Error) => {
+                if (!user.login) {
+                    return resolve("Unknown");
+                }
+                client.set(`dn:uc:${id}`, user.login || "Unknown", 'EX', 7 * 24 * 60 * 60, (err: Error) => {
                     if (err) {
                         reject(err);
                     }

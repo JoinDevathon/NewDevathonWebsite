@@ -6,6 +6,7 @@
         <hr/>
         <Countdown start="{{start}}" end="{{end}}"/>
         <hr/>
+        <DButton href="/2016/winners">Contest Winners</DButton>
     </DHeader>
     <DBody>
         <h2 class="header">About</h2>
@@ -86,6 +87,7 @@
     import AccountInfo from '../../components/account/AccountInfo.html';
     import DBody from '../../components/containers/DevathonBody.html';
     import Countdown from '../../components/contests/Countdown.html';
+    import DButton from '../../components/forms/DevathonButton.html';
     import {devathon} from '../common';
 
     export default {
@@ -105,6 +107,7 @@
             Logo,
             AccountInfo,
             DBody,
+            DButton,
             Countdown
         }
     }

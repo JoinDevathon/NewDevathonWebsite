@@ -7,6 +7,7 @@ import { getUserName } from '../cache/user';
 import { getAllContests, getContestFromURL, getEntryAndScores, getFeedback, getContestFromEntry, getUserFromEntry, ScoredEntry } from '../data/contests';
 import { hash, unhash } from '../utils/ids';
 import * as CleanCSS from 'clean-css';
+import { getContestScores } from '../cache/contest';
 
 const debug = require('debug')('Devathon:Pages');
 const router: Router = Router();
@@ -16,7 +17,8 @@ const routes: {[key: string]: string[]} = {
     'account': [ '/user/:id' ],
     // 'teamCreate': [ '/teams/create' ],
     // 'teams': [ '/teams/:url' ],
-    'twentysixteen': [ '/2016' ],
+    'twentysixteen': [ '/2016/' ],
+    'winners': ['/2016/winners'],
     'entry': [ '/entry/:id' ],
     'error': []
 };
@@ -90,7 +92,6 @@ window._devathon = {
     state: ${JSON.stringify(state)}
 };
 </script>
-<script src="/public/js/bundle.js" async></script>
 `);
         res.end(template);
     }
@@ -163,12 +164,23 @@ function registerRoute(name: string, routes: string[]) {
                 if (req.session && req.session.userId) {
                     state.account = await getBasicUserById(req.session.userId);
                     state.account.id = hash(state.account.id);
-                    state.contest = await getContestFromURL('2016');
                 }
+                state.contest = await getContestFromURL('2016');
+                break;
+            case 'winners':
+                if (req.session && req.session.userId) {
+                    state.account = await getBasicUserById(req.session.userId);
+                    state.account.id = hash(state.account.id);
+                }
+                state.contest = await getContestFromURL(req.url.split('/')[1]);
+                state.scores = await getContestScores(state.contest.id);
                 break;
             case 'entry':
                 const id = unhash(req.params.id);
-                state.feedback = await getFeedback(id);
+                state.feedback = (await getFeedback(id)).map(feedback => {
+                    feedback.reviewer = hash(<number>feedback.reviewer);
+                    return feedback;
+                });
                 state.contest = await getContestFromEntry(id);
                 const theUser: UserAttributes = await getUserFromEntry(id);
                 state.username = await getUserName(theUser.github_id);
@@ -178,7 +190,7 @@ function registerRoute(name: string, routes: string[]) {
                         state.account = {
                             id: hash(theUser.id),
                             github_id: theUser.github_id
-                        }
+                        };
                     } else {
                         state.account = await getBasicUserById(req.session.userId);
                         state.account.id = hash(state.account.id);
