@@ -40,6 +40,7 @@ if (process.env.NODE_ENV === 'production') {
     svelteComponents = require(join(process.cwd(), '..', 'client', 'build', 'bundle.server.js'));
     Object.keys(svelteComponents).forEach((key: string) => {
         const route = svelteComponents[key];
+        debug('Route', route, 'has methods', Object.keys(route));
         let rendered = route.renderCss();
         svelteCss[key] = new CleanCSS().minify(rendered.css).styles;
     });
