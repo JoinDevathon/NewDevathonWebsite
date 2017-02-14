@@ -1,6 +1,8 @@
 import { client } from './connect';
 import { getUserFromId } from '../connect/github';
 
+const debug = require('debug')('Devathon:UserCache');
+
 // dn = devathon
 // dn:uc = user cache
 
@@ -16,6 +18,7 @@ export function getUserName(id: number): Promise<string> {
                 return resolve(value);
             }
             resolve(getUserFromId(id).then(user => new Promise((resolve, reject) => {
+                debug('Got', user.login, 'for user', id);
                 if (!user.login) {
                     return resolve("Unknown");
                 }

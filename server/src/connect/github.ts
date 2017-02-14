@@ -41,14 +41,14 @@ export async function getUserFromAccess(accessToken: string): Promise<GithubUser
 }
 
 export async function getUserFromId(id: number): Promise<GithubUser> {
-    return await (await fetch(`https://api.github.com/user/${id}`, {
+    return await (await fetch(`https://api.github.com/user/${id}?client_id=${config.github.clientId}&client_secret=${config.github.clientSecret}`, {
         method: 'GET',
         headers
     })).json();
 }
 
 export async function getUserFromName(name: string): Promise<GithubUser> {
-    return await (await fetch(`https://api.github.com/users/${name}`, {
+    return await (await fetch(`https://api.github.com/users/${name}?client_id=${config.github.clientId}&client_secret=${config.github.clientSecret}`, {
         method: 'GET',
         headers
     })).json();
