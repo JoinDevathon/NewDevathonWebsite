@@ -17,6 +17,7 @@ export function getContestScores(contest: number): Promise<any> {
                     score.name = await getUserName(score.github_id);
                     score.score = +score.score.toFixed(1);
                     score.id = hash(<number>score.id);
+                    delete score.user;
                     return score;
                 })))
                 .then(scores => {
