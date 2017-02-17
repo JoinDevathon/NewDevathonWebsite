@@ -7,14 +7,15 @@
 
 ## Client
 
-The client code is written in Vue, which is compiled before it's downloaded.
+The client code is written in Svelte, which is compiled before it's downloaded.
 
 ### Scripts
 
 Build for production:
 
 ```bash
-yarn run build
+yarn run build # build the client code and minify
+yarn run server # build the client code for the server to render
 ```
 
 Watch for development:
@@ -23,22 +24,10 @@ Watch for development:
 yarn run dev
 ```
 
-In a separate terminals:
-
-```bash
-yarn run dev-server
-```
-
-```bash
-yarn run dev-css
-```
-
-This is required for server-side rendering and automatic CSS style updates.
-
 ## Server
 
 The server code is written in TypeScript, using the Express framework for routing.
-It pre-renders each webpage so that Vue can start faster.
+It pre-renders each webpage so that Svelte can start faster.
 
 ### Setup
 
@@ -58,3 +47,5 @@ Run development:
 ```bash
 yarn run dev
 ```
+
+Then connect to `localhost:3000`
