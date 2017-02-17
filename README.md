@@ -5,6 +5,10 @@
 - While NPM can be used, YarnPkg is preferred for its speed and version locking.
 - Run `yarn` inside of `client` and `server` before running or building.
 
+## Setting up
+
+- Install MySQL, Redis, and a Node.js version that supports ES2015.
+
 ## Client
 
 The client code is written in Svelte, which is compiled before it's downloaded.
@@ -32,6 +36,7 @@ It pre-renders each webpage so that Svelte can start faster.
 ### Setup
 
 In order to run the server, you must copy `server/config/config.default.ts` to `config.ts`.
+Modify the defaults to match your setup.
 
 ### Scripts
 
