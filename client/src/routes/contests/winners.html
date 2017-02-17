@@ -17,7 +17,7 @@
             {{#each sorted as score, index}}
             <tr>
                 <td>{{index + 1}}</td>
-                <td><GithubAvatar id="{{score.user}}" size="{{index < 3 ? 50 : 30}}" rounded/> {{score.name}}</td>
+                <td><a class="entry-link" href="/entry/{{score.id}}"><GithubAvatar id="{{score.user}}" size="{{index < 3 ? 50 : 30}}" rounded/> {{score.name}}</a></td>
                 <td>{{score.score}}</td>
             </tr>
             {{/each}}
@@ -77,6 +77,10 @@
         display: inline-block;
         vertical-align: middle;
         margin: 0 12px !important;
+    }
+
+    .entry-link {
+        text-decoration: none;
     }
 </style>
 

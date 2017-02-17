@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { wrap } from './utils';
+import { wrap, RouteError } from './utils';
 import { getUserById, UserAttributes, getTrophies, getBasicUserById } from '../data/users';
 import { getUserName } from '../cache/user';
 import { getAllContests, getContestFromURL, getEntryAndScores, getFeedback, getContestFromEntry, getUserFromEntry, ScoredEntry } from '../data/contests';
@@ -182,6 +182,9 @@ function registerRoute(name: string, routes: string[]) {
                     feedback.reviewer = hash(<number>feedback.reviewer);
                     return feedback;
                 });
+                if (state.feedback.length === 0) {
+                    throw new RouteError('No such entry.');
+                }
                 state.contest = await getContestFromEntry(id);
                 const theUser: UserAttributes = await getUserFromEntry(id);
                 state.username = await getUserName(theUser.github_id);

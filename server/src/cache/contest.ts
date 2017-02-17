@@ -1,6 +1,7 @@
 import { client } from './connect';
 import { getContestScores as getDBScores } from '../data/contests';
 import { getUserName } from './user';
+import { hash } from '../utils/ids';
 
 export function getContestScores(contest: number): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -15,6 +16,7 @@ export function getContestScores(contest: number): Promise<any> {
                 .then(scores => Promise.all(scores.map(async score => {
                     score.name = await getUserName(score.github_id);
                     score.score = +score.score.toFixed(1);
+                    score.id = hash(<number>score.id);
                     return score;
                 })))
                 .then(scores => {

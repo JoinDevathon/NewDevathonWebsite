@@ -22,6 +22,7 @@ export interface ScoredEntry extends ContestEntry {
 }
 
 export interface ContestScore {
+    id: number | string;
     user: number;
     score: number;
     github_id: number;
