@@ -4,12 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "export NODE_ENV=development; unset SERVER; rollup -c --watch",
-    "server": "export NODE_ENV=production; export SERVER=true; rollup -c",
-    "build": "export NODE_ENV=production; unset SERVER; rollup -c",
-    "webpack-dev": "export NODE_ENV=development; unset SERVER; webpack --config webpack/config.dev.js --watch",
-    "webpack-prod": "export NODE_ENV=production; unset SERVER; webpack --config webpack/config.prod.js",
-    "webpack-server": "export NODE_ENV=production; unset SERVER; webpack --config webpack/config.server.js"
+    "dev": "export NODE_ENV=development; unset SERVER; webpack --config webpack/config.dev.js --watch",
+    "build": "export NODE_ENV=production; unset SERVER; webpack --config webpack/config.prod.js",
+    "server": "export NODE_ENV=production; unset SERVER; webpack --config webpack/config.server.js"
   },
   "keywords": [],
   "author": "",
