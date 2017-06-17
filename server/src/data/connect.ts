@@ -43,6 +43,7 @@ Promise.all([
     query(readFileSync(join(process.cwd(), 'databases', 'contests.sql'), 'utf-8')),
     query(readFileSync(join(process.cwd(), 'databases', 'user_entry.sql'), 'utf-8')),
     query(readFileSync(join(process.cwd(), 'databases', 'user_entry_feedback.sql'), 'utf-8')),
+    query(readFileSync(join(process.cwd(), 'databases', 'user_shipping.sql'), 'utf-8')),
 ])
     .then(() => doMigrations())
     .then(() => debug('Created databases')).catch(err => debug(err));

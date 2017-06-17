@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { wrap, RouteError } from './utils';
-import { getUserById, UserAttributes, getTrophies, getBasicUserById } from '../data/users';
+import { getUserById, UserAttributes, getTrophies, getBasicUserById, getShippingInfo } from '../data/users';
 import { getUserName } from '../cache/user';
 import { getAllContests, getContestFromURL, getEntryAndScores, getFeedback, getContestFromEntry, getUserFromEntry, ScoredEntry } from '../data/contests';
 import { hash, unhash } from '../utils/ids';
@@ -15,6 +15,7 @@ const router: Router = Router();
 const routes: {[key: string]: string[]} = {
     'home': [ '/', '/home' ],
     'account': [ '/user/:id' ],
+    'accountDetails': [ '/account/details' ],
     // 'teamCreate': [ '/teams/create' ],
     // 'teams': [ '/teams/:url' ],
     'twentysixteen': [ '/2016/' ],
@@ -37,7 +38,7 @@ function addCSS(obj: any) {
 }
 
 if (process.env.NODE_ENV === 'production') {
-    svelteComponents = require(join(process.cwd(), '..', 'client', 'build', 'bundle.server.js'));
+    svelteComponents = require(join(process.cwd(), '..', 'client', 'build', 'server.bundle.js'));
     Object.keys(svelteComponents).forEach((key: string) => {
         const route = svelteComponents[key];
         debug('Route', route, 'has methods', Object.keys(route));
@@ -68,6 +69,8 @@ export function renderRoute(name: string, state: any = {}, res: Response) {
         page: name
     });
 
+    const bundles: string[] = [];
+
     let prerendered: string = '<div id="container"></div>';
     if (svelteComponents && svelteComponents[ name ] && process.env.NODE_ENV === 'production') {
         template = template.replace('CSSSTUFF', `<style>${svelteCss[name]}</style>`);
@@ -77,9 +80,15 @@ export function renderRoute(name: string, state: any = {}, res: Response) {
         };
 
         prerendered = `<div id="container">${svelteComponents[name].render()}</div>`;
+
+        bundles.push('/public/js/manifest.bundle.js');
+        bundles.push('/public/js/vendor.bundle.js');
+        bundles.push(`/public/js/${name}.bundle.js`);
+
         next();
     } else {
         template = template.replace('CSSSTUFF', '');
+        bundles.push('/public/js/main.bundle.js');
         next();
     }
 
@@ -94,6 +103,8 @@ window._devathon = {
 };
 </script>
 `);
+
+        template = template.replace('JSBUNDLES', JSON.stringify(bundles));
         res.end(template);
     }
 }
@@ -160,6 +171,17 @@ function registerRoute(name: string, routes: string[]) {
                 });
                 // state.user.teams = await getTeamsForUser(state.user.id);
                 (<any>state.user).id = hash(state.user.id);
+                break;
+            case 'accountDetails':
+                if (!req.session || !req.session.userId || typeof req.session.userId !== 'number') {
+                    res.status(400);
+                    return renderRoute('error', {
+                        message: 'You are not logged in.',
+                    }, res);
+                }
+                state.account = await getBasicUserById(req.session.userId);
+                state.account.id = hash(state.account.id);
+                state.shipping = await getShippingInfo(state.account.id);
                 break;
             case 'twentysixteen':
                 if (req.session && req.session.userId) {

@@ -60,10 +60,10 @@
             };
         },
 
-        onrender() {
+        oncreate() {
             this.interval = setInterval(() => this.set({now: Date.now()}), 1000);
         },
-        onteardown() {
+        ondestroy() {
             clearInterval(this.interval);
         },
 

@@ -1,8 +1,9 @@
-import '../common';
+import { devathon } from '../common';
 import Home from './home.html';
 
-export default () => {
-    return new Home({
+if (devathon().page === 'home') {
+    new Home({
         target: document.getElementById('container')
     });
-};
+}
+

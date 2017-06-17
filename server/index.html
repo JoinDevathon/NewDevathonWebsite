@@ -12,9 +12,7 @@ CONTENT
 
 <script>
     (function() {
-        var toLoad = [
-            '/public/js/bundle.js'
-        ];
+        var toLoad = JSBUNDLES;
         if (!('fetch' in window)) {
             toLoad.unshift('https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.2/fetch.min.js');
         }
@@ -22,20 +20,15 @@ CONTENT
             toLoad.unshift('https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.0.5/es6-promise.auto.min.js');
         }
 
-        function load() {
-            var loading = toLoad.shift();
-            if (!loading) {
-                return;
-            }
+        for (var i = 0; i < toLoad.length; i++) {
+            const loading = toLoad[i];
             var head = document.getElementsByTagName('head')[0];
             var script = document.createElement('script');
             script.type = 'text/javascript';
             script.src = loading;
-            script.onreadystatechange = script.onload = load;
             console.log('Loading', loading);
             head.appendChild(script);
         }
-        load();
     })();
 </script>
 

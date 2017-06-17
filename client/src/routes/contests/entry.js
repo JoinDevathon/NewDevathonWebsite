@@ -1,6 +1,9 @@
-import '../common';
+import { devathon } from '../common';
 import Entry from './entry.html';
 
-export default () => new Entry({
-    target: document.getElementById('container')
-});
+if (devathon().page === 'entry') {
+    new Entry({
+        target: document.getElementById('container')
+    });
+}
+

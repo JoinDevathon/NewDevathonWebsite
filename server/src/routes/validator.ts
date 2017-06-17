@@ -1,7 +1,7 @@
 import { RouteError } from './utils';
 
-type Data = {name: string, value: any};
-type RuleValidator = (data: Data) => any;
+export type Data = {name: string, value: any};
+export type RuleValidator = (data: Data) => any;
 export type Rules = {[key: string]: RuleValidator};
 
 export async function validate<Rules>(body: any, rules: Rules) {
@@ -75,6 +75,12 @@ export const Between: (min: number, max: number) => RuleValidator = (min: number
     IsString({name, value});
     if (value.length < min || value.length > max) {
         throw new ValidatorError(`${name} should be between ${min}-${max} characters`);
+    }
+};
+export const Length: (length: number) => RuleValidator = (length: number) => ({name, value}: Data) => {
+    IsString({name, value});
+    if (value.length !== length) {
+        throw new ValidatorError(`${name} should be ${length} characters`);
     }
 };
 export const Matches: (regex: RegExp, error: string) => RuleValidator = (regex: RegExp, error: string) => ({name, value}: Data) => {

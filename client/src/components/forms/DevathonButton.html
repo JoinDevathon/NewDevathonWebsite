@@ -1,9 +1,9 @@
 {{#if href}}
-<a href="{{href}}" class="{{classes}}" target="{{target || '_self'}}" style="{{styles}}">
+<a href="{{href}}" class="{{classes}}" target="{{target || '_self'}}" :disabled style="{{styles}}">
     {{yield}}
 </a>
 {{else}}
-<button style="{{styles}}" class="{{classes}}" on:click="fire('click', event)">
+<button style="{{styles}}" class="{{classes}}" on:click="fire('click', event)" :disabled>
     {{yield}}
 </button>
 {{/if}}
@@ -45,6 +45,11 @@
         color: rgba(255, 255, 255, 0.8);
         background-color: rgba(255, 255, 255, 0.2);
         border-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .button:disabled {
+        background-color: rgba(255, 255, 255, 0.5);
+        border-color: transparent !important;
     }
 
     .button svg {
@@ -89,9 +94,9 @@
                 }
                 return classes.join(' ');
             },
-            styles(index) {
+            styles(index, disabled) {
                 return toString({
-                    backgroundColor: !isNaN(index) ? mix(hexToRgba(colors[+index % colors.length]), [255, 255, 255, 0.1]) : undefined,
+                    backgroundColor: !isNaN(index) ? mix(hexToRgba(colors[+index % colors.length]), [255, 255, 255, disabled ? 0.3 : 0.1]) : undefined,
                     borderColor: !isNaN(index) ? 'rgba(255, 255, 255, 0.6)' : undefined
                 });
             }

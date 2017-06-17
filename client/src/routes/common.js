@@ -1,4 +1,4 @@
-if ('document' in this) {
+if ('document' in global) {
     const container = document.getElementById('container');
     if (container.firstChild) {
         container.removeChild(container.firstChild);

@@ -1,0 +1,118 @@
+<div>
+    <DHeader>
+        <AccountInfo :account/>
+        <GithubAvatar size="150" id="{{account.github_id}}" rounded="true" marginBottom="10px" marginTop="10px"/>
+        <h2 class="page-title">Account Details</h2>
+
+        <HeaderTabs>
+            <DButton href="/user/{{account.id}}">Back to Profile</DButton>
+        </HeaderTabs>
+    </DHeader>
+    <DBody>
+        <ColoredBox title="Shipping Information" index="0" id="shipping-info">
+            <form class="clearfix" method="POST" action="/account/details/shipping">
+                {{#if shippingLoading}}
+                    <LoaderIcon/>
+                    <br/>
+                {{elseif shippingError}}
+                    <ErrorBox>Shipping Error: {{shippingError}}</ErrorBox>
+                    <br/>
+                {{/if}}
+                <DInput bind:value="shipping.fullname" bound id="name">Full Name</DInput>
+                <DInput bind:value="shipping.address1" bound id="address1" sub="Street address, P.O. box, company name, c/o">Address Line 1</DInput>
+                <DInput bind:value="shipping.address2" bound id="address2" sub="Apartment, suite, unit, building, floor, etc">Address Line 2</DInput>
+                <DInput bind:value="shipping.city" bound id="city">City</DInput>
+                <DInput bind:value="shipping.state" bound id="state" sub="No abbreviations">State/Province/Region</DInput>
+                <DInput bind:value="shipping.zip" bound id="zip">ZIP/Postal Code</DInput>
+                <CountrySelect bind:value="shipping.country" bound id="country">Country</CountrySelect>
+
+                <div class="buttons">
+                    <DButton index="0" on:click="updateShipping(event)" disabled="{{shippingLoading}}">Save</DButton>
+                </div>
+            </form>
+        </ColoredBox>
+    </DBody>
+</div>
+
+<style>
+    .page-title {
+        margin-top: 0.6em;
+    }
+
+    form {
+        width: 500px;
+        max-width: 100%;
+        box-sizing: border-box;
+        margin: 0 auto;
+
+        padding: 1em;
+    }
+
+    .buttons {
+        float: right;
+    }
+</style>
+
+<script>
+    import DHeader from '../../components/header/DevathonHeader.html';
+    import DBody from '../../components/containers/DevathonBody.html';
+    import GithubAvatar from '../../components/images/GithubAvatar.html';
+    import AccountInfo from '../../components/account/AccountInfo.html';
+
+    import HeaderTabs from '../../components/header/HeaderTabs.html';
+    import DButton from '../../components/forms/DevathonButton.html';
+
+    import ColoredBox from '../../components/containers/ColoredBox.html';
+    import DInput from '../../components/forms/DevathonInput.html';
+    import CountrySelect from '../../components/forms/CountrySelect.html';
+
+    import LoaderIcon from '../../components/images/LoaderIcon.html';
+    import ErrorBox from '../../components/containers/Error.html';
+
+    import { request, NetworkError } from '../../components/helpers/network';
+    import { devathon } from '../common';
+
+    export default {
+        data() {
+            return devathon();
+        },
+        methods: {
+            updateShipping(event) {
+                event.preventDefault();
+
+                this.set({shippingLoading: true});
+                console.log(this.get('shipping'));
+                request('/account/details/shipping', {
+                    method: 'POST',
+                    body: JSON.stringify(this.get('shipping'))
+                }).then(res => {
+                    this.set({shippingLoading: false, shippingError: null});
+                }).catch(err => {
+                    if (NetworkError.is(err)) {
+                        this.set({shippingLoading: false, shippingError: err.message});
+                    } else {
+                        this.set({shippingLoading: false, shippingError: 'An unknown server error occurred.'});
+                        console.error(err);
+                    }
+                });
+            }
+        },
+        components: {
+            DHeader,
+            DBody,
+
+            AccountInfo,
+            GithubAvatar,
+
+            HeaderTabs,
+            DButton,
+
+            ColoredBox,
+            DInput,
+            CountrySelect,
+
+            LoaderIcon,
+            ErrorBox,
+        }
+    };
+</script>

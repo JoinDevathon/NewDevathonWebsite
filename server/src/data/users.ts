@@ -15,6 +15,16 @@ interface InsertData {
     insertId: number;
 }
 
+export interface ShippingInfo {
+    fullname: string;
+    address1: string;
+    address2: string;
+    city: string;
+    state: string;
+    zip: string;
+    country: string;
+}
+
 export async function createUser(id: number, email: string): Promise<number> {
     const res: SQLResponse<InsertData> = await query<InsertData>("INSERT INTO `users` (`github_id`, `email`) VALUES (?,?)" +
         "ON DUPLICATE KEY UPDATE `email` = ?", [id, email, email]);
@@ -50,4 +60,20 @@ export async function awardTrophy(id: number, trophy: Trophy): Promise<any> {
 
 export async function updateMedia(id: number, beam: string, twitch: string, twitter: string) {
     await query<any>("UPDATE `users` SET `beam` = ?, `twitch` = ?, `twitter` = ? WHERE `id` = ?", [beam, twitch, twitter, id]);
+}
+
+export async function getShippingInfo(id: number): Promise<ShippingInfo> {
+    const data: ShippingInfo[] = (await query<ShippingInfo>("SELECT `fullname`,`address1`,`address2`,`city`,`state`,`zip`,`country` FROM `user_shipping` WHERE `id` = ?", [id])).data;
+    if (data.length === 0) {
+        return {
+            address1: '',
+            address2: '',
+            city: '',
+            country: '',
+            fullname: '',
+            state: '',
+            zip: '',
+        };
+    }
+    return data[0];
 }

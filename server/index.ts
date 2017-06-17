@@ -11,6 +11,7 @@ import authentication from './src/routes/authentication';
 import avatar from './src/routes/avatar';
 import api from './src/routes/api';
 import teams from './src/routes/teams';
+import accountDetails from './src/routes/accountDetails';
 
 import config from './config/config';
 import { doMigrations } from './src/data/migration';
@@ -57,6 +58,7 @@ app.use(pages);
 app.use('/avatar', avatar);
 app.use('/authentication', authentication);
 app.use('/api', api);
+app.use('/account/details', accountDetails);
 
 app.use((err: Error, req: Request, res: Response, next: () => void) => { // 404
     let data = {

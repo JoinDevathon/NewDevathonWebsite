@@ -1,6 +1,8 @@
-import '../common';
+import { devathon } from '../common';
 import Winners from './winners.html';
 
-export default () => new Winners({
-    target: document.getElementById('container')
-});
+if (devathon().page === 'winners') {
+    new Winners({
+        target: document.getElementById('container')
+    });
+}

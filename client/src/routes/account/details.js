@@ -1,8 +1,8 @@
 import { devathon } from '../common';
-import Account from './account.html';
+import Details from './details.html';
 
-if (devathon().page === 'account') {
-    new Account({
+if (devathon().page === 'accountDetails') {
+    new Details({
         target: document.getElementById('container')
     });
 }

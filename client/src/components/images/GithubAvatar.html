@@ -1,7 +1,7 @@
 {{#if src}}
-    <img class="gh-avatar" src="{{src}}" style="{{style}}"/>
+    <img class="gh-avatar" :src :style/>
 {{else}}
-    <div class="gh-avatar" style="{{style}}"></div>
+    <div class="gh-avatar" :style></div>
 {{/if}}
 
 <style>
@@ -18,7 +18,7 @@
 
     export default {
 //        props: ['username', 'id', 'size', 'marginBottom', 'marginTop', 'rounded'],
-        onrender() {
+        oncreate() {
 //            this.set({src: url});
         },
         computed: {

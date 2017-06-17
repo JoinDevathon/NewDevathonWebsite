@@ -1,15 +1,16 @@
-export async function request(url, data) {
-    const res = await (await fetch(url, Object.assign({
+export function request(url, data) {
+    return fetch(url, Object.assign({
         method: 'GET',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },
-    }, data))).json();
-    if (res.error) {
-        throw new NetworkError(res.message);
-    }
-    return res;
+    }, data)).then(res => res.json()).then(res => {
+        if (res.error) {
+            throw new NetworkError(res.message);
+        }
+        return res;
+    });
 }
 
 export class NetworkError extends Error {

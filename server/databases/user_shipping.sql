@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS `user_shipping` (
+	`id` INT(255) NOT NULL,
+	`fullname` VARCHAR(255) NOT NULL DEFAULT '',
+	`address1` VARCHAR(255) NOT NULL DEFAULT '',
+	`address2` VARCHAR(255) NOT NULL DEFAULT '',
+	`city` VARCHAR(255) NOT NULL DEFAULT '',
+	`state` VARCHAR(255) NOT NULL DEFAULT '',
+	`zip` VARCHAR(255) NOT NULL DEFAULT '',
+	`country` VARCHAR(255) NOT NULL DEFAULT '',
+	UNIQUE INDEX `id` (`id`)
+)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB
+;
+

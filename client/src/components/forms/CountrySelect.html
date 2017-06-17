@@ -2,20 +2,23 @@
     <label class="label" for="{{id}}">
         {{yield}}
     </label>
-    {{#if multiline}}
-        <textarea class="input" :id name="{{id}}" on:input="handle(event)">{{binding || value}}</textarea>
-    {{else}}
-        <input class="input" :id name="{{id}}" value="{{value}}" on:input="handle(event)" :type/>
-    {{/if}}
+    <select :id class="select" name="{{id}}" on:input="handle(event)">
+        <option disabled></option>
+        {{#each list as country}}
+            <option selected="{{value === country}}">{{country}}</option>
+        {{/each}}
+    </select>
     <small class="sub">{{sub || ''}}</small>
 </div>
 
 <style>
+    /* todo deduplicate styles from DevathonInput */
+
     .input-container {
         display: block;
     }
 
-    .input {
+    .select {
         display: block;
         box-sizing: border-box;
         width: 100%;
@@ -27,6 +30,7 @@
 
         border-radius: 10px;
         border: 2px solid rgba(0, 0, 0, 0.4);
+        background: #fff;
     }
 
     .label {
@@ -44,12 +48,15 @@
         font-weight: bold;
         font-size: 14px;
     }
-
 </style>
 
 <script>
+    import countries from 'country-list';
+
+    const list = countries().getNames();
+
     export default {
-//        props: ['id', 'value', 'multiline', 'sub']
+        data: () => ({ list }),
         methods: {
             handle(event) {
                 if (this.get('bound')) {
@@ -59,5 +66,5 @@
                 }
             }
         }
-    }
+    };
 </script>

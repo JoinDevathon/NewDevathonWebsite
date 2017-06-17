@@ -1,7 +1,9 @@
-import '../common';
-import Error from './error.html';
+import { devathon } from '../common';
+import ErrorRoute from './errorRoute.html';
 
-export default () => new Error({
-    target: document.getElementById('container')
-});
+if (devathon().page === 'error') {
+    new ErrorRoute({
+        target: document.getElementById('container')
+    });
+}
 
