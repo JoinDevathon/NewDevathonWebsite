@@ -125,10 +125,16 @@ function registerRoute(name: string, routes: string[]) {
         let justData = req.header('X-Devathon-Data') === 'include';
         switch (name) {
             case 'twentyprizes':
-                if (req.session && req.session.userId) {
+                if (req.session && req.session.userId && (await getEntryAndScores(req.session.userId)).length > 0) {
                     state.account = await getBasicUserById(req.session.userId);
                     state.account.id = hash(state.account.id);
                     state.size = await get2016Prize(req.session.userId);
+                } else {
+                    res.status(500);
+                    renderRoute('error', {
+                        message: 'You do not have access to this page.'
+                    }, res, justData);
+                    return;
                 }
                 break;
             case 'teams':
