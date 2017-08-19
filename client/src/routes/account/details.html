@@ -39,16 +39,16 @@
                     <InfoBox><h2>Shipping Info Saved!</h2></InfoBox>
                     <br/>
                 {{/if}}
-                <DInput bind:value="shipping.fullname" bound id="name">Full Name</DInput>
-                <DInput bind:value="shipping.address1" bound id="address1" sub="Street address, P.O. box, company name, c/o">Address Line 1</DInput>
-                <DInput bind:value="shipping.address2" bound id="address2" sub="Apartment, suite, unit, building, floor, etc">Address Line 2</DInput>
-                <DInput bind:value="shipping.city" bound id="city">City</DInput>
-                <DInput bind:value="shipping.state" bound id="state" sub="No abbreviations">State/Province/Region</DInput>
-                <DInput bind:value="shipping.zip" bound id="zip">ZIP/Postal Code</DInput>
-                <CountrySelect bind:value="shipping.country" bound id="country" sub="We cannot guarantee shipping to all countries.">Country</CountrySelect>
+                <DInput bind:value="shipping.fullname" bound id="name" type="text">Full Name</DInput>
+                <DInput bind:value="shipping.address1" bound id="address1" sub="Street address, P.O. box, company name, c/o" type="text">Address Line 1</DInput>
+                <DInput bind:value="shipping.address2" bound id="address2" sub="Apartment, suite, unit, building, floor, etc" type="text">Address Line 2</DInput>
+                <DInput bind:value="shipping.city" bound id="city" type="text">City</DInput>
+                <DInput bind:value="shipping.state" bound id="state" sub="No abbreviations" type="text">State/Province/Region</DInput>
+                <DInput bind:value="shipping.zip" bound id="zip" type="text">ZIP/Postal Code</DInput>
+                <CountrySelect bind:value="shipping.country" bound id="country" sub="We cannot guarantee shipping to all countries." type="text">Country</CountrySelect>
 
                 <div class="buttons">
-                    <DButton index="0" on:click="updateShipping(event)">Save</DButton>
+                    <DButton index="0" on:click="updateShipping(event)" bind:disabled="shippingLoading">Save</DButton>
                 </div>
             </form>
         </ColoredBox>
@@ -105,6 +105,7 @@
                 event.preventDefault();
             },
             updateShipping(event) {
+                console.log('updating..');
                 event.preventDefault();
 
                 this.set({shippingLoading: true});

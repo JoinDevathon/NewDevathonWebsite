@@ -3,7 +3,8 @@ import ErrorRoute from './errorRoute.html';
 
 if (devathon().page === 'error') {
     new ErrorRoute({
-        target: document.getElementById('container')
+        target: document.getElementById('container'),
+        hydrate: true
     });
 }
 

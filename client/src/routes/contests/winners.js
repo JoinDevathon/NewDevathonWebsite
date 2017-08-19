@@ -3,6 +3,7 @@ import Winners from './winners.html';
 
 if (devathon().page === 'winners') {
     new Winners({
-        target: document.getElementById('container')
+        target: document.getElementById('container'),
+        hydrate: true
     });
 }

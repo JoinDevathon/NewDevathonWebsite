@@ -51,7 +51,8 @@ dev.module.rules[ 1 ] = {
     use: {
         loader: 'svelte-loader',
         options: {
-            css: false
+            css: false,
+            hydrate: true
         }
     },
 };

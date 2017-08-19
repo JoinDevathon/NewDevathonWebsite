@@ -3,6 +3,7 @@ import Create from './create.html';
 
 if (devathon().page === 'teamCreate') {
     new Create({
-        target: document.getElementById('container')
+        target: document.getElementById('container'),
+        hydrate: true
     });
 }

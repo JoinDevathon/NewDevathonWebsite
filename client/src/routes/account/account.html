@@ -3,9 +3,11 @@
         <AccountInfo account="{{account}}"/>
         <GithubAvatar size="150" id="{{user.github_id}}" rounded="true" marginBottom="10px" marginTop="10px"/>
         <h2 class="account-name">{{user.username}}</h2>
-        <HeaderTabs>
-            <DButton href="/account/details">Account Details</DButton>
-        </HeaderTabs>
+        {{#if user.id === account.id}}
+            <HeaderTabs>
+                <DButton href="/account/details">Account Details</DButton>
+            </HeaderTabs>
+        {{/if}}
     </DHeader>
     <DBody>
         {{#if user.needsShippingInfo}}

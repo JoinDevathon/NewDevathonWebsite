@@ -1,9 +1,10 @@
 import { devathon } from '../common';
 import Prizes from './2016-prizes.html';
 
-if (devathon().page === 'twenty_prizes') {
+if (devathon().page === 'twentyprizes') {
     new Prizes({
-        target: document.getElementById('container')
+        target: document.getElementById('container'),
+        hydrate: true
     });
 }
 

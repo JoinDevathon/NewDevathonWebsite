@@ -221,7 +221,6 @@ function registerRoute(name: string, routes: string[]) {
                         };
                     } else {
                         state.account = await getBasicUserById(req.session.userId);
-                        state.account.id = hash(state.account.id);
                     }
                 }
                 state.user.trophies = await getTrophies(state.user.id);
@@ -231,11 +230,13 @@ function registerRoute(name: string, routes: string[]) {
                     return contest;
                 });
 
-                if (state.user.contests.length > 0 && await getShippingInfo(state.user.id, true) === null) {
-                    state.user.needsShippingInfo = true;
-                }
-                if (state.user.contests.length > 0 && await get2016Prize(state.user.id) === '') {
-                    state.user.needs2016Prize = true;
+                if (req.session.userId === state.user.id) {
+                    if (state.user.contests.length > 0 && await getShippingInfo(state.user.id, true) === null) {
+                        state.user.needsShippingInfo = true;
+                    }
+                    if (state.user.contests.length > 0 && await get2016Prize(state.user.id) === '') {
+                        state.user.needs2016Prize = true;
+                    }
                 }
 
                 state.user.teams = await getTeamsForUser(state.user.id);

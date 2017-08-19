@@ -1,27 +1,29 @@
-<DHeader>
-    <AccountInfo :account/>
-    <Logo height="16vw"/>
-    <h2>Claim Your Prize!</h2>
-</DHeader>
-<DBody>
-    <ColoredBox title="T-shirt Form" index="0">
-    <form class="clearfix" method="POST" action="/api/2016/prizes">
-        <p>If you've already submitted your <a href="/account/details#shipping">shipping info</a> then go ahead and request your t-shirt size.</p>
-        <select name="size" bind:value="size">
-            <option value="">Select Size</option>
-            <option value="s">Small</option>
-            <option value="m">Medium</option>
-            <option value="l">Large</option>
-            <option value="xl">Extra Large</option>
-        </select>
-        <br/>
-        <button type="submit">Submit</button>
-        <br/>
-        <img src="/public/images/2016-shirt.png"/>
-        <img src="/public/images/2016-sizings.png"/>
-    </form>
-    </ColoredBox>
-</DBody>
+<div>
+    <DHeader>
+        <AccountInfo :account/>
+        <Logo height="16vw"/>
+        <h2>Claim Your Prize!</h2>
+    </DHeader>
+    <DBody>
+        <ColoredBox title="T-shirt Form" index="0">
+        <form class="clearfix" method="POST" action="/api/2016/prizes">
+            <p>If you've already submitted your <a href="/account/details#shipping">shipping info</a> then go ahead and request your t-shirt size.</p>
+            <select name="size" bind:value="size">
+                <option value="">Select Size</option>
+                <option value="s">Small</option>
+                <option value="m">Medium</option>
+                <option value="l">Large</option>
+                <option value="xl">Extra Large</option>
+            </select>
+            <br/>
+            <button type="submit">Submit</button>
+            <br/>
+            <img src="/public/images/2016-shirt.png"/>
+            <img src="/public/images/2016-sizings.png"/>
+        </form>
+        </ColoredBox>
+    </DBody>
+</div>
 
 <style>
     form {
