@@ -8,7 +8,7 @@ dev.entry = {
     'account': './src/routes/account/index.js',
     'accountDetails': './src/routes/account/details.js',
     'twentysixteen': './src/routes/contests/2016.js',
-    '2016_prizes': './src/routes/contests/2016-prizes.js',
+    'twentyprizes': './src/routes/contests/2016-prizes.js',
     'entry': './src/routes/contests/entry.js',
     'winners': './src/routes/contests/winners.js',
 //    'teams': './src/routes/teams/teams.js',

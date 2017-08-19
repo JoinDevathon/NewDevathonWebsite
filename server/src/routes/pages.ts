@@ -21,7 +21,7 @@ const routes: {[key: string]: string[]} = {
     //'teams': [ '/teams/:url' ],
     //'teamInvite': [ '/teams/:url/invite' ],
     'twentysixteen': [ '/2016/' ],
-    '2016_prizes': [ '/2016/prizes'],
+    'twentyprizes': [ '/2016/prizes'],
     'winners': ['/2016/winners'],
     'entry': [ '/entry/:id' ],
     'error': []
@@ -124,7 +124,7 @@ function registerRoute(name: string, routes: string[]) {
         };
         let justData = req.header('X-Devathon-Data') === 'include';
         switch (name) {
-            case '2016_prizes':
+            case 'twentyprizes':
                 if (req.session && req.session.userId) {
                     state.account = await getBasicUserById(req.session.userId);
                     state.account.id = hash(state.account.id);
