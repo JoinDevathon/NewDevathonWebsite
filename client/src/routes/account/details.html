@@ -48,7 +48,7 @@
                 <CountrySelect bind:value="shipping.country" bound id="country" sub="We cannot guarantee shipping to all countries.">Country</CountrySelect>
 
                 <div class="buttons">
-                    <DButton index="0" on:click="updateShipping(event)" disabled="{{shippingLoading}}">Save</DButton>
+                    <DButton index="0" on:click="updateShipping(event)">Save</DButton>
                 </div>
             </form>
         </ColoredBox>
@@ -96,7 +96,9 @@
 
     export default {
         data() {
-            return devathon();
+            return devathon({
+                shippingLoading: false
+            });
         },
         methods: {
             updateAccount(event) {
