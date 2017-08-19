@@ -40,7 +40,7 @@ export async function getTeamMembers(id: number): Promise<UserWithRole[]> {
 }
 
 export async function getTeamsForUser(user: number): Promise<TeamWithRole[]> {
-    return (await query<TeamWithRole>("SELECT `team_roles`.`role`, `teams`.`name`,`teams`.`url`,`teams`.`description` FROM `team_roles` LEFT JOIN `teams` ON `teams`.`id` = `team_roles`.`team_id` WHERE `team_roles`.`user_id` = ?", [user])).data;
+    return (await query<TeamWithRole>("SELECT `team_roles`.`role`, `teams`.`name`,`teams`.`url`,`teams`.`description`,`teams`.`id` FROM `team_roles` LEFT JOIN `teams` ON `teams`.`id` = `team_roles`.`team_id` WHERE `team_roles`.`user_id` = ?", [user])).data;
 }
 
 export async function getTeamImage(url: string): Promise<Buffer> {

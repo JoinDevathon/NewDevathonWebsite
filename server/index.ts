@@ -14,7 +14,6 @@ import teams from './src/routes/teams';
 import accountDetails from './src/routes/accountDetails';
 
 import config from './config/config';
-import { doMigrations } from './src/data/migration';
 import { client } from './src/cache/connect';
 import { renderRoute } from './src/routes/pages';
 
@@ -49,11 +48,12 @@ app.use(session({
     saveUninitialized: false
 }));
 
+app.use('/', serveStatic('../client/favicons'));
 app.use('/public/js', serveStatic('../client/build'));
 app.use('/public/css', serveStatic('../client/styles'));
 app.use('/public/images', serveStatic('../client/images'));
 
-app.use('/teams', teams);
+//app.use('/teams', teams);
 app.use(pages);
 app.use('/avatar', avatar);
 app.use('/authentication', authentication);

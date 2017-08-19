@@ -1,7 +1,8 @@
 import { Router, Request, Response } from 'express';
-import { wrap } from './utils';
+import { wrap, RouteError } from './utils';
 import { IsString, Rules, validate, Or, And, Between, ValidatorError, Length } from './validator';
 import CountryList = require('country-list');
+import { setShippingInfo } from '../data/users';
 
 const debug = require('debug')('Devathon:AccountDetails');
 const router: Router = Router();
@@ -21,10 +22,14 @@ const ShippingRules: Rules = {
     }),
 };
 router.post('/shipping', wrap(async(req: Request, res: Response) => {
+    if (!req.session.userId) {
+        throw new RouteError('You are not logged in!');
+    }
     await validate(req.body, ShippingRules);
+    await setShippingInfo(req.session.userId, req.body);
 
     if (req.header('accept').indexOf('text/html') > -1) { // browser who wants HTML
-        res.redirect(`/user/yourid`);
+        res.redirect(`/user/${req.session.userId}`);
     } else {
         res.json({ success: true });
     }

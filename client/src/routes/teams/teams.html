@@ -11,8 +11,11 @@
                 <br/>
                 <ColoredBox title="Members" index="0">
                     {{#each team.members as member}}
-                    <ImageRow src="/avatar/{{member.github_id}}.png?size=50" title="{{member.username}}" sub="{{member.role}}"/>
+                        <a href="/user/{{member.id}}" class="user-link"><ImageRow src="/avatar/{{member.github_id}}.png?size=50" title="{{member.username}}" sub="{{member.role}}"/></a>
                     {{/each}}
+                    {{#if userInfo && userInfo.role === 'owner'}}
+                        <DevathonButton href="/teams/{{team.url}}/invite" index="0" size="thin" full box>Invite Members</DevathonButton>
+                    {{/if}}
                 </ColoredBox>
             </div>
             <div class="twenty-five" style="text-indent: -9999px">
@@ -20,20 +23,26 @@
             </div>
             <div class="seventy-five">
                 <div class="clearfix">
-                    <div class="thirty-three padded">
-                        <ContestBox index="1"/>
-                    </div>
-                    <div class="thirty-three padded">
-                        <ContestBox index="2"/>
-                    </div>
-                    <div class="thirty-three padded">
-                        <ContestBox index="3"/>
-                    </div>
+                    <!--<div class="thirty-three padded">-->
+                        <!--<ContestBox index="1"/>-->
+                    <!--</div>-->
+                    <!--<div class="thirty-three padded">-->
+                        <!--<ContestBox index="2"/>-->
+                    <!--</div>-->
+                    <!--<div class="thirty-three padded">-->
+                        <!--<ContestBox index="3"/>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
     </DBody>
 </div>
+
+<style>
+    .user-link {
+        text-decoration: none;
+    }
+</style>
 
 <script>
     import DHeader from '../../components/header/DevathonHeader.html';
@@ -42,11 +51,18 @@
     import ColoredBox from '../../components/containers/ColoredBox.html';
     import ContestBox from '../../components/contests/ContestBox.html';
     import ImageRow from '../../components/containers/ImageRow.html';
+    import DevathonButton from '../../components/forms/DevathonButton.html';
     import {devathon} from '../common';
 
     export default {
         data() {
             return devathon();
+        },
+        computed: {
+            userInfo(account, team) {
+                const results = team.members.filter(member => member.id === account.id);
+                return results.length > 0 ? results[0] : null;
+            }
         },
         components: {
             DHeader,
@@ -54,7 +70,8 @@
             DBody,
             ColoredBox,
             ImageRow,
-            ContestBox
+            ContestBox,
+            DevathonButton
         }
     }
 </script>

@@ -1,4 +1,4 @@
-import { query } from './connect';
+import { query, SQLResponse } from './connect';
 import { UserAttributes } from './users';
 
 export interface Contest {
@@ -32,6 +32,11 @@ export interface ContestScore {
 export interface ContestFeedback {
     // todo doc
     reviewer: number | string;
+}
+
+export interface TwentyPrizes {
+    id: number;
+    size: string;
 }
 
 export async function getAllContests(): Promise<Contest[]> {
@@ -81,5 +86,17 @@ export async function getContestScores(contest: number): Promise<ContestScore[]>
         'LEFT JOIN `user_entry_feedback` ON `user_entry_feedback`.`entry` = `user_entry`.`id` ' +
         'LEFT JOIN `users` ON `users`.`id` = `user_entry`.`user` ' +
         'WHERE `user_entry`.`contest` = ? GROUP BY `user_entry`.`id`', [contest])).data;
+}
+
+export async function get2016Prize(id: number): Promise<string> {
+    const results = await query<TwentyPrizes>('SELECT `size` FROM `2016_prizes` WHERE `id` = ?', [ id ]);
+    if (results.data.length === 1) {
+        return results.data[0].size;
+    }
+    return '';
+}
+
+export async function set2016Prize(id: number, size: string): Promise<SQLResponse<any>> {
+    return await query<any>('INSERT INTO `2016_prizes` (`id`,`size`) VALUES (?,?) ON DUPLICATE KEY UPDATE `size` = ?', [ id, size, size ]);
 }
 

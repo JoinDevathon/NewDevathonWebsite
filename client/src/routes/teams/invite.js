@@ -1,8 +1,8 @@
 import { devathon } from '../common';
-import Teams from './teams.html';
+import Invite from './invite.html';
 
-if (devathon().page === 'teams') {
-    new Teams({
+if (devathon().page === 'teamInvite') {
+    new Invite({
         target: document.getElementById('container')
     });
 }

@@ -1,4 +1,4 @@
-<div class="image-row">
+<div class="image-row" :style>
     <div class="image-row-left">
         <img src="{{src}}" alt="{{alt}}"/>
     </div>
@@ -11,15 +11,19 @@
 <style>
     .image-row {
         padding: 2px 0;
+        text-decoration: none;
+        text-align: left;
     }
 
     .image-row-left > img {
         border-radius: 25px;
+        height: 100%;
     }
 
     .image-row-left, .image-row-right {
         display: inline-block;
         vertical-align: text-top;
+        height: 100%;
     }
 
     .image-row-left {
@@ -37,6 +41,7 @@
 
     .image-row-right > h4 {
         margin: 5px 0 0;
+        color: #222;
     }
 </style>
 

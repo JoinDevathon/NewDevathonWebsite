@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { renderRoute } from './pages';
 
 const debug = require('debug')('Devathon:Utils');
-type func = (req: Request, res: Response) => Promise<any> | void;
+type func = (req: Request, res: Response, err?: Error) => Promise<any> | void;
 
 export class RouteError {
     constructor(public message: string) {

@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 const path = require('path');
 const fs = require('fs');
 
@@ -11,7 +13,9 @@ module.exports = {
 
     devtool: 'source-map',
 
-    plugins: [],
+    plugins: [
+        new webpack.optimize.ModuleConcatenationPlugin()
+    ],
 
     module: {
         rules: [

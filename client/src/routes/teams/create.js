@@ -1,8 +1,8 @@
-import '../common';
+import {devathon} from '../common';
 import Create from './create.html';
 
-export default () => {
-    return new Create({
+if (devathon().page === 'teamCreate') {
+    new Create({
         target: document.getElementById('container')
     });
-};
+}

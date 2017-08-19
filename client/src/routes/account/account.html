@@ -3,9 +3,47 @@
         <AccountInfo account="{{account}}"/>
         <GithubAvatar size="150" id="{{user.github_id}}" rounded="true" marginBottom="10px" marginTop="10px"/>
         <h2 class="account-name">{{user.username}}</h2>
+        <HeaderTabs>
+            <DButton href="/account/details">Account Details</DButton>
+        </HeaderTabs>
     </DHeader>
     <DBody>
+        {{#if user.needsShippingInfo}}
+            <ErrorBox>
+                <h2>You have entered a contest but have not entered shipping information! Enter your information now to make sure you receive your prize(s).</h2>
+                <br/>
+                <DButton href="/account/details#shipping">Shipping Information</DButton>
+            </ErrorBox>
+            <br/>
+        {{/if}}
+        {{#if user.needs2016Prize}}
+            <ErrorBox>
+                <h2>You have entered the 2016 contest but have not set your t-shirt size. Go set your size now to make sure you receive your prize!</h2>
+                <br/>
+                <DButton href="/2016/prizes">Select T-shirt Size</DButton>
+            </ErrorBox>
+        {{/if}}
         <div class="clearfix">
+            <!--<div class="twenty-five">
+                <ColoredBox title="Teams" index="0">
+                    <div class="account-teams">
+                        {{#each user.teams as team}}
+                        <a href="/teams/{{team.url}}">
+                            <ImageRow style="height: 60px" src="/teams/{{team.url}}.png" alt="{{team.name}}" title="{{team.name}}" sub="{{team.description}}"/>
+                        </a>
+                        {{/each}}
+                        {{#if account.id === user.id}}
+                        <DButton index="0"
+                                 box="true"
+                                 full="true"
+                                 href="/teams/create"
+                                 size="thin">
+                            Create Team
+                        </DButton>
+                        {{/if}}
+                    </div>
+                </ColoredBox>
+            </div>-->
             <div class="seventy-five">
                 <ColoredBox title="Trophy Case" index="1">
                     <TrophyCase>
@@ -49,19 +87,17 @@
     .account-teams {
         text-align: center;
     }
-
-    .team-icon {
-        height: 40px;
-    }
 </style>
 
 <script>
     import DHeader from '../../components/header/DevathonHeader.html';
+    import HeaderTabs from '../../components/header/HeaderTabs.html';
     import DBody from '../../components/containers/DevathonBody.html';
     import TrophyCase from '../../components/contests/TrophyCase.html';
     import Trophy from '../../components/contests/Trophy.html';
     import GithubAvatar from '../../components/images/GithubAvatar.html';
     import AccountInfo from '../../components/account/AccountInfo.html';
+    import ImageRow from '../../components/containers/ImageRow.html';
     import DButton from '../../components/forms/DevathonButton.html';
     import DInput from '../../components/forms/DevathonInput.html';
     import Tabs from '../../components/header/HeaderTabs.html';
@@ -69,7 +105,8 @@
     import ColoredBox from '../../components/containers/ColoredBox.html';
     import ContestBox from '../../components/contests/ContestBox.html';
     import SocialMedia from '../../components/account/SocialMedia.html';
-    import {devathon} from '../common';
+    import ErrorBox from '../../components/containers/Error.html';
+    import { devathon } from '../common';
 
     export default {
         data() {
@@ -77,6 +114,7 @@
         },
         components: {
             DHeader,
+            HeaderTabs,
             DBody,
             DButton,
             Tabs,
@@ -85,39 +123,14 @@
             GithubAvatar,
             BeamLogo,
             AccountInfo,
+            ImageRow,
             ColoredBox,
             ContestBox,
             SocialMedia,
-            DInput
+            DInput,
+            ErrorBox
         },
 
     }
 
-//    <!--<div class="clearfix">-->
-//    <!--<div class="fifty">-->
-//    <!--<ColoredBox title="Teams" index="0">-->
-//    <!--<div class="account-teams">-->
-//    <!--{{#each user.teams as team}}-->
-//    <!--<a href="/teams/{{team.url}}">-->
-//    <!--<img src="/teams/{{team.url}}.png" alt="{{team.name}}" title="{{team.name}}" class="team-icon"/>-->
-//    <!--</a>-->
-//    <!--{{/each}}-->
-//    <!--{{#if account.id === user.id}}-->
-//    <!--<DButton index="0"-->
-//    <!--box="true"-->
-//    <!--full="true"-->
-//    <!--href="/teams/create"-->
-//    <!--size="thin">-->
-//    <!--Create Team-->
-//    <!--</DButton>-->
-//    <!--{{/if}}-->
-//    <!--</div>-->
-//    <!--</ColoredBox>-->
-//    <!--</div>-->
-//    <!--<div class="fifty">-->
-//    <!--<ColoredBox title="Social Media" index="2">-->
-//    <!--<SocialMedia user="{{user}}" account="{{account}}" index="2"/>-->
-//    <!--</ColoredBox>-->
-//    <!--</div>-->
-//    <!--</div>-->
 </script>

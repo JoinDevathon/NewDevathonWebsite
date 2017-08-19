@@ -1,0 +1,27 @@
+<div class="info">
+    {{yield}}
+</div>
+
+<style>
+    .info {
+        color: #fff;
+
+        padding: 16px 18px;
+        border-radius: 8px;
+        text-align: center;
+
+        background-image: -webkit-gradient(
+                linear,
+                right bottom,
+                right bottom,
+                color-stop(0, #89CFF0),
+                color-stop(1, #007AA5)
+        );
+        background-image: -o-linear-gradient(right bottom, #89CFF0 0%, #A1CAF1 100%);
+        background-image: -moz-linear-gradient(right bottom, #89CFF0 0%, #A1CAF1 100%);
+        background-image: -webkit-linear-gradient(right bottom, #89CFF0 0%, #A1CAF1 100%);
+        background-image: -ms-linear-gradient(right bottom, #89CFF0 0%, #A1CAF1 100%);
+        background-image: linear-gradient(to right bottom, #89CFF0 0%, #007AA5 100%);
+    }
+
+</style>

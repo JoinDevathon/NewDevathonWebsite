@@ -3,7 +3,7 @@
         {{yield}}
     </label>
     <select :id class="select" name="{{id}}" on:input="handle(event)">
-        <option disabled></option>
+        <option disabled selected="{{!value}}"></option>
         {{#each list as country}}
             <option selected="{{value === country}}">{{country}}</option>
         {{/each}}

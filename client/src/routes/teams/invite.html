@@ -1,0 +1,65 @@
+<div id="container">
+    <DHeader>
+        <TopLeft>
+            <TopLink href="/teams/{{team.url}}">
+                <TopText>Back</TopText>
+            </TopLink>
+        </TopLeft>
+        <img class="header-icon" src="/teams/{{team.url}}.png" alt="{{team.name}}"/>
+        <h3>Invite a new member to {{team.name}}</h3>
+    </DHeader>
+    <DBody>
+        <form class="form-box" method="POST" action="/api/profile/teams/invite">
+            <input name="team" value="{{team.id}}" style="display: none" disabled/>
+            <DInput sub="Enter the exact username" id="username" value="" type="text">Username to invite</DInput>
+            <div class="spacer"></div>
+            <DButton index="0" box>Invite</DButton>
+        </form>
+    </DBody>
+</div>
+
+<style>
+    .form-box {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+    }
+
+    .form-box > .input-container {
+        flex-grow: 1;
+    }
+
+    .spacer {
+        width: 12px;
+    }
+
+    .form-box > button {
+        margin-bottom: 24px;
+    }
+</style>
+
+<script>
+    import DHeader from '../../components/header/DevathonHeader.html';
+    import TopLeft from '../../components/containers/TopLeft.html';
+    import TopLink from '../../components/containers/TopLink.html';
+    import TopText from '../../components/containers/TopText.html';
+    import DBody from '../../components/containers/DevathonBody.html';
+    import DInput from '../../components/forms/DevathonInput.html';
+    import DButton from '../../components/forms/DevathonButton.html';
+    import {devathon} from '../common';
+
+    export default {
+        data() {
+            return devathon()
+        },
+        components: {
+            DHeader,
+            TopLeft,
+            TopLink,
+            TopText,
+            DBody,
+            DInput,
+            DButton,
+        }
+    };
+</script>

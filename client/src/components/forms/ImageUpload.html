@@ -1,13 +1,13 @@
-    <div class="image-upload">
-        {{#if image}}
-            <img v-if="image" src="{{image}}" class="image-upload-image"/>
-        {{else}}
-            <div class="image-upload-placeholder">
-                Upload
-            </div>
-        {{/if}}
-        <input class="image-upload-input" type="file" accept="image/gif, image/jpeg, image/png" on:change="change(event)">
-    </div>
+<div class="image-upload">
+    {{#if image}}
+        <img v-if="image" src="{{image}}" class="image-upload-image"/>
+    {{else}}
+        <div class="image-upload-placeholder">
+            Upload
+        </div>
+    {{/if}}
+    <input class="image-upload-input" type="file" accept="image/gif, image/jpeg, image/png" on:change="change(event)">
+</div>
 
 <style>
     .image-upload {
@@ -56,22 +56,20 @@
             change(event) {
                 const files = event.target.files;
                 if (files.length > 0) {
+                    if (files[0].type !== 'image/png' && files[0].type !== 'image/jpeg') {
+                        this.fire('error', 'File must be of type PNG or JPEG');
+                        return;
+                    }
+                    if (files[0].size > 100000) {
+                        this.fire('error', 'File too large! Resize it to a smaller size (preferably 300x300)');
+                        return;
+                    }
+
                     const reader = new FileReader();
 
                     reader.onload = (file) => {
-                        const image = new Image();
-                        image.onload = () => {
-                            const canvas = document.createElement('canvas');
-                            const ctx = canvas.getContext('2d');
-                            canvas.width = canvas.height = 150;
-                            ctx.clearRect(0, 0, canvas.width, canvas.height);
-                            ctx.drawImage(image, 0, 0, 150, 150);
-
-                            this.set({image: canvas.toDataURL('image/png')});
-
-                            this.fire('change', this.get('image'));
-                        };
-                        image.src = file.target.result;
+                        this.set({image: reader.result});
+                        this.fire('change', this.get('image'));
                     };
 
                     reader.readAsDataURL(files[0]);

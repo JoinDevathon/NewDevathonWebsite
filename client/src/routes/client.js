@@ -1,9 +1,11 @@
 import './home/index';
 import './account/index';
 import './account/details';
-// import teamCreate from './teams/create';
-// import teams from './teams/index';
+//import './teams/create';
+//import './teams/index';
+//import './teams/invite';
 import './contests/2016';
+import './contests/2016-prizes';
 import './contests/entry';
 import './contests/winners';
 import './error/index';

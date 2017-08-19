@@ -10,6 +10,9 @@ dev.entry = {
     'twentysixteen': './src/routes/contests/2016.js',
     'entry': './src/routes/contests/entry.js',
     'winners': './src/routes/contests/winners.js',
+    'teams': './src/routes/teams/teams.js',
+    'teamCreate': './src/routes/teams/create.js',
+    'teamInvite': './src/routes/teams/invite.js',
     'error': './src/routes/error/index.js',
 };
 

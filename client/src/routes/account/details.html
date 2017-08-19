@@ -9,13 +9,34 @@
         </HeaderTabs>
     </DHeader>
     <DBody>
-        <ColoredBox title="Shipping Information" index="0" id="shipping-info">
-            <form class="clearfix" method="POST" action="/account/details/shipping">
+        <!--<ColoredBox title="Account" index="1" id="account">
+            <form class="clearfix" method="POST" action="/account/details/account" ref:accountForm>
+                {{#if accountLoading}}
+                    <LoaderIcon/>
+                    <br/>
+                {{elseif accountError === null}}
+                    <InfoBox><h2>Account Info Saved!</h2></InfoBox>
+                    <br/>
+                {{/if}}
+
+                <DInput bind:value="details.username" bound id="username" sub="By default, your GitHub username is used. You can override it here.">Username</DInput>
+
+                <div class="buttons">
+                    <DButton index="1" on:click="updateAccount(event)" disabled="{{accountLoading}}">Save</DButton>
+                </div>
+            </form>
+        </ColoredBox>
+        <br/>-->
+        <ColoredBox title="Shipping Information" index="0" id="shipping">
+            <form class="clearfix" method="POST" action="/account/details/shipping" ref:shippingForm>
                 {{#if shippingLoading}}
                     <LoaderIcon/>
                     <br/>
                 {{elseif shippingError}}
-                    <ErrorBox>Shipping Error: {{shippingError}}</ErrorBox>
+                    <ErrorBox><h2>Shipping Error: {{shippingError}}</h2></ErrorBox>
+                    <br/>
+                {{elseif shippingError === null}}
+                    <InfoBox><h2>Shipping Info Saved!</h2></InfoBox>
                     <br/>
                 {{/if}}
                 <DInput bind:value="shipping.fullname" bound id="name">Full Name</DInput>
@@ -24,7 +45,7 @@
                 <DInput bind:value="shipping.city" bound id="city">City</DInput>
                 <DInput bind:value="shipping.state" bound id="state" sub="No abbreviations">State/Province/Region</DInput>
                 <DInput bind:value="shipping.zip" bound id="zip">ZIP/Postal Code</DInput>
-                <CountrySelect bind:value="shipping.country" bound id="country">Country</CountrySelect>
+                <CountrySelect bind:value="shipping.country" bound id="country" sub="We cannot guarantee shipping to all countries.">Country</CountrySelect>
 
                 <div class="buttons">
                     <DButton index="0" on:click="updateShipping(event)" disabled="{{shippingLoading}}">Save</DButton>
@@ -68,6 +89,7 @@
 
     import LoaderIcon from '../../components/images/LoaderIcon.html';
     import ErrorBox from '../../components/containers/Error.html';
+    import InfoBox from '../../components/containers/Info.html';
 
     import { request, NetworkError } from '../../components/helpers/network';
     import { devathon } from '../common';
@@ -77,11 +99,16 @@
             return devathon();
         },
         methods: {
+            updateAccount(event) {
+                event.preventDefault();
+            },
             updateShipping(event) {
                 event.preventDefault();
 
                 this.set({shippingLoading: true});
-                console.log(this.get('shipping'));
+
+                this.refs.shippingForm.scrollIntoView({ behavior: 'smooth' });
+
                 request('/account/details/shipping', {
                     method: 'POST',
                     body: JSON.stringify(this.get('shipping'))
@@ -113,6 +140,7 @@
 
             LoaderIcon,
             ErrorBox,
+            InfoBox
         }
     };
 </script>

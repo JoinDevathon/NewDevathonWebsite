@@ -28,7 +28,7 @@
                     </div>
                     <div class="fifty padded" style="text-align: center">
                         <small style="margin: 0; padding: 0">Team Avatar</small>
-                        <ImageUpload on:change="setImage(event)"/>
+                        <ImageUpload on:change="setImage(event)" on:error="setError(event)"/>
                     </div>
                 </div>
 
@@ -77,14 +77,13 @@
                 obj[type] = event.target.value;
                 this.set({form: Object.assign({}, this.get('form'), obj)});
             },
-            async save() {
-                try {
-                    const res = await request('/api/profile/teams/create', {
-                        method: 'POST',
-                        body: JSON.stringify(this.get('form'))
-                    });
+            save() {
+                request('/api/profile/teams/create', {
+                    method: 'POST',
+                    body: JSON.stringify(this.get('form')),
+                }).then((res) => {
                     window.location.href = `/teams/${res.url}`;
-                } catch (err) {
+                }).catch((err) => {
                     let error;
                     if (NetworkError.is(err)) {
                         error = err.message;
@@ -92,8 +91,11 @@
                         error = 'An unknown server error occurred.';
                         console.error(err);
                     }
-                    this.set({error});
-                }
+                    this.set({ error });
+                });
+            },
+            setError(error) {
+                this.set({ error });
             }
         },
         computed: {
