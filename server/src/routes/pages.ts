@@ -17,7 +17,7 @@ const routes: {[key: string]: string[]} = {
     'home': [ '/', '/home' ],
     'account': [ '/user/:id' ],
     'accountDetails': [ '/account/details' ],
-    'teamCreate': [ '/teams/create' ],
+    //    'teamCreate': [ '/teams/create' ],
     //'teams': [ '/teams/:url' ],
     //'teamInvite': [ '/teams/:url/invite' ],
     'twentysixteen': [ '/2016/' ],

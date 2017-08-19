@@ -8,11 +8,12 @@ dev.entry = {
     'account': './src/routes/account/index.js',
     'accountDetails': './src/routes/account/details.js',
     'twentysixteen': './src/routes/contests/2016.js',
+    '2016_prizes': './src/routes/contests/2016-prizes.js',
     'entry': './src/routes/contests/entry.js',
     'winners': './src/routes/contests/winners.js',
-    'teams': './src/routes/teams/teams.js',
-    'teamCreate': './src/routes/teams/create.js',
-    'teamInvite': './src/routes/teams/invite.js',
+//    'teams': './src/routes/teams/teams.js',
+//    'teamCreate': './src/routes/teams/create.js',
+//    'teamInvite': './src/routes/teams/invite.js',
     'error': './src/routes/error/index.js',
 };
 
